@@ -4,123 +4,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10091f">
+<meta name="theme-color" content="#101d35">
 <title>Zenova Social World</title>
 <style>
+:root{--bg:#0b1220;--panel:#141f33;--panel2:#1a2b43;--accent:#14d6c5;--blue:#4685ff;--purple:#9564ff;--text:#f4f7ff;--muted:#aab8d0}
 *{box-sizing:border-box}
-body{margin:0;background:#0b0918;color:#f8f5ff;font-family:Arial,sans-serif}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer;border:0;border-radius:10px;padding:12px;background:linear-gradient(100deg,#a13cff,#4265ff);color:white;font-weight:bold}
-input,textarea,select{display:block;width:100%;padding:12px;margin:9px 0;background:#100e20;color:white;border:1px solid #51416c;border-radius:10px}
-a{color:#d8b4ff}.hidden{display:none!important}
-header{padding:15px;display:flex;justify-content:space-between;align-items:center;background:#100d20;border-bottom:1px solid #ffffff22;position:sticky;top:0;z-index:5}
-.brand{font-size:26px;font-weight:900;background:linear-gradient(90deg,#f3a8ff,#54d9ff);color:transparent;background-clip:text}
-main{width:min(760px,95%);margin:18px auto 90px}
-.card{background:#171329;border:1px solid #ffffff1c;border-radius:16px;padding:17px;margin:14px 0}
-h1,h2,h3{margin-top:5px}.muted,small{color:#bcb2d2;line-height:1.5}
-#authPage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:radial-gradient(ellipse at top,#48206a,#0b0918 70%)}
-.authbox{width:min(440px,100%);background:#171329;border:1px solid #ffffff25;border-radius:22px;padding:25px;text-align:center}
-.logo{width:75px;height:75px;margin:auto;border-radius:23px;display:grid;place-items:center;background:linear-gradient(135deg,#be43ff,#377bff);font-size:42px}
-footer{text-align:center;color:#a79bbc;padding:25px;font-size:12px}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;gap:4px;background:#100d20;padding:8px 2px;z-index:5;border-top:1px solid #ffffff22}
-nav button{padding:10px 5px;background:#211a36;font-size:11px;flex:1}
+body{margin:0;background:radial-gradient(circle at top,#20395c,var(--bg) 60%);color:var(--text);font:15px Arial,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer;color:white;border:0}
+.hidden{display:none!important}
+header{position:sticky;top:0;z-index:5;padding:13px 4%;display:flex;justify-content:space-between;align-items:center;background:#0b1424ed;border-bottom:1px solid #ffffff20;backdrop-filter:blur(15px)}
+.brand{font-size:26px;font-weight:900;background:linear-gradient(90deg,var(--accent),#85a7ff,var(--purple));color:transparent;background-clip:text}
+.muted,.status,small{color:var(--muted);line-height:1.5}
+main{width:min(800px,95%);margin:17px auto 110px}
+.card{padding:17px;margin:13px 0;border-radius:19px;background:linear-gradient(145deg,#18263c,#111a2c);border:1px solid #ffffff18;box-shadow:0 8px 30px #0002}
+h2{margin-top:3px}
+button.primary{background:linear-gradient(100deg,#0abbb5,#427bff);font-weight:bold}
+button.secondary{background:#263853;border:1px solid #ffffff20}
+button.danger{background:#a6385b}
+.btn{padding:12px 16px;border-radius:12px}
+input,textarea{display:block;width:100%;padding:13px;margin:10px 0;background:#0b1424;color:white;border:1px solid #344966;border-radius:12px}
+input[type=file]{font-size:13px}
 .page{display:none}.page.active{display:block}
-.status{font-size:13px;color:#c7b7ed;overflow-wrap:anywhere}
-.media{max-width:100%;max-height:450px;display:block;margin:12px auto;border-radius:12px}
-.avatar{width:60px;height:60px;object-fit:cover;border-radius:50%;border:2px solid #bd6aff}
-.post{padding:14px 0;border-bottom:1px solid #ffffff20;overflow-wrap:anywhere}
-.storyrow{display:flex;gap:12px;overflow:auto}.storyitem{min-width:70px;text-align:center;font-size:12px}
-.storyitem img{width:55px;height:55px;border-radius:50%;object-fit:cover;border:3px solid #c45cff}
-@media(min-width:700px){nav{left:50%;transform:translateX(-50%);width:min(700px,95%);bottom:12px;border-radius:14px}main{margin-bottom:100px}}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.status{font-size:13px;overflow-wrap:anywhere}
+.hero{padding:23px;border-radius:20px;background:linear-gradient(115deg,#14505b,#253e70,#48356e)}
+.hero h1{font-size:32px;margin:10px 0}
+.bottomnav{position:fixed;z-index:10;bottom:0;left:0;right:0;display:flex;gap:4px;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom));background:#0c1628f5;border-top:1px solid #ffffff20;backdrop-filter:blur(15px)}
+.bottomnav button{flex:1;min-width:0;padding:9px 1px;border-radius:12px;background:transparent;color:#b7c7de;font-size:10px}
+.bottomnav .ico{display:block;font-size:21px;margin-bottom:4px}
+.bottomnav button.active{background:linear-gradient(150deg,#0abbb533,#427bff40);color:#fff;outline:1px solid #39c9da70}
+.avatar{width:82px;height:82px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);background:#263853}
+.smallavatar{width:40px;height:40px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:9px;border:2px solid #36c9d7}
+.stories{display:flex;gap:13px;overflow-x:auto;padding:8px 0}
+.story{text-align:center;min-width:66px;font-size:12px}
+.storyring{width:59px;height:59px;padding:3px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--blue),var(--purple));margin:auto auto 5px}
+.storyring img{width:100%;height:100%;object-fit:cover;border-radius:50%;background:#263853}
+.post{padding:14px 0;border-bottom:1px solid #ffffff1b;overflow-wrap:anywhere}
+.posttext{white-space:pre-wrap;line-height:1.55}
+.media{display:block;width:100%;max-height:480px;object-fit:contain;background:#070c16;border-radius:14px;margin:12px 0}
+.postactions{display:flex;gap:8px;flex-wrap:wrap}
+.postactions button{background:#253853;border-radius:10px;padding:8px 12px}
+#authPage{position:fixed;inset:0;z-index:100;overflow:auto;background:radial-gradient(circle at top,#24516c,#10152e 55%,#080d18);display:flex;align-items:center;justify-content:center;padding:18px}
+.authbox{width:min(430px,100%);padding:24px;border-radius:24px;background:#121f33;border:1px solid #ffffff25;box-shadow:0 20px 70px #0007}
+.mark{width:75px;height:75px;border-radius:24px;margin:auto;display:grid;place-items:center;font-size:42px;background:linear-gradient(135deg,var(--accent),var(--blue),var(--purple))}
+.authbox h1{text-align:center;font-size:38px;margin:12px 0 3px}
+.authbox p{text-align:center}
+.authbox button{width:100%;margin:5px 0}
+hr{border:0;border-top:1px solid #ffffff20;margin:20px 0}
+#cameraVideo{width:100%;max-height:480px;border-radius:14px;background:#050810}
+.newsitem{padding:13px 0;border-bottom:1px solid #ffffff20}
+a{color:#75e4e2}
+footer{text-align:center;color:#8293ae;padding:22px;font-size:12px}
+@media(min-width:720px){.bottomnav{left:50%;right:auto;transform:translateX(-50%);bottom:12px;width:min(720px,94%);border:1px solid #ffffff25;border-radius:18px}.hero h1{font-size:39px}}
 </style>
 </head>
 <body>
 
-<!-- FIRST PAGE: SIGN UP / LOGIN -->
+<!-- SIGN UP / LOGIN FIRST PAGE -->
 <section id="authPage">
  <div class="authbox">
-  <div class="logo">✦</div>
-  <h1 style="font-size:40px;margin-bottom:5px">ZENOVA</h1>
-  <p>CONNECT · SHARE · EXPLORE</p>
+  <div class="mark">✦</div>
+  <h1 style="background:linear-gradient(90deg,#14d6c5,#83a7ff,#a68aff);color:transparent;background-clip:text">ZENOVA</h1>
+  <p>CONNECT • SHARE • EXPLORE</p>
   <p class="muted">MADE IN MIAN ABDULLAH GULZAR</p>
-  <h2>Create account / Sign in</h2>
+  <hr>
+  <h2>Create Account</h2>
   <form id="signupForm">
    <input id="signupName" placeholder="Your name" maxlength="40">
    <input id="signupEmail" type="email" placeholder="Email address" required>
-   <input id="signupPassword" type="password" minlength="6" placeholder="Password (minimum 6 characters)" required>
-   <button style="width:100%">Create Account / Sign Up</button>
+   <input id="signupPassword" type="password" minlength="6" placeholder="Password (6+ characters)" required>
+   <button class="btn primary">Sign Up</button>
   </form>
-  <hr style="border-color:#ffffff22;margin:18px 0">
+  <hr>
+  <h2>Already have an account?</h2>
   <form id="loginForm">
    <input id="loginEmail" type="email" placeholder="Email address" required>
    <input id="loginPassword" type="password" placeholder="Password" required>
-   <button style="width:100%">Log In</button>
+   <button class="btn secondary">Log In</button>
   </form>
-  <button id="googleBtn" style="width:100%;margin-top:10px;background:#fff;color:#222">Continue with Google</button>
+  <button id="googleBtn" class="btn" style="background:#fff;color:#172033">Continue with Google</button>
   <p id="authStatus" class="status"></p>
-  <p class="muted">Sign in to access posts, videos, stories and your profile.</p>
  </div>
 </section>
 
-<!-- MAIN APP -->
-<div id="app" class="hidden">
 <header>
- <div><div class="brand">✦ Zenova</div><small>Social World</small></div>
- <button id="logoutBtn">Log Out</button>
+ <div><div class="brand">✦ ZENOVA</div><small>Social World</small></div>
+ <button id="logoutBtn" class="btn secondary hidden">Log Out</button>
 </header>
+
 <main>
  <section id="home" class="page active">
-  <div class="card">
-   <h2>Stories</h2>
-   <p class="muted">Upload and view community stories.</p>
-   <div id="storiesFeed" class="storyrow"></div>
-   <button data-page="create">＋ Add Story</button>
+  <div class="hero">
+   <small>YOUR SOCIAL WORLD</small>
+   <h1>Share your world. <span style="color:#54e4d6">Be yourself.</span></h1>
+   <p>Post photos, share videos, publish stories and explore news.</p>
   </div>
   <div class="card">
-   <h2>Community Feed</h2>
-   <div id="feed">Loading posts…</div>
+   <div class="row"><h2>Stories</h2><button class="btn primary" data-go="create">＋ Add Story</button></div>
+   <div id="homeStories" class="stories"></div>
+  </div>
+  <div class="card">
+   <div class="row"><h2>Community Feed</h2><button class="btn primary" data-go="create">＋ Create Post</button></div>
+   <p id="feedStatus" class="status">Loading posts…</p>
+   <div id="feed"></div>
+  </div>
+ </section>
+
+ <section id="reels" class="page">
+  <div class="card">
+   <h2>🎬 Video Reels</h2>
+   <p class="muted">Choose a video to preview it. Publish it from Create to share it with signed-in users.</p>
+   <input id="reelFile" type="file" accept="video/*">
+   <video id="reelPreview" class="media hidden" controls playsinline></video>
+   <p id="reelStatus" class="status"></p>
+   <button class="btn primary" data-go="create">Upload a Video</button>
+  </div>
+ </section>
+
+ <section id="live" class="page">
+  <div class="card">
+   <h2>🔴 Live Studio</h2>
+   <p class="muted">Camera preview on your device. It does not broadcast publicly.</p>
+   <button id="startCamera" class="btn primary">Start Camera</button>
+   <button id="stopCamera" class="btn secondary">Stop Camera</button>
+   <video id="cameraVideo" class="hidden" autoplay muted playsinline></video>
+   <p id="liveStatus" class="status"></p>
+   <hr>
+   <h3>Find Live News Streams</h3>
+   <a href="https://www.youtube.com/results?search_query=Pakistan+live+news" target="_blank" rel="noopener">▶ Pakistan Live News on YouTube</a><br><br>
+   <a href="https://www.youtube.com/results?search_query=world+live+news" target="_blank" rel="noopener">▶ World Live News on YouTube</a>
   </div>
  </section>
 
  <section id="create" class="page">
   <div class="card">
-   <h2>Create Post / Upload Video</h2>
+   <h2>＋ Create Post</h2>
    <form id="postForm">
-    <textarea id="postText" maxlength="1000" rows="4" placeholder="Write something…"></textarea>
-    <label>Select photo or video (up to 100 MB)</label>
+    <textarea id="postText" maxlength="1000" rows="4" placeholder="What's on your mind?"></textarea>
+    <label class="muted">Choose photo or video (maximum 100 MB)</label>
     <input id="mediaFile" type="file" accept="image/*,video/*">
     <div id="mediaPreview"></div>
-    <button type="submit">Upload & Publish Post</button>
+    <button id="publishBtn" class="btn primary">Upload & Publish</button>
    </form>
    <p id="postStatus" class="status"></p>
-  </div>
-  <div class="card">
-   <h2>Upload a Story</h2>
+   <hr>
+   <h2>＋ Create Story</h2>
+   <p class="muted">Choose a photo or video to share as a story.</p>
    <input id="storyFile" type="file" accept="image/*,video/*">
-   <button id="uploadStory">Upload Story</button>
+   <button id="uploadStory" class="btn primary">Upload Story</button>
    <p id="storyStatus" class="status"></p>
   </div>
  </section>
 
  <section id="profile" class="page">
   <div class="card">
-   <h2>Your Profile</h2>
-   <img id="profileDP" class="avatar" alt="Profile picture">
-   <p id="profileName"></p>
+   <h2>My Profile</h2>
+   <img id="profilePhoto" class="avatar" alt="Profile picture">
+   <h3 id="profileName">Your Name</h3>
    <p id="profileEmail" class="muted"></p>
-   <h3>Change profile picture</h3>
+   <p id="myPostCount" class="muted">Your posts: 0</p>
+   <button class="btn primary" data-go="account">Edit Profile / DP</button>
+   <h3>My Posts</h3>
+   <div id="myPosts"></div>
+  </div>
+ </section>
+
+ <section id="account" class="page">
+  <div class="card">
+   <h2>Account & Profile Settings</h2>
+   <h3>Profile Picture (DP)</h3>
+   <img id="dpPreview" class="avatar" alt="DP preview">
    <input id="dpFile" type="file" accept="image/*">
-   <input id="nameInput" maxlength="40" placeholder="Your display name">
-   <button id="saveProfile">Save Profile & DP</button>
+   <input id="displayName" maxlength="40" placeholder="Your display name">
+   <button id="saveProfile" class="btn primary">Save Profile & DP</button>
    <p id="profileStatus" class="status"></p>
+   <hr>
+   <h3>Account Access</h3>
+   <p class="muted">Use Sign Up, Log In or Google sign-in on the first page. To switch accounts, log out first.</p>
+   <button id="logoutBtn2" class="btn danger">Log Out</button>
   </div>
  </section>
 
  <section id="news" class="page">
   <div class="card">
-   <h2>World News</h2>
-   <p class="muted">Choose a country and read or listen to news headlines.</p>
-   <select id="country">
+   <h2>🌍 World News</h2>
+   <label>Choose country</label>
+   <select id="country" class="input">
     <option value="Pakistan">Pakistan</option>
     <option value="United States">United States</option>
     <option value="United Kingdom">United Kingdom</option>
@@ -128,51 +198,39 @@ nav button{padding:10px 5px;background:#211a36;font-size:11px;flex:1}
     <option value="India">India</option>
     <option value="Canada">Canada</option>
     <option value="Australia">Australia</option>
-    <option value="United Arab Emirates">United Arab Emirates</option>
-    <option value="Turkey">Turkey</option>
+    <option value="United Arab Emirates">UAE</option>
+    <option value="Turkey">Türkiye</option>
     <option value="Germany">Germany</option>
     <option value="France">France</option>
     <option value="China">China</option>
     <option value="Japan">Japan</option>
+    <option value="Bangladesh">Bangladesh</option>
    </select>
-   <select id="newsMode">
+   <label>News type</label>
+   <select id="newsMode" class="input">
     <option value="headlines">Latest Headlines</option>
     <option value="video">Video News Reports</option>
-    <option value="live">Live News Search</option>
+    <option value="live">Live News Updates</option>
    </select>
-   <button id="loadNews">Load News</button>
-   <button id="listenNews">🔊 Read Headlines</button>
-   <button id="stopNews" style="background:#342743">Stop Voice</button>
+   <button id="loadNews" class="btn primary">Load News</button>
+   <button id="listenNews" class="btn secondary">🔊 Read Headlines</button>
+   <button id="stopNews" class="btn secondary">Stop Voice</button>
    <p id="newsStatus" class="status"></p>
    <div id="newsResults"></div>
-   <hr style="border-color:#ffffff22">
-   <h3>Watch Live News</h3>
-   <p class="muted">Live streams depend on the broadcaster and may not be available in every country.</p>
-   <a href="https://www.youtube.com/results?search_query=Pakistan+live+news" target="_blank" rel="noopener">▶ Find Pakistan Live News on YouTube</a><br><br>
-   <a href="https://www.youtube.com/results?search_query=world+live+news" target="_blank" rel="noopener">▶ Find World Live News on YouTube</a>
-  </div>
- </section>
-
- <section id="live" class="page">
-  <div class="card">
-   <h2>Live Studio</h2>
-   <p class="muted">Camera preview on this device only. This does not broadcast to other users.</p>
-   <button id="startCamera">Enable Camera</button>
-   <button id="stopCamera" style="background:#342743">Stop Camera</button>
-   <video id="camera" class="media" autoplay muted playsinline></video>
-   <p id="cameraStatus" class="status"></p>
   </div>
  </section>
 </main>
-<nav>
- <button data-page="home">⌂ Home</button>
- <button data-page="create">＋ Create</button>
- <button data-page="news">🌍 News</button>
- <button data-page="live">🔴 Live</button>
- <button data-page="profile">◎ Profile</button>
+
+<nav class="bottomnav">
+ <button class="active" data-go="home"><span class="ico">⌂</span>Home</button>
+ <button data-go="reels"><span class="ico">▶</span>Videos</button>
+ <button data-go="live"><span class="ico">◉</span>Live</button>
+ <button data-go="create"><span class="ico">＋</span>Create</button>
+ <button data-go="news"><span class="ico">🌍</span>News</button>
+ <button data-go="profile"><span class="ico">◎</span>Profile</button>
+ <button data-go="account"><span class="ico">⚙</span>Settings</button>
 </nav>
-<footer>ZENOVA · MADE IN MIAN ABDULLAH GULZAR</footer>
-</div>
+<footer>ZENOVA SOCIAL WORLD<br>MADE IN MIAN ABDULLAH GULZAR</footer>
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
@@ -186,7 +244,7 @@ import {
  onSnapshot,serverTimestamp
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 import {
- getStorage,ref,uploadBytes,getDownloadURL
+ getStorage,ref,uploadBytesResumable,getDownloadURL
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-storage.js";
 
 const firebaseConfig={
@@ -200,27 +258,32 @@ const firebaseConfig={
 };
 
 const $=id=>document.getElementById(id);
-let auth,db,storage,postUnsub=null,storyUnsub=null,cameraStream=null;
+let auth,db,storage,currentUser=null,stopPosts=null,stopStories=null,cameraStream=null;
 
-function status(id,msg){$(id).textContent=msg}
-function errorText(e){
+function msg(id,text){$(id).textContent=text}
+function friendlyError(e){
  const code=e.code||"";
- if(code==="auth/unauthorized-domain")return "Firebase Console → Authentication → Settings → Authorized domains mein apna GitHub Pages domain add karein.";
+ if(code==="storage/unauthorized")return "Upload permission denied. Firebase Storage Rules check karein.";
+ if(code==="storage/bucket-not-found")return "Firebase Storage bucket nahi mila. Firebase Console mein Storage setup karein aur bucket name check karein.";
+ if(code==="storage/unknown")return "Storage error. Storage enable, internet aur Firebase bucket check karein.";
+ if(code==="storage/canceled")return "Upload cancel ho gaya.";
+ if(code==="permission-denied"||code==="firestore/permission-denied")return "Firestore Rules ne request block kar di. Firestore Rules publish karein.";
+ if(code==="auth/unauthorized-domain")return "Firebase Authentication > Settings > Authorized domains mein apna GitHub Pages domain add karein.";
  if(code==="auth/operation-not-allowed")return "Firebase Authentication mein Email/Password aur Google sign-in enable karein.";
- if(code==="auth/email-already-in-use")return "Ye email pehle se registered hai. Log In karein.";
- if(code==="auth/invalid-credential"||code==="auth/wrong-password")return "Email ya password sahi nahi hai.";
- if(code==="storage/unauthorized")return "Firebase Storage Rules upload ko block kar rahe hain. Neeche diye gaye Storage Rules publish karein.";
- if(code==="permission-denied"||code==="firestore/permission-denied")return "Firestore Rules ne request block ki. Neeche diye gaye Firestore Rules publish karein.";
- return (e.message||"Unknown error")+" ["+code+"]";
+ if(code==="auth/email-already-in-use")return "Is email ka account pehle se hai. Log In karein.";
+ if(code==="auth/invalid-credential")return "Email ya password ghalat hai.";
+ if(code==="auth/popup-blocked")return "Browser ne Google login popup block kar diya.";
+ return (e.message||"Unknown error")+" ("+code+")";
 }
 
-function showPage(id){
- document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
+function go(page){
+ document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));
+ document.querySelectorAll("[data-go]").forEach(b=>b.classList.toggle("active",b.dataset.go===page));
  window.scrollTo({top:0,behavior:"smooth"});
 }
-document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
 
-function mediaElement(url,type){
+function makeMedia(url,type){
  let el;
  if((type||"").startsWith("video/")){
   el=document.createElement("video");el.controls=true;el.playsInline=true;
@@ -230,206 +293,295 @@ function mediaElement(url,type){
  el.src=url;el.className="media";return el;
 }
 
-function renderPosts(docs){
- const feed=$("feed");feed.replaceChildren();
- if(!docs.length){feed.textContent="Abhi koi post nahi hai. Pehli post aap karein!";return;}
- docs.forEach(doc=>{
-  const p=doc.data(),box=document.createElement("div");box.className="post";
-  const title=document.createElement("b");title.textContent=p.authorName||p.authorEmail||"Zenova user";
-  box.append(title);
-  const text=document.createElement("p");text.textContent=p.text||"";box.append(text);
-  if(p.mediaUrl)box.append(mediaElement(p.mediaUrl,p.mediaType));
-  feed.append(box);
+function uploadFile(path,file,statusId){
+ return new Promise((resolve,reject)=>{
+  const task=uploadBytesResumable(ref(storage,path),file,{contentType:file.type});
+  task.on("state_changed",
+   snap=>{
+    const percent=Math.round(snap.bytesTransferred/snap.totalBytes*100);
+    msg(statusId,"Uploading… "+percent+"%");
+   },
+   reject,
+   async()=>{
+    try{resolve(await getDownloadURL(task.snapshot.ref));}
+    catch(e){reject(e);}
+   }
+  );
  });
+}
+
+function renderStories(docs){
+ for(const id of ["homeStories"]){
+  const box=$(id);box.replaceChildren();
+  if(!docs.length){box.textContent="No stories yet. Add the first story!";continue;}
+  docs.forEach(d=>{
+   const s=d.data(),item=document.createElement("div");item.className="story";
+   const a=document.createElement("a");a.href=s.mediaUrl;a.target="_blank";a.rel="noopener";
+   const ring=document.createElement("div");ring.className="storyring";
+   if((s.mediaType||"").startsWith("video/")){
+    const t=document.createElement("div");t.textContent="▶";t.style.padding="18px";ring.append(t);
+   }else{
+    const img=document.createElement("img");img.src=s.mediaUrl;img.alt="Story";ring.append(img);
+   }
+   const label=document.createElement("div");label.textContent=(s.authorName||s.authorEmail||"Story").split("@")[0];
+   a.append(ring,label);item.append(a);box.append(item);
+  });
+ }
+}
+
+function renderPosts(docs){
+ const feed=$("feed"),mine=$("myPosts");
+ feed.replaceChildren();mine.replaceChildren();
+ const posts=docs.map(d=>({id:d.id,...d.data()}));
+ const own=posts.filter(p=>p.uid===currentUser?.uid);
+ msg("myPostCount","Your posts: "+own.length);
+
+ if(!posts.length){msg("feedStatus","No posts yet. Create the first post!");mine.textContent="No posts yet.";return;}
+
+ posts.forEach(p=>{
+  const article=document.createElement("article");article.className="post";
+  const head=document.createElement("div");
+  if(p.photoURL){
+   const im=document.createElement("img");im.src=p.photoURL;im.className="smallavatar";im.alt="DP";head.append(im);
+  }else{
+   const av=document.createElement("span");av.textContent=(p.authorName||p.authorEmail||"Z")[0].toUpperCase();head.append(av);
+  }
+  const name=document.createElement("b");name.textContent=p.authorName||p.authorEmail||"Zenova User";head.append(name);
+  const text=document.createElement("div");text.className="posttext";text.textContent=p.text||"";
+  article.append(head,text);
+  if(p.mediaUrl)article.append(makeMedia(p.mediaUrl,p.mediaType));
+  feed.append(article);
+  if(p.uid===currentUser?.uid)mine.append(article.cloneNode(true));
+ });
+ msg("feedStatus",posts.length+" recent posts");
 }
 
 try{
  const app=initializeApp(firebaseConfig);
  auth=getAuth(app);db=getFirestore(app);storage=getStorage(app);
+ msg("authStatus","");
 
  $("signupForm").onsubmit=async e=>{
   e.preventDefault();
   try{
-   status("authStatus","Creating account…");
-   const credential=await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);
+   msg("authStatus","Creating account…");
+   const cred=await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);
    const name=$("signupName").value.trim();
-   if(name)await updateProfile(credential.user,{displayName:name});
-   status("authStatus","Account created!");
-  }catch(err){status("authStatus",errorText(err));}
+   if(name)await updateProfile(cred.user,{displayName:name});
+   msg("authStatus","Account created successfully!");
+  }catch(x){msg("authStatus",friendlyError(x));}
  };
 
  $("loginForm").onsubmit=async e=>{
   e.preventDefault();
   try{
-   status("authStatus","Signing in…");
+   msg("authStatus","Signing in…");
    await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);
-   status("authStatus","Signed in!");
-  }catch(err){status("authStatus",errorText(err));}
+   msg("authStatus","Signed in.");
+  }catch(x){msg("authStatus",friendlyError(x));}
  };
 
  $("googleBtn").onclick=async()=>{
   try{
-   status("authStatus","Opening Google sign-in…");
+   msg("authStatus","Opening Google sign-in…");
    await signInWithPopup(auth,new GoogleAuthProvider());
-  }catch(err){status("authStatus",errorText(err));}
+  }catch(x){msg("authStatus",friendlyError(x));}
  };
 
- $("logoutBtn").onclick=()=>signOut(auth);
+ async function logout(){
+  if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());
+  cameraStream=null;
+  try{await signOut(auth);}catch(e){alert(friendlyError(e));}
+ }
+ $("logoutBtn").onclick=logout;
+ $("logoutBtn2").onclick=logout;
 
  onAuthStateChanged(auth,user=>{
+  currentUser=user;
   $("authPage").classList.toggle("hidden",!!user);
-  $("app").classList.toggle("hidden",!user);
-  if(postUnsub){postUnsub();postUnsub=null;}
-  if(storyUnsub){storyUnsub();storyUnsub=null;}
-  if(!user)return;
+  $("logoutBtn").classList.toggle("hidden",!user);
+  if(stopPosts){stopPosts();stopPosts=null;}
+  if(stopStories){stopStories();stopStories=null;}
 
-  $("profileName").textContent=user.displayName||"Zenova user";
-  $("profileEmail").textContent=user.email||"";
-  $("nameInput").value=user.displayName||"";
-  $("profileDP").src=user.photoURL||"https://placehold.co/100x100/24143b/ffffff?text=DP";
+  if(!user){
+   msg("feedStatus","Please sign in to view posts.");
+   $("feed").replaceChildren();
+   $("homeStories").replaceChildren();
+   return;
+  }
 
-  postUnsub=onSnapshot(
-   query(collection(db,"posts"),orderBy("createdAt","desc"),limit(50)),
+  msg("profileName",user.displayName||"Zenova User");
+  msg("profileEmail",user.email||"");
+  $("displayName").value=user.displayName||"";
+  const fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100%25' height='100%25' fill='%231a2b43'/%3E%3Ctext x='50%25' y='60%25' font-size='48' text-anchor='middle' fill='%2314d6c5'%3E%E2%97%89%3C/text%3E%3C/svg%3E";
+  $("profilePhoto").src=user.photoURL||fallback;
+  $("dpPreview").src=user.photoURL||fallback;
+
+  stopPosts=onSnapshot(
+   query(collection(db,"posts"),orderBy("createdAt","desc"),limit(60)),
    snap=>renderPosts(snap.docs),
-   err=>status("postStatus",errorText(err))
+   err=>msg("feedStatus",friendlyError(err))
   );
 
-  storyUnsub=onSnapshot(
+  stopStories=onSnapshot(
    query(collection(db,"stories"),orderBy("createdAt","desc"),limit(30)),
-   snap=>{
-    const box=$("storiesFeed");box.replaceChildren();
-    snap.docs.forEach(d=>{
-     const s=d.data(),item=document.createElement("div");item.className="storyitem";
-     const link=document.createElement("a");link.href=s.mediaUrl;link.target="_blank";link.rel="noopener";
-     const im=document.createElement("img");im.src=s.mediaUrl;im.alt="Story";
-     const label=document.createElement("div");label.textContent=(s.authorName||s.authorEmail||"Story").split("@")[0];
-     link.append(im,label);item.append(link);box.append(item);
-    });
-   },
-   err=>status("storyStatus",errorText(err))
+   snap=>renderStories(snap.docs),
+   err=>msg("storyStatus",friendlyError(err))
   );
  });
 
  $("mediaFile").onchange=()=>{
-  const f=$("mediaFile").files[0];$("mediaPreview").replaceChildren();
+  const f=$("mediaFile").files[0],box=$("mediaPreview");box.replaceChildren();
   if(!f)return;
-  if(f.size>100*1024*1024){status("postStatus","File 100 MB se chhoti honi chahiye.");$("mediaFile").value="";return;}
-  $("mediaPreview").append(mediaElement(URL.createObjectURL(f),f.type));
+  if(!f.type.startsWith("image/")&&!f.type.startsWith("video/")){
+   msg("postStatus","Select an image or video.");$("mediaFile").value="";return;
+  }
+  if(f.size>100*1024*1024){
+   msg("postStatus","File 100 MB se chhoti honi chahiye.");$("mediaFile").value="";return;
+  }
+  box.append(makeMedia(URL.createObjectURL(f),f.type));
+  msg("postStatus","File selected: "+f.name);
  };
 
  $("postForm").onsubmit=async e=>{
   e.preventDefault();
   const user=auth.currentUser,file=$("mediaFile").files[0],text=$("postText").value.trim();
-  if(!user){status("postStatus","Pehle sign in karein.");return;}
-  if(!text&&!file){status("postStatus","Text likhein ya photo/video select karein.");return;}
-  if(file&&file.size>100*1024*1024){status("postStatus","File 100 MB se chhoti honi chahiye.");return;}
-  const btn=$("postForm").querySelector("button[type=submit]");btn.disabled=true;
+  if(!user){msg("postStatus","Pehle sign in karein.");return;}
+  if(!text&&!file){msg("postStatus","Text likhein ya photo/video select karein.");return;}
+  if(file&&file.size>100*1024*1024){msg("postStatus","File 100 MB se chhoti honi chahiye.");return;}
+  const btn=$("publishBtn");btn.disabled=true;
   try{
    let mediaUrl="",mediaType="";
    if(file){
-    status("postStatus","Uploading file… internet connection na kaatein.");
     const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
-    const uploaded=await uploadBytes(ref(storage,`posts/${user.uid}/${Date.now()}_${safe}`),file);
-    mediaUrl=await getDownloadURL(uploaded.ref);mediaType=file.type;
+    mediaUrl=await uploadFile("posts/"+user.uid+"/"+Date.now()+"_"+safe,file,"postStatus");
+    mediaType=file.type;
    }
-   status("postStatus","Saving post…");
+   msg("postStatus","Saving post…");
    await addDoc(collection(db,"posts"),{
     uid:user.uid,authorName:user.displayName||"",
-    authorEmail:user.email||"",text,mediaUrl,mediaType,
-    createdAt:serverTimestamp()
+    authorEmail:user.email||"",photoURL:user.photoURL||"",
+    text,mediaUrl,mediaType,createdAt:serverTimestamp()
    });
    $("postText").value="";$("mediaFile").value="";$("mediaPreview").replaceChildren();
-   status("postStatus","Post published successfully!");
-  }catch(err){status("postStatus",errorText(err));}
+   msg("postStatus","Published successfully!");
+   go("home");
+  }catch(x){msg("postStatus",friendlyError(x));}
   finally{btn.disabled=false;}
  };
 
  $("uploadStory").onclick=async()=>{
   const user=auth.currentUser,file=$("storyFile").files[0];
-  if(!user){status("storyStatus","Pehle sign in karein.");return;}
-  if(!file){status("storyStatus","Pehle photo ya video select karein.");return;}
-  if(!file.type.startsWith("image/")&&!file.type.startsWith("video/")){status("storyStatus","Sirf image ya video upload karein.");return;}
-  if(file.size>100*1024*1024){status("storyStatus","File 100 MB se chhoti honi chahiye.");return;}
+  if(!user){msg("storyStatus","Pehle sign in karein.");return;}
+  if(!file){msg("storyStatus","Photo ya video select karein.");return;}
+  if(!file.type.startsWith("image/")&&!file.type.startsWith("video/")){
+   msg("storyStatus","Sirf photo ya video select karein.");return;
+  }
+  if(file.size>100*1024*1024){msg("storyStatus","File 100 MB se chhoti honi chahiye.");return;}
   const btn=$("uploadStory");btn.disabled=true;
   try{
-   status("storyStatus","Story upload ho rahi hai…");
    const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
-   const uploaded=await uploadBytes(ref(storage,`stories/${user.uid}/${Date.now()}_${safe}`),file);
-   const mediaUrl=await getDownloadURL(uploaded.ref);
+   const mediaUrl=await uploadFile("stories/"+user.uid+"/"+Date.now()+"_"+safe,file,"storyStatus");
    await addDoc(collection(db,"stories"),{
     uid:user.uid,authorName:user.displayName||"",
     authorEmail:user.email||"",mediaUrl,mediaType:file.type,
     createdAt:serverTimestamp()
    });
-   $("storyFile").value="";status("storyStatus","Story upload ho gayi!");
-  }catch(err){status("storyStatus",errorText(err));}
+   $("storyFile").value="";msg("storyStatus","Story published successfully!");
+   go("home");
+  }catch(x){msg("storyStatus",friendlyError(x));}
   finally{btn.disabled=false;}
  };
 
+ $("dpFile").onchange=()=>{
+  const f=$("dpFile").files[0];
+  if(!f)return;
+  if(!f.type.startsWith("image/")){msg("profileStatus","DP ke liye image select karein.");return;}
+  if(f.size>5*1024*1024){msg("profileStatus","DP 5 MB se chhoti honi chahiye.");return;}
+  $("dpPreview").src=URL.createObjectURL(f);
+ };
+
  $("saveProfile").onclick=async()=>{
-  const user=auth.currentUser;if(!user)return;
-  const file=$("dpFile").files[0],name=$("nameInput").value.trim();
+  const user=auth.currentUser;
+  if(!user){msg("profileStatus","Pehle sign in karein.");return;}
+  const file=$("dpFile").files[0],name=$("displayName").value.trim();
+  const btn=$("saveProfile");btn.disabled=true;
   try{
-   status("profileStatus","Saving profile…");
    let photoURL=user.photoURL||"";
    if(file){
-    if(!file.type.startsWith("image/"))throw new Error("DP ke liye image select karein.");
-    if(file.size>5*1024*1024)throw new Error("DP 5 MB se chhoti honi chahiye.");
-    const uploaded=await uploadBytes(ref(storage,`profiles/${user.uid}/${Date.now()}_${file.name}`),file);
-    photoURL=await getDownloadURL(uploaded.ref);
+    if(!file.type.startsWith("image/"))throw Error("DP ke liye image select karein.");
+    if(file.size>5*1024*1024)throw Error("DP 5 MB se chhoti honi chahiye.");
+    photoURL=await uploadFile("profiles/"+user.uid+"/"+Date.now()+"_"+file.name,file,"profileStatus");
    }
    await updateProfile(user,{displayName:name||user.displayName||"",photoURL});
-   $("profileName").textContent=user.displayName||"Zenova user";
-   $("profileDP").src=photoURL||"https://placehold.co/100x100/24143b/ffffff?text=DP";
-   status("profileStatus","Profile saved successfully!");
-  }catch(err){status("profileStatus",errorText(err));}
+   $("profilePhoto").src=photoURL||$("profilePhoto").src;
+   $("dpPreview").src=photoURL||$("dpPreview").src;
+   msg("profileName",user.displayName||"Zenova User");
+   msg("profileEmail",user.email||"");
+   msg("profileStatus","Profile and DP saved!");
+  }catch(x){msg("profileStatus",friendlyError(x));}
+  finally{btn.disabled=false;}
+ };
+
+ $("reelFile").onchange=()=>{
+  const f=$("reelFile").files[0];if(!f)return;
+  if(!f.type.startsWith("video/")){msg("reelStatus","Select a video file.");return;}
+  if(f.size>100*1024*1024){msg("reelStatus","Video 100 MB se chhoti honi chahiye.");return;}
+  $("reelPreview").src=URL.createObjectURL(f);
+  $("reelPreview").classList.remove("hidden");
+  msg("reelStatus","Preview ready. Share it from Create Post.");
  };
 
  $("startCamera").onclick=async()=>{
   try{
+   if(!navigator.mediaDevices?.getUserMedia)throw Error("HTTPS website aur camera-supported browser chahiye.");
    cameraStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-   $("camera").srcObject=cameraStream;status("cameraStatus","Camera preview chal raha hai. Ye public livestream nahi hai.");
-  }catch(err){status("cameraStatus","Camera permission ya HTTPS required hai: "+err.message);}
+   $("cameraVideo").srcObject=cameraStream;$("cameraVideo").classList.remove("hidden");
+   msg("liveStatus","Camera preview started. Other users cannot see this broadcast.");
+  }catch(e){msg("liveStatus","Camera start nahi hua: "+e.message);}
  };
  $("stopCamera").onclick=()=>{
   if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());
-  cameraStream=null;$("camera").srcObject=null;status("cameraStatus","Camera band hai.");
+  cameraStream=null;$("cameraVideo").srcObject=null;$("cameraVideo").classList.add("hidden");
+  msg("liveStatus","Camera stopped.");
  };
 
  $("loadNews").onclick=async()=>{
   const country=$("country").value,mode=$("newsMode").value;
-  const queryText=mode==="video"?`${country} video news`:
-    mode==="live"?`${country} live news broadcast`:`${country} latest news`;
-  status("newsStatus","News loading…");
-  $("newsResults").replaceChildren();
+  const search=mode==="video"?country+" video news":mode==="live"?country+" live news broadcast":country+" latest news";
+  msg("newsStatus","Loading news…");$("newsResults").replaceChildren();
   try{
-   const url="https://api.gdeltproject.org/api/v2/doc/doc?query="+encodeURIComponent(queryText)+"&mode=ArtList&format=json&maxrecords=15&sort=HybridRel";
+   const url="https://api.gdeltproject.org/api/v2/doc/doc?query="+encodeURIComponent(search)+"&mode=ArtList&format=json&maxrecords=15&sort=HybridRel";
    const response=await fetch(url);
-   if(!response.ok)throw new Error("News service unavailable");
+   if(!response.ok)throw Error("News service unavailable");
    const data=await response.json(),articles=data.articles||[];
-   if(!articles.length){status("newsStatus","News nahi mili. Dobara try karein.");return;}
+   if(!articles.length){msg("newsStatus","No results found. Try another country or news type.");return;}
    articles.forEach(article=>{
-    const box=document.createElement("div");box.className="post";
+    const box=document.createElement("div");box.className="newsitem";
     const link=document.createElement("a");link.href=article.url;link.target="_blank";link.rel="noopener";link.textContent=article.title||"Open news";
     const meta=document.createElement("p");meta.className="muted";meta.textContent=article.domain||"News publisher";
-    const speak=document.createElement("button");speak.textContent="🔊 Listen";speak.onclick=()=>{
-     if(!("speechSynthesis" in window)){status("newsStatus","Browser voice support nahi karta.");return;}
-     speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance(article.title||"News"));
-    };
-    box.append(link,meta,speak);$("newsResults").append(box);
+    const listen=document.createElement("button");listen.className="btn secondary";listen.textContent="🔊 Listen";
+    listen.onclick=()=>speak(article.title||"News headline");
+    box.append(link,meta,listen);$("newsResults").append(box);
    });
-   status("newsStatus",articles.length+" news results. Video option mein kuch results normal articles bhi ho sakte hain.");
-  }catch(err){status("newsStatus","News load nahi hui: "+err.message);}
+   msg("newsStatus",articles.length+" results. Video searches can also include regular articles.");
+  }catch(e){msg("newsStatus","News load nahi hui: "+e.message);}
  };
+
+ function speak(text){
+  if(!("speechSynthesis" in window)){msg("newsStatus","Voice reading browser mein available nahi.");return;}
+  speechSynthesis.cancel();
+  speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+ }
  $("listenNews").onclick=()=>{
-  const titles=[...$("newsResults").querySelectorAll("a")].map(a=>a.textContent);
-  if(!titles.length){status("newsStatus","Pehle Load News dabayein.");return;}
-  if("speechSynthesis" in window)speechSynthesis.speak(new SpeechSynthesisUtterance(titles.join(". ")));
+  const titles=[...$("newsResults").querySelectorAll(".newsitem a")].map(a=>a.textContent);
+  if(!titles.length){msg("newsStatus","Pehle Load News dabayein.");return;}
+  speak(titles.slice(0,10).join(". "));
  };
  $("stopNews").onclick=()=>{if("speechSynthesis" in window)speechSynthesis.cancel();};
 
-}catch(err){
- $("authStatus").textContent="Firebase setup error: "+err.message;
+}catch(e){
+ msg("authStatus","Firebase setup error: "+e.message);
 }
 </script>
 </body>
