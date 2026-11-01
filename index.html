@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090914">
+  <title>ZenoTik — Connect Your World</title>
+  <style>
+    *{box-sizing:border-box}
+    :root{--bg:#090914;--panel:#121225;--purple:#965cff;--blue:#36baff;--text:#f6f3ff;--muted:#aaa6c4}
+    body{margin:0;background:radial-gradient(ellipse at top,#21103d 0%,var(--bg) 55%);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
+    button,input,textarea{font:inherit}
+    button{cursor:pointer}
+    .top{display:flex;justify-content:space-between;align-items:center;padding:18px 6%;border-bottom:1px solid #ffffff12;position:sticky;top:0;background:#090914eF;backdrop-filter:blur(15px);z-index:5}
+    .logo{font-size:27px;font-weight:900;letter-spacing:-1px;background:linear-gradient(90deg,#b98aff,#35c5ff);color:transparent;background-clip:text}
+    .wrap{width:min(960px,92%);margin:30px auto}
+    .card{background:#121225eF;border:1px solid #ffffff17;border-radius:20px;padding:24px;box-shadow:0 15px 55px #0005;margin-bottom:20px}
+    h1{font-size:clamp(28px,5vw,44px);margin:0 0 12px}
+    h2{margin:0 0 16px}
+    .gradient{background:linear-gradient(90deg,#c4a0ff,#48cfff);color:transparent;background-clip:text}
+    .muted{color:var(--muted);line-height:1.6}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    input,textarea{width:100%;padding:13px 14px;border:1px solid #393451;border-radius:12px;background:#090914;color:white;outline:none;margin:7px 0}
+    input:focus,textarea:focus{border-color:var(--purple)}
+    textarea{min-height:100px;resize:vertical}
+    .btn{border:0;border-radius:12px;padding:12px 16px;font-weight:bold;color:white;background:linear-gradient(100deg,#8b48ee,#377ff4)}
+    .btn:hover{filter:brightness(1.12)}
+    .secondary{background:#24213b;border:1px solid #ffffff20}
+    .full{width:100%;margin-top:9px}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .hidden{display:none!important}
+    .post{padding:18px 0;border-bottom:1px solid #ffffff16}
+    .post:last-child{border-bottom:0}
+    .posthead{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+    .avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#9a55ff,#36c6ff);font-weight:bold;color:#090914}
+    .postbody{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55}
+    .status{font-size:14px;color:#c9b8ff;min-height:20px;margin-top:12px}
+    .badge{font-size:12px;border:1px solid #ffffff22;padding:6px 9px;border-radius:30px;color:#c6b4ff}
+    footer{text-align:center;padding:28px 12px;color:#77738f;font-size:12px}
+    @media(max-width:650px){.grid{grid-template-columns:1fr}.card{padding:19px}.top{padding:15px 4%}.wrap{margin:20px auto}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="logo">ZenoTik ✦</div>
+    <span class="badge" id="connection">Connecting...</span>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <span class="badge">YOUR WORLD. YOUR VOICE.</span>
+      <h1 style="margin-top:18px">Welcome to <span class="gradient">ZenoTik</span></h1>
+      <p class="muted">Connect with people, share your thoughts, and discover a new social world.</p>
+    </section>
+
+    <section id="authSection" class="grid">
+      <div class="card">
+        <h2>Join ZenoTik</h2>
+        <p class="muted">Create an account or sign in to get started.</p>
+        <form id="signupForm">
+          <input id="signupEmail" type="email" placeholder="Email address" required autocomplete="email">
+          <input id="signupPassword" type="password" placeholder="Password (at least 6 characters)" minlength="6" required autocomplete="new-password">
+          <button class="btn full" type="submit">Create account</button>
+        </form>
+        <form id="loginForm" style="margin-top:18px">
+          <input id="loginEmail" type="email" placeholder="Email address" required autocomplete="email">
+          <input id="loginPassword" type="password" placeholder="Password" required autocomplete="current-password">
+          <button class="btn secondary full" type="submit">Log in</button>
+        </form>
+        <button id="googleBtn" class="btn secondary full" type="button">Continue with Google</button>
+        <p id="authStatus" class="status" role="status"></p>
+      </div>
+
+      <div class="card">
+        <h2 class="gradient">A new social experience</h2>
+        <p class="muted">Your space to express yourself, share updates, and stay connected.</p>
+        <p>✦ Simple account creation</p>
+        <p>✦ Google sign-in</p>
+        <p>✦ Share text posts</p>
+        <p>✦ View the community feed</p>
+        <p class="muted">More features like image uploads, messaging and live streaming need additional development.</p>
+      </div>
+    </section>
+
+    <section id="appSection" class="hidden">
+      <div class="card">
+        <div class="row">
+          <div>
+            <h2>Welcome back!</h2>
+            <p class="muted" id="userEmail"></p>
+          </div>
+          <button id="logoutBtn" class="btn secondary" type="button">Log out</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Share an update</h2>
+        <form id="postForm">
+          <textarea id="postText" maxlength="1000" placeholder="What's on your mind?" required></textarea>
+          <div class="row">
+            <span class="muted" id="charCount">0 / 1000</span>
+            <button id="postBtn" class="btn" type="submit">Publish post</button>
+          </div>
+        </form>
+        <p id="postStatus" class="status" role="status"></p>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <h2>Community Feed</h2>
+          <span class="badge">Latest posts</span>
+        </div>
+        <div id="feed"><p class="muted">Loading posts...</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    ZenoTik · Connect Your World<br><br>
+    MADE IN MIAN ABDULLAH GULZAR
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+    import {
+      getAuth, onAuthStateChanged, createUserWithEmailAndPassword,
+      signInWithEmailAndPassword, GoogleAuthProvider,
+      signInWithPopup, signOut
+    } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+    import {
+      getFirestore, collection, addDoc, query, orderBy, limit,
+      onSnapshot, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDmwJMYmfhOUclZF5drJUC8nsQN_OQdWWY",
+      authDomain: "zenotik-8fe5b.firebaseapp.com",
+      projectId: "zenotik-8fe5b",
+      storageBucket: "zenotik-8fe5b.firebasestorage.app",
+      messagingSenderId: "196726457517",
+      appId: "1:196726457517:web:20b604b7a44e6cb8bf3224",
+      measurementId: "G-G8QB24W3Y8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const googleProvider = new GoogleAuthProvider();
+
+    const $ = id => document.getElementById(id);
+    let stopFeed = null;
+
+    function showStatus(id, message) {
+      $(id).textContent = message;
+    }
+
+    function friendlyError(error) {
+      const messages = {
+        "auth/email-already-in-use": "This email already has an account. Please log in.",
+        "auth/invalid-credential": "Email or password is incorrect.",
+        "auth/weak-password": "Use a stronger password with at least 6 characters.",
+        "auth/popup-closed-by-user": "Google sign-in was cancelled.",
+        "auth/unauthorized-domain": "Add this website domain in Firebase Authentication → Settings → Authorized domains.",
+        "auth/operation-not-allowed": "Enable this sign-in method in Firebase Authentication.",
+        "permission-denied": "Firestore Rules are blocking this action. Check your published rules."
+      };
+      return messages[error.code] || error.message || "Something went wrong.";
+    }
+
+    $("connection").textContent = "Firebase ready";
+
+    $("signupForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      showStatus("authStatus", "Creating your account...");
+      try {
+        await createUserWithEmailAndPassword(
+          auth, $("signupEmail").value.trim(), $("signupPassword").value
+        );
+        showStatus("authStatus", "Account created successfully!");
+      } catch (error) {
+        showStatus("authStatus", friendlyError(error));
+      }
+    });
+
+    $("loginForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      showStatus("authStatus", "Signing in...");
+      try {
+        await signInWithEmailAndPassword(
+          auth, $("loginEmail").value.trim(), $("loginPassword").value
+        );
+      } catch (error) {
+        showStatus("authStatus", friendlyError(error));
+      }
+    });
+
+    $("googleBtn").addEventListener("click", async () => {
+      showStatus("authStatus", "Opening Google sign-in...");
+      try {
+        await signInWithPopup(auth, googleProvider);
+      } catch (error) {
+        showStatus("authStatus", friendlyError(error));
+      }
+    });
+
+    $("logoutBtn").addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        alert(friendlyError(error));
+      }
+    });
+
+    $("postText").addEventListener("input", () => {
+      $("charCount").textContent = `${$("postText").value.length} / 1000`;
+    });
+
+    $("postForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      const user = auth.currentUser;
+      const text = $("postText").value.trim();
+      if (!user || !text) return;
+
+      $("postBtn").disabled = true;
+      showStatus("postStatus", "Publishing...");
+      try {
+        await addDoc(collection(db, "posts"), {
+          uid: user.uid,
+          authorEmail: user.email || user.displayName || "ZenoTik user",
+          text,
+          createdAt: serverTimestamp()
+        });
+        $("postText").value = "";
+        $("charCount").textContent = "0 / 1000";
+        showStatus("postStatus", "Your post has been published!");
+      } catch (error) {
+        showStatus("postStatus", friendlyError(error));
+      } finally {
+        $("postBtn").disabled = false;
+      }
+    });
+
+    function renderFeed(posts) {
+      const feed = $("feed");
+      feed.replaceChildren();
+
+      if (!posts.length) {
+        const empty = document.createElement("p");
+        empty.className = "muted";
+        empty.textContent = "No posts yet. Be the first to share something!";
+        feed.append(empty);
+        return;
+      }
+
+      for (const post of posts) {
+        const article = document.createElement("article");
+        article.className = "post";
+
+        const head = document.createElement("div");
+        head.className = "posthead";
+
+        const avatar = document.createElement("div");
+        avatar.className = "avatar";
+        avatar.textContent = (post.authorEmail || "Z").charAt(0).toUpperCase();
+
+        const meta = document.createElement("div");
+        const author = document.createElement("strong");
+        author.textContent = post.authorEmail || "ZenoTik user";
+        const time = document.createElement("div");
+        time.className = "muted";
+        time.style.fontSize = "12px";
+        time.textContent = post.createdAt?.toDate
+          ? post.createdAt.toDate().toLocaleString()
+          : "Just now";
+
+        meta.append(author, time);
+        head.append(avatar, meta);
+
+        const body = document.createElement("div");
+        body.className = "postbody";
+        body.textContent = post.text || "";
+
+        article.append(head, body);
+        feed.append(article);
+      }
+    }
+
+    onAuthStateChanged(auth, user => {
+      $("authSection").classList.toggle("hidden", !!user);
+      $("appSection").classList.toggle("hidden", !user);
+      $("userEmail").textContent = user ? (user.email || user.displayName || "Signed in") : "";
+
+      if (stopFeed) {
+        stopFeed();
+        stopFeed = null;
+      }
+
+      if (!user) {
+        $("feed").replaceChildren();
+        return;
+      }
+
+      const postsQuery = query(
+        collection(db, "posts"),
+        orderBy("createdAt", "desc"),
+        limit(50)
+      );
+
+      stopFeed = onSnapshot(postsQuery, snapshot => {
+        renderFeed(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      }, error => {
+        showStatus("postStatus", friendlyError(error));
+        $("feed").textContent = "Could not load posts. Check Firestore Rules and Database.";
+      });
+    });
+  </script>
+</body>
+</html>
