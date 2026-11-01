@@ -1,643 +1,557 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101d35">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zenova Social World</title>
 <style>
-:root{--bg:#0b1220;--panel:#141f33;--panel2:#1a2b43;--accent:#14d6c5;--blue:#4685ff;--purple:#9564ff;--text:#f4f7ff;--muted:#aab8d0}
+:root{--bg:#0b0c10;--panel:#151820;--line:#292d38;--text:#f6f7fb;--muted:#a5aab8;--blue:#637cff;--green:#39d98a}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at top,#20395c,var(--bg) 60%);color:var(--text);font:15px Arial,sans-serif}
-button,input,textarea{font:inherit}
-button{cursor:pointer;color:white;border:0}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{position:sticky;top:0;z-index:10;background:#101218ee;border-bottom:1px solid var(--line);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:21px;font-weight:800;color:#8292ff}
+small,.muted{color:var(--muted)}
+main{max-width:760px;margin:auto;padding:15px 13px 100px}
+.panel,.post,.news-card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:14px}
+h2{font-size:21px;margin:8px 0 14px}
+h3{font-size:17px;margin:8px 0}
+button,select,input,textarea{font:inherit;border-radius:9px;border:1px solid var(--line);padding:11px;background:#0e1118;color:var(--text);max-width:100%}
+button{background:var(--blue);border:0;font-weight:700;cursor:pointer}
+button.secondary{background:#292e3b}
+button.danger{background:#b9384c}
+input,textarea,select{width:100%;margin:6px 0 10px}
+textarea{min-height:90px;resize:vertical}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row>*{flex:1}
+.nav{position:fixed;z-index:20;bottom:0;left:0;right:0;background:#11141cf7;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 2px calc(8px + env(safe-area-inset-bottom))}
+.nav button{background:transparent;color:#c9cce0;padding:8px 4px;font-size:12px;flex:1}
+.nav button.active{color:#91a0ff}
 .hidden{display:none!important}
-header{position:sticky;top:0;z-index:5;padding:13px 4%;display:flex;justify-content:space-between;align-items:center;background:#0b1424ed;border-bottom:1px solid #ffffff20;backdrop-filter:blur(15px)}
-.brand{font-size:26px;font-weight:900;background:linear-gradient(90deg,var(--accent),#85a7ff,var(--purple));color:transparent;background-clip:text}
-.muted,.status,small{color:var(--muted);line-height:1.5}
-main{width:min(800px,95%);margin:17px auto 110px}
-.card{padding:17px;margin:13px 0;border-radius:19px;background:linear-gradient(145deg,#18263c,#111a2c);border:1px solid #ffffff18;box-shadow:0 8px 30px #0002}
-h2{margin-top:3px}
-button.primary{background:linear-gradient(100deg,#0abbb5,#427bff);font-weight:bold}
-button.secondary{background:#263853;border:1px solid #ffffff20}
-button.danger{background:#a6385b}
-.btn{padding:12px 16px;border-radius:12px}
-input,textarea{display:block;width:100%;padding:13px;margin:10px 0;background:#0b1424;color:white;border:1px solid #344966;border-radius:12px}
-input[type=file]{font-size:13px}
-.page{display:none}.page.active{display:block}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.status{font-size:13px;overflow-wrap:anywhere}
-.hero{padding:23px;border-radius:20px;background:linear-gradient(115deg,#14505b,#253e70,#48356e)}
-.hero h1{font-size:32px;margin:10px 0}
-.bottomnav{position:fixed;z-index:10;bottom:0;left:0;right:0;display:flex;gap:4px;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom));background:#0c1628f5;border-top:1px solid #ffffff20;backdrop-filter:blur(15px)}
-.bottomnav button{flex:1;min-width:0;padding:9px 1px;border-radius:12px;background:transparent;color:#b7c7de;font-size:10px}
-.bottomnav .ico{display:block;font-size:21px;margin-bottom:4px}
-.bottomnav button.active{background:linear-gradient(150deg,#0abbb533,#427bff40);color:#fff;outline:1px solid #39c9da70}
-.avatar{width:82px;height:82px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);background:#263853}
-.smallavatar{width:40px;height:40px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:9px;border:2px solid #36c9d7}
-.stories{display:flex;gap:13px;overflow-x:auto;padding:8px 0}
-.story{text-align:center;min-width:66px;font-size:12px}
-.storyring{width:59px;height:59px;padding:3px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--blue),var(--purple));margin:auto auto 5px}
-.storyring img{width:100%;height:100%;object-fit:cover;border-radius:50%;background:#263853}
-.post{padding:14px 0;border-bottom:1px solid #ffffff1b;overflow-wrap:anywhere}
-.posttext{white-space:pre-wrap;line-height:1.55}
-.media{display:block;width:100%;max-height:480px;object-fit:contain;background:#070c16;border-radius:14px;margin:12px 0}
-.postactions{display:flex;gap:8px;flex-wrap:wrap}
-.postactions button{background:#253853;border-radius:10px;padding:8px 12px}
-#authPage{position:fixed;inset:0;z-index:100;overflow:auto;background:radial-gradient(circle at top,#24516c,#10152e 55%,#080d18);display:flex;align-items:center;justify-content:center;padding:18px}
-.authbox{width:min(430px,100%);padding:24px;border-radius:24px;background:#121f33;border:1px solid #ffffff25;box-shadow:0 20px 70px #0007}
-.mark{width:75px;height:75px;border-radius:24px;margin:auto;display:grid;place-items:center;font-size:42px;background:linear-gradient(135deg,var(--accent),var(--blue),var(--purple))}
-.authbox h1{text-align:center;font-size:38px;margin:12px 0 3px}
-.authbox p{text-align:center}
-.authbox button{width:100%;margin:5px 0}
-hr{border:0;border-top:1px solid #ffffff20;margin:20px 0}
-#cameraVideo{width:100%;max-height:480px;border-radius:14px;background:#050810}
-.newsitem{padding:13px 0;border-bottom:1px solid #ffffff20}
-a{color:#75e4e2}
-footer{text-align:center;color:#8293ae;padding:22px;font-size:12px}
-@media(min-width:720px){.bottomnav{left:50%;right:auto;transform:translateX(-50%);bottom:12px;width:min(720px,94%);border:1px solid #ffffff25;border-radius:18px}.hero h1{font-size:39px}}
+.status{font-size:13px;color:var(--muted);white-space:pre-wrap}
+.post img,.post video,.post iframe{width:100%;border-radius:11px;margin-top:8px;max-height:600px;object-fit:contain;background:#08090c}
+.news-card h3{line-height:1.35}
+.news-card a{color:#9eacff}
+.news-meta{font-size:12px;color:var(--muted);margin:6px 0}
+.news-body{line-height:1.55;color:#e3e5ed}
+#authBox{max-width:440px;margin:45px auto;padding:20px}
+.badge{font-size:11px;border:1px solid #40465b;padding:4px 7px;border-radius:30px;color:#b9c4ff}
+hr{border:0;border-top:1px solid var(--line);margin:15px 0}
+.progress{height:5px;background:#292d38;border-radius:5px;overflow:hidden}
+#progressBar{height:100%;width:0;background:var(--green)}
 </style>
 </head>
 <body>
-
-<!-- SIGN UP / LOGIN FIRST PAGE -->
-<section id="authPage">
- <div class="authbox">
-  <div class="mark">✦</div>
-  <h1 style="background:linear-gradient(90deg,#14d6c5,#83a7ff,#a68aff);color:transparent;background-clip:text">ZENOVA</h1>
-  <p>CONNECT • SHARE • EXPLORE</p>
-  <p class="muted">MADE IN MIAN ABDULLAH GULZAR</p>
-  <hr>
-  <h2>Create Account</h2>
-  <form id="signupForm">
-   <input id="signupName" placeholder="Your name" maxlength="40">
-   <input id="signupEmail" type="email" placeholder="Email address" required>
-   <input id="signupPassword" type="password" minlength="6" placeholder="Password (6+ characters)" required>
-   <button class="btn primary">Sign Up</button>
-  </form>
-  <hr>
-  <h2>Already have an account?</h2>
-  <form id="loginForm">
-   <input id="loginEmail" type="email" placeholder="Email address" required>
-   <input id="loginPassword" type="password" placeholder="Password" required>
-   <button class="btn secondary">Log In</button>
-  </form>
-  <button id="googleBtn" class="btn" style="background:#fff;color:#172033">Continue with Google</button>
-  <p id="authStatus" class="status"></p>
- </div>
-</section>
-
 <header>
- <div><div class="brand">✦ ZENOVA</div><small>Social World</small></div>
+  <div>
+    <div class="logo">✦ ZENOVA</div>
+    <small>Social World · Made by Mian Abdullah Gulzar</small>
+  </div>
+  <span id="userBadge" class="badge">Not logged in</span>
 </header>
 
-<main>
- <section id="home" class="page active">
-  <div class="hero">
-   <small>YOUR SOCIAL WORLD</small>
-   <h1>Share your world. <span style="color:#54e4d6">Be yourself.</span></h1>
-   <p>Post photos, share videos, publish stories and explore news.</p>
-  </div>
-  <div class="card">
-   <div class="row"><h2>Stories</h2><button class="btn primary" data-go="create">＋ Add Story</button></div>
-   <div id="homeStories" class="stories"></div>
-  </div>
-  <div class="card">
-   <div class="row"><h2>Community Feed</h2><button class="btn primary" data-go="create">＋ Create Post</button></div>
-   <p id="feedStatus" class="status">Loading posts…</p>
-   <div id="feed"></div>
-  </div>
- </section>
+<div id="authBox" class="panel">
+  <h2>Welcome to Zenova</h2>
+  <p class="muted">Login or create your account to continue.</p>
+  <input id="authName" placeholder="Your name (for signup)">
+  <input id="authEmail" type="email" placeholder="Email address">
+  <input id="authPassword" type="password" placeholder="Password (minimum 6 characters)">
+  <button style="width:100%;margin:4px 0" onclick="signup()">Create Account</button>
+  <button class="secondary" style="width:100%;margin:4px 0" onclick="login()">Login</button>
+  <button class="secondary" style="width:100%;margin:4px 0" onclick="googleLogin()">Continue with Google</button>
+  <p id="authStatus" class="status"></p>
+</div>
 
- <section id="reels" class="page">
-  <div class="card">
-   <h2>🎬 Video Reels</h2>
-   <p class="muted">Choose a video to preview it. Publish it from Create to share it with signed-in users.</p>
-   <input id="reelFile" type="file" accept="video/*">
-   <video id="reelPreview" class="media hidden" controls playsinline></video>
-   <p id="reelStatus" class="status"></p>
-   <button class="btn primary" data-go="create">Upload a Video</button>
-  </div>
- </section>
+<main id="app" class="hidden">
+  <section id="homePage">
+    <div class="panel">
+      <h2>Home Feed</h2>
+      <p class="muted">Share your updates, photos and videos.</p>
+      <textarea id="postText" placeholder="What's happening?"></textarea>
+      <input id="postFile" type="file" accept="image/*,video/*">
+      <div class="progress"><div id="progressBar"></div></div>
+      <p id="uploadStatus" class="status">Maximum file size: 500 MB. Firebase Storage must support the upload.</p>
+      <button onclick="createPost()">Publish Post</button>
+    </div>
+    <div id="feed"></div>
+  </section>
 
- <section id="live" class="page">
-  <div class="card">
-   <h2>🔴 Live Studio</h2>
-   <p class="muted">Camera preview on your device. It does not broadcast publicly.</p>
-   <button id="startCamera" class="btn primary">Start Camera</button>
-   <button id="stopCamera" class="btn secondary">Stop Camera</button>
-   <video id="cameraVideo" class="hidden" autoplay muted playsinline></video>
-   <p id="liveStatus" class="status"></p>
-   <hr>
-   <h3>Find Live News Streams</h3>
-   <a href="https://www.youtube.com/results?search_query=Pakistan+live+news" target="_blank" rel="noopener">▶ Pakistan Live News on YouTube</a><br><br>
-   <a href="https://www.youtube.com/results?search_query=world+live+news" target="_blank" rel="noopener">▶ World Live News on YouTube</a>
-  </div>
- </section>
+  <section id="newsPage" class="hidden">
+    <div class="panel">
+      <h2>🌍 World News</h2>
+      <p class="muted">Read news articles here in Zenova. News is supplied by GDELT; availability and coverage may vary.</p>
+      <label for="newsCountry">Choose country</label>
+      <select id="newsCountry">
+        <option value="">🌐 Worldwide</option>
+        <option value="Pakistan">🇵🇰 Pakistan</option>
+        <option value="United States">🇺🇸 United States</option>
+        <option value="United Kingdom">🇬🇧 United Kingdom</option>
+        <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+        <option value="United Arab Emirates">🇦🇪 UAE</option>
+        <option value="India">🇮🇳 India</option>
+        <option value="Canada">🇨🇦 Canada</option>
+        <option value="Australia">🇦🇺 Australia</option>
+        <option value="China">🇨🇳 China</option>
+        <option value="Japan">🇯🇵 Japan</option>
+        <option value="Turkey">🇹🇷 Turkey</option>
+        <option value="Germany">🇩🇪 Germany</option>
+        <option value="France">🇫🇷 France</option>
+        <option value="Italy">🇮🇹 Italy</option>
+        <option value="Spain">🇪🇸 Spain</option>
+        <option value="Russia">🇷🇺 Russia</option>
+        <option value="Ukraine">🇺🇦 Ukraine</option>
+        <option value="Iran">🇮🇷 Iran</option>
+        <option value="Iraq">🇮🇶 Iraq</option>
+        <option value="Qatar">🇶🇦 Qatar</option>
+        <option value="Egypt">🇪🇬 Egypt</option>
+        <option value="South Africa">🇿🇦 South Africa</option>
+        <option value="Nigeria">🇳🇬 Nigeria</option>
+        <option value="Kenya">🇰🇪 Kenya</option>
+        <option value="Brazil">🇧🇷 Brazil</option>
+        <option value="Mexico">🇲🇽 Mexico</option>
+        <option value="Argentina">🇦🇷 Argentina</option>
+        <option value="Indonesia">🇮🇩 Indonesia</option>
+        <option value="Malaysia">🇲🇾 Malaysia</option>
+        <option value="Singapore">🇸🇬 Singapore</option>
+        <option value="South Korea">🇰🇷 South Korea</option>
+        <option value="Bangladesh">🇧🇩 Bangladesh</option>
+        <option value="Afghanistan">🇦🇫 Afghanistan</option>
+        <option value="New Zealand">🇳🇿 New Zealand</option>
+        <option value="Switzerland">🇨🇭 Switzerland</option>
+        <option value="Netherlands">🇳🇱 Netherlands</option>
+        <option value="Sweden">🇸🇪 Sweden</option>
+        <option value="Norway">🇳🇴 Norway</option>
+        <option value="Israel">🇮🇱 Israel</option>
+        <option value="Palestine">🇵🇸 Palestine</option>
+      </select>
+      <div class="row">
+        <button onclick="loadNews()">🔎 Load News</button>
+        <button class="secondary" onclick="toggleLiveNews()" id="liveBtn">🔴 Start Live Updates</button>
+      </div>
+      <p id="newsStatus" class="status">Choose a country and load news.</p>
+    </div>
+    <div id="newsList"></div>
+    <div id="articleView" class="panel hidden">
+      <button class="secondary" onclick="closeArticle()">← Back to news</button>
+      <h2 id="articleTitle"></h2>
+      <p id="articleMeta" class="news-meta"></p>
+      <div id="articleContent" class="news-body"></div>
+      <hr>
+      <p class="muted">This is the information returned by the news source. For the complete report, open the publisher's original article.</p>
+      <button onclick="openOriginalArticle()">Open Original Article</button>
+    </div>
+  </section>
 
- <section id="create" class="page">
-  <div class="card">
-   <h2>＋ Create Post</h2>
-   <form id="postForm">
-    <textarea id="postText" maxlength="1000" rows="4" placeholder="What's on your mind?"></textarea>
-    <label class="muted">Choose photo or video (maximum 100 MB)</label>
-    <input id="mediaFile" type="file" accept="image/*,video/*">
-    <div id="mediaPreview"></div>
-    <button id="publishBtn" class="btn primary">Upload & Publish</button>
-   </form>
-   <p id="postStatus" class="status"></p>
-   <hr>
-   <h2>＋ Create Story</h2>
-   <p class="muted">Choose a photo or video to share as a story.</p>
-   <input id="storyFile" type="file" accept="image/*,video/*">
-   <button id="uploadStory" class="btn primary">Upload Story</button>
-   <p id="storyStatus" class="status"></p>
-  </div>
- </section>
+  <section id="shortsPage" class="hidden">
+    <div class="panel">
+      <h2>🎬 Shorts / Reels</h2>
+      <p class="muted">Upload a short video. The maximum selected file size is 500 MB.</p>
+      <input id="reelFile" type="file" accept="video/*">
+      <input id="reelCaption" placeholder="Write a caption">
+      <button onclick="uploadReel()">Upload Short</button>
+      <p id="reelStatus" class="status"></p>
+    </div>
+    <div id="reelsFeed"></div>
+  </section>
 
- <section id="profile" class="page">
-  <div class="card">
-   <h2>My Profile</h2>
-   <img id="profilePhoto" class="avatar" alt="Profile picture">
-   <h3 id="profileName">Your Name</h3>
-   <p id="profileEmail" class="muted"></p>
-   <p id="myPostCount" class="muted">Your posts: 0</p>
-   <button class="btn primary" data-go="account">Edit Profile / DP</button>
-   <h3>My Posts</h3>
-   <div id="myPosts"></div>
-  </div>
- </section>
+  <section id="storiesPage" class="hidden">
+    <div class="panel">
+      <h2>📸 Stories</h2>
+      <input id="storyFile" type="file" accept="image/*,video/*">
+      <button onclick="uploadStory()">Add Story</button>
+      <p id="storyStatus" class="status"></p>
+    </div>
+    <div id="storiesFeed"></div>
+  </section>
 
- <section id="account" class="page">
-  <div class="card">
-   <h2>⚙️ Settings</h2>
-   <p class="muted">Profile, account access, app diagnostics aur common errors ke hal yahin milenge.</p>
-   <h3>Profile Picture (DP)</h3>
-   <img id="dpPreview" class="avatar" alt="DP preview">
-   <input id="dpFile" type="file" accept="image/*">
-   <input id="displayName" maxlength="40" placeholder="Your display name">
-   <button id="saveProfile" class="btn primary">Save Profile & DP</button>
-   <p id="profileStatus" class="status"></p>
-   <hr>
-   <h3>🛠️ Error Help & App Check</h3>
-   <p class="muted">Login, post, photo, video, story, profile ya news mein error aaye to yahan check karein. App detected error aur mumkin hal dikhayegi.</p>
-   <button id="runDiagnostics" class="btn primary">Check App Setup</button>
-   <p id="diagnosticStatus" class="status" role="status">App check chalane ke liye button dabayein.</p>
-   <h4>Latest Error</h4>
-   <p id="latestError" class="status">Abhi koi error record nahi hua.</p>
-   <button id="clearError" class="btn secondary">Clear Error Message</button>
-   <details>
-    <summary>Login / Google sign-in error</summary>
-    <p class="muted">Firebase Console → Authentication → Sign-in method mein Email/Password aur Google enable karein. Authentication → Settings → Authorized domains mein apna GitHub Pages domain add karein. Google popup block ho to browser popup allow karein.</p>
-   </details>
-   <details>
-    <summary>Photo, video, story ya DP upload error</summary>
-    <p class="muted">Firebase Console → Storage mein bucket setup karein aur firebaseConfig.storageBucket ka naam match karein. Storage Rules publish karein. Post/story 100 MB se chhoti aur DP 5 MB se chhoti honi chahiye. Upload ke liye signed in hona zaroori hai.</p>
-   </details>
-   <details>
-    <summary>Posts ya stories load/save nahi hote</summary>
-    <p class="muted">Firebase Console → Firestore Database check karein. Database bana ho aur Firestore Rules signed-in users ko required read/create access deti hon. Exact error code bhi check karein.</p>
-   </details>
-   <details>
-    <summary>Camera / Live error</summary>
-    <p class="muted">Website HTTPS par kholein aur browser ko camera/microphone permission dein. Is app ka Live section local camera preview hai, public broadcast nahi.</p>
-   </details>
-   <details>
-    <summary>News load nahi hoti</summary>
-    <p class="muted">Internet check karein aur dobara Load News dabayein. News service temporarily unavailable ho sakti hai.</p>
-   </details>
-   <details>
-    <summary>Firebase Rules error ko kaise theek karein?</summary>
-    <p class="muted">Firebase Console → Firestore Database → Rules ya Storage → Rules kholein, rules verify karein aur Publish karein. App khud server security rules ko change nahi kar sakti.</p>
-   </details>
-   <hr>
-   <h3>Account Access</h3>
-   <p class="muted">Sign out karne ke liye neeche wala button use karein. Logout ke baad dobara login kar sakte hain.</p>
-   <button id="logoutBtn2" class="btn danger">Log Out</button>
-  </div>
- </section>
+  <section id="profilePage" class="hidden">
+    <div class="panel">
+      <h2>👤 My Profile</h2>
+      <p id="profileName"></p>
+      <p id="profileEmail" class="muted"></p>
+      <input id="displayName" placeholder="Change display name">
+      <button onclick="saveProfile()">Save Profile</button>
+      <hr>
+      <label>Profile photo</label>
+      <input id="profilePhoto" type="file" accept="image/*">
+      <button onclick="uploadProfilePhoto()">Upload Profile Photo</button>
+      <p id="profileStatus" class="status"></p>
+    </div>
+  </section>
 
- <section id="news" class="page">
-  <div class="card">
-   <h2>🌍 World News</h2>
-   <label>Choose country</label>
-   <select id="country" class="input">
-    <option value="Pakistan">Pakistan</option>
-    <option value="United States">United States</option>
-    <option value="United Kingdom">United Kingdom</option>
-    <option value="Saudi Arabia">Saudi Arabia</option>
-    <option value="India">India</option>
-    <option value="Canada">Canada</option>
-    <option value="Australia">Australia</option>
-    <option value="United Arab Emirates">UAE</option>
-    <option value="Turkey">Türkiye</option>
-    <option value="Germany">Germany</option>
-    <option value="France">France</option>
-    <option value="China">China</option>
-    <option value="Japan">Japan</option>
-    <option value="Bangladesh">Bangladesh</option>
-   </select>
-   <label>News type</label>
-   <select id="newsMode" class="input">
-    <option value="headlines">Latest Headlines</option>
-    <option value="video">Video News Reports</option>
-    <option value="live">Live News Updates</option>
-   </select>
-   <button id="loadNews" class="btn primary">Load News</button>
-   <button id="listenNews" class="btn secondary">🔊 Read Headlines</button>
-   <button id="stopNews" class="btn secondary">Stop Voice</button>
-   <p id="newsStatus" class="status"></p>
-   <div id="newsResults"></div>
-  </div>
- </section>
+  <section id="settingsPage" class="hidden">
+    <div class="panel">
+      <h2>⚙️ Settings</h2>
+      <p>Zenova Social World</p>
+      <p class="muted">Made by Mian Abdullah Gulzar</p>
+      <button class="secondary" onclick="checkConnection()">Check Firebase Connection</button>
+      <p id="diagnosticStatus" class="status"></p>
+      <hr>
+      <h3>Error Help</h3>
+      <p class="muted">If an upload fails, read the error shown under the upload form. Check Firebase Storage Rules, bucket settings, quota and network connection.</p>
+      <button class="danger" onclick="logout()">Log Out</button>
+    </div>
+  </section>
 </main>
 
-<nav class="bottomnav">
- <button class="active" data-go="home"><span class="ico">⌂</span>Home</button>
- <button data-go="reels"><span class="ico">▶</span>Videos</button>
- <button data-go="live"><span class="ico">◉</span>Live</button>
- <button data-go="create"><span class="ico">＋</span>Create</button>
- <button data-go="news"><span class="ico">🌍</span>News</button>
- <button data-go="profile"><span class="ico">◎</span>Profile</button>
- <button data-go="account"><span class="ico">⚙</span>Settings</button>
+<nav class="nav hidden" id="bottomNav">
+  <button class="active" onclick="showPage('homePage',this)">🏠<br>Home</button>
+  <button onclick="showPage('newsPage',this)">🌍<br>News</button>
+  <button onclick="showPage('shortsPage',this)">🎬<br>Shorts</button>
+  <button onclick="showPage('storiesPage',this)">⭕<br>Stories</button>
+  <button onclick="showPage('profilePage',this)">👤<br>Profile</button>
+  <button onclick="showPage('settingsPage',this)">⚙️<br>Settings</button>
 </nav>
-<footer>ZENOVA SOCIAL WORLD<br>MADE IN MIAN ABDULLAH GULZAR</footer>
 
-<script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
-import {
- getAuth,onAuthStateChanged,createUserWithEmailAndPassword,
- signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,
- signOut,updateProfile
-} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
-import {
- getFirestore,collection,addDoc,query,orderBy,limit,
- onSnapshot,serverTimestamp
-} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
-import {
- getStorage,ref,uploadBytesResumable,getDownloadURL
-} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-storage.js";
-
-const firebaseConfig={
- apiKey:"AIzaSyDmwJMYmfhOUclZF5drJUC8nsQN_OQdWWY",
- authDomain:"zenotik-8fe5b.firebaseapp.com",
- projectId:"zenotik-8fe5b",
- storageBucket:"zenotik-8fe5b.firebasestorage.app",
- messagingSenderId:"196726457517",
- appId:"1:196726457517:web:20b604b7a44e6cb8bf3224",
- measurementId:"G-G8QB24W3Y8"
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDmwJMYmfhOUclZF5drJUC8nsQN_OQdWWY",
+  authDomain: "zenotik-8fe5b.firebaseapp.com",
+  projectId: "zenotik-8fe5b",
+  storageBucket: "zenotik-8fe5b.firebasestorage.app",
+  messagingSenderId: "196726457517",
+  appId: "1:196726457517:web:20b604b7a44e6cb8bf3224",
+  measurementId: "G-G8QB24W3Y8"
 };
 
-const $=id=>document.getElementById(id);
-let auth,db,storage,currentUser=null,stopPosts=null,stopStories=null,cameraStream=null;
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
 
-function msg(id,text){$(id).textContent=text}
-function friendlyError(e){
- const code=e?.code||"";
- let help="";
- if(code==="storage/unauthorized") help="Upload permission denied. Firebase Console → Storage → Rules check karke sahi rules Publish karein; user signed in hona chahiye.";
- else if(code==="storage/bucket-not-found") help="Firebase Console → Storage mein bucket setup karein aur firebaseConfig.storageBucket ka naam verify karein.";
- else if(code==="storage/unknown") help="Storage enable, bucket name, internet aur Storage Rules check karein.";
- else if(code==="storage/canceled") help="Upload cancel ho gaya. Dobara upload karein.";
- else if(code==="permission-denied"||code==="firestore/permission-denied") help="Firestore Rules ne request block ki. Firebase Console → Firestore Database → Rules mein rules check karke Publish karein.";
- else if(code==="auth/unauthorized-domain") help="Firebase Console → Authentication → Settings → Authorized domains mein apna website domain add karein.";
- else if(code==="auth/operation-not-allowed") help="Firebase Console → Authentication → Sign-in method mein Email/Password aur/ya Google enable karein.";
- else if(code==="auth/email-already-in-use") help="Is email ka account pehle se hai. Sign Up ki bajaye Log In karein.";
- else if(code==="auth/invalid-credential"||code==="auth/wrong-password"||code==="auth/user-not-found") help="Email aur password dobara check karein. Password bhool gaye hon to Firebase Authentication mein password reset flow set karna hoga.";
- else if(code==="auth/popup-blocked") help="Browser settings mein is website ke pop-ups allow karein, phir Google sign-in dobara try karein.";
- else if(code==="auth/network-request-failed") help="Internet connection check karein aur page reload karke dobara try karein.";
- else if(code==="auth/weak-password") help="Kam az kam 6 characters ka password use karein.";
- else if(code==="storage/quota-exceeded") help="Firebase Storage quota/billing status check karein.";
- else if((e?.message||"").toLowerCase().includes("failed to fetch")) help="Internet connection, Firebase service availability aur browser network restrictions check karein.";
- else help="Exact error code/message ko note karein. Firebase Console aur browser Console mein is error ki details check karein.";
- const message=(e?.message||"Unknown error")+(code?" ("+code+")":"");
- const combined=message+"\nSuggested fix: "+help;
- const target=$("latestError");
- if(target) target.textContent=combined;
- return combined;
+const MAX_UPLOAD_SIZE = 500 * 1024 * 1024;
+let currentUser = null;
+let liveNewsTimer = null;
+let selectedArticle = null;
+let newsRequestId = 0;
+
+function el(id){ return document.getElementById(id); }
+function safeText(value){
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
 }
-
-function go(page){
- document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));
- document.querySelectorAll("[data-go]").forEach(b=>b.classList.toggle("active",b.dataset.go===page));
- window.scrollTo({top:0,behavior:"smooth"});
+function showError(error){
+  console.error(error);
+  if(error && error.code){
+    const help = {
+      "storage/unauthorized":"Firebase Storage Rules ne upload ko permission nahi di.",
+      "storage/bucket-not-found":"Firebase Storage bucket nahi mila. Firebase Console mein Storage check karein.",
+      "storage/quota-exceeded":"Firebase Storage quota exceed ho gayi.",
+      "storage/retry-limit-exceeded":"Upload retry limit tak pohanch gaya. Network check karein.",
+      "auth/email-already-in-use":"Is email par account pehle se bana hua hai.",
+      "auth/invalid-credential":"Email ya password sahi nahi hai.",
+      "auth/weak-password":"Password zyada strong rakhein.",
+      "permission-denied":"Firestore Rules ne access rok diya.",
+      "unavailable":"Service/network filhaal available nahi."
+    };
+    return help[error.code] || (error.code + ": " + (error.message || "Unknown error"));
+  }
+  return error?.message || "Koi error aaya hai. Console aur Firebase settings check karein.";
 }
-document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+function setStatus(id,message){ el(id).textContent = message; }
 
-function makeMedia(url,type){
- let el;
- if((type||"").startsWith("video/")){
-  el=document.createElement("video");el.controls=true;el.playsInline=true;
- }else{
-  el=document.createElement("img");el.alt="Uploaded media";
- }
- el.src=url;el.className="media";return el;
+async function signup(){
+  const name = el("authName").value.trim();
+  const email = el("authEmail").value.trim();
+  const password = el("authPassword").value;
+  if(!name || !email || password.length < 6){
+    return setStatus("authStatus","Name, valid email aur kam az kam 6-character password likhein.");
+  }
+  try{
+    setStatus("authStatus","Account ban raha hai...");
+    const result = await auth.createUserWithEmailAndPassword(email,password);
+    await result.user.updateProfile({displayName:name});
+    await db.collection("users").doc(result.user.uid).set({
+      name, email, createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true});
+    setStatus("authStatus","Account created!");
+  }catch(e){setStatus("authStatus",showError(e));}
 }
-
-function uploadFile(path,file,statusId){
- return new Promise((resolve,reject)=>{
-  const task=uploadBytesResumable(ref(storage,path),file,{contentType:file.type});
-  task.on("state_changed",
-   snap=>{
-    const percent=Math.round(snap.bytesTransferred/snap.totalBytes*100);
-    msg(statusId,"Uploading… "+percent+"%");
-   },
-   reject,
-   async()=>{
-    try{resolve(await getDownloadURL(task.snapshot.ref));}
-    catch(e){reject(e);}
-   }
-  );
- });
+async function login(){
+  try{
+    await auth.signInWithEmailAndPassword(
+      el("authEmail").value.trim(),el("authPassword").value
+    );
+  }catch(e){setStatus("authStatus",showError(e));}
 }
-
-function renderStories(docs){
- for(const id of ["homeStories"]){
-  const box=$(id);box.replaceChildren();
-  if(!docs.length){box.textContent="No stories yet. Add the first story!";continue;}
-  docs.forEach(d=>{
-   const s=d.data(),item=document.createElement("div");item.className="story";
-   const a=document.createElement("a");a.href=s.mediaUrl;a.target="_blank";a.rel="noopener";
-   const ring=document.createElement("div");ring.className="storyring";
-   if((s.mediaType||"").startsWith("video/")){
-    const t=document.createElement("div");t.textContent="▶";t.style.padding="18px";ring.append(t);
-   }else{
-    const img=document.createElement("img");img.src=s.mediaUrl;img.alt="Story";ring.append(img);
-   }
-   const label=document.createElement("div");label.textContent=(s.authorName||s.authorEmail||"Story").split("@")[0];
-   a.append(ring,label);item.append(a);box.append(item);
+async function googleLogin(){
+  try{
+    await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }catch(e){setStatus("authStatus",showError(e));}
+}
+async function logout(){
+  if(liveNewsTimer){clearInterval(liveNewsTimer);liveNewsTimer=null;}
+  await auth.signOut();
+}
+auth.onAuthStateChanged(async user=>{
+  currentUser = user;
+  el("authBox").classList.toggle("hidden",!!user);
+  el("app").classList.toggle("hidden",!user);
+  el("bottomNav").classList.toggle("hidden",!user);
+  el("userBadge").textContent = user ? (user.displayName || user.email || "Member") : "Not logged in";
+  if(user){
+    el("profileName").textContent = user.displayName || "Zenova Member";
+    el("profileEmail").textContent = user.email || "";
+    el("displayName").value = user.displayName || "";
+    await loadFeed();
+    await loadStories();
+    await loadReels();
+  }
+});
+function showPage(page,button){
+  document.querySelectorAll("main>section").forEach(s=>s.classList.add("hidden"));
+  el(page).classList.remove("hidden");
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  if(button)button.classList.add("active");
+  if(page==="newsPage" && !el("newsList").children.length) loadNews();
+  if(page==="homePage")loadFeed();
+  if(page==="shortsPage")loadReels();
+  if(page==="storiesPage")loadStories();
+}
+async function uploadFile(file,path,statusId){
+  if(!currentUser)throw new Error("Pehle login karein.");
+  if(!file)throw new Error("Pehle file select karein.");
+  if(file.size > MAX_UPLOAD_SIZE)throw new Error("File 500 MB se bari hai.");
+  setStatus(statusId,"Upload shuru ho raha hai...");
+  const ref = storage.ref().child(path);
+  const task = ref.put(file);
+  return await new Promise((resolve,reject)=>{
+    task.on("state_changed",snapshot=>{
+      const percent = snapshot.totalBytes ? Math.round(snapshot.bytesTransferred/snapshot.totalBytes*100) : 0;
+      setStatus(statusId,"Uploading: "+percent+"%");
+      if(el("progressBar"))el("progressBar").style.width=percent+"%";
+    },reject,async()=>{
+      try{
+        const url=await task.snapshot.ref.getDownloadURL();
+        setStatus(statusId,"Upload complete!");
+        resolve(url);
+      }catch(e){reject(e);}
+    });
   });
- }
+}
+async function createPost(){
+  try{
+    const text=el("postText").value.trim();
+    const file=el("postFile").files[0];
+    if(!text&&!file)throw new Error("Post text ya photo/video add karein.");
+    let mediaUrl="",mediaType="";
+    if(file){
+      mediaType=file.type.startsWith("video/")?"video":"image";
+      mediaUrl=await uploadFile(file,`posts/${currentUser.uid}/${Date.now()}_${file.name}`,"uploadStatus");
+    }
+    await db.collection("posts").add({
+      uid:currentUser.uid,
+      name:currentUser.displayName||currentUser.email||"Zenova Member",
+      text,mediaUrl,mediaType,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    el("postText").value="";
+    el("postFile").value="";
+    setStatus("uploadStatus","Post published!");
+    await loadFeed();
+  }catch(e){setStatus("uploadStatus",showError(e));}
+}
+async function loadFeed(){
+  try{
+    const snap=await db.collection("posts").orderBy("createdAt","desc").limit(50).get();
+    el("feed").innerHTML="";
+    snap.forEach(doc=>{
+      const p=doc.data();
+      const media=p.mediaUrl ? (p.mediaType==="video"
+        ? `<video controls playsinline preload="metadata" src="${safeText(p.mediaUrl)}"></video>`
+        : `<img loading="lazy" src="${safeText(p.mediaUrl)}" alt="Post image">`) : "";
+      const div=document.createElement("div");
+      div.className="post";
+      div.innerHTML=`<strong>${safeText(p.name||"Zenova Member")}</strong>
+        <p>${safeText(p.text||"")}</p>${media}
+        <p class="muted">Zenova Social World</p>`;
+      el("feed").appendChild(div);
+    });
+    if(!snap.size)el("feed").innerHTML='<div class="panel muted">No posts yet. Be the first to post!</div>';
+  }catch(e){el("feed").innerHTML=`<div class="panel status">${safeText(showError(e))}</div>`;}
+}
+async function uploadReel(){
+  try{
+    const file=el("reelFile").files[0];
+    if(!file||!file.type.startsWith("video/"))throw new Error("Video file select karein.");
+    const url=await uploadFile(file,`reels/${currentUser.uid}/${Date.now()}_${file.name}`,"reelStatus");
+    await db.collection("reels").add({
+      uid:currentUser.uid,name:currentUser.displayName||"Zenova Member",
+      caption:el("reelCaption").value.trim(),url,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    el("reelFile").value="";el("reelCaption").value="";
+    setStatus("reelStatus","Short uploaded!");
+    await loadReels();
+  }catch(e){setStatus("reelStatus",showError(e));}
+}
+async function loadReels(){
+  try{
+    const snap=await db.collection("reels").orderBy("createdAt","desc").limit(30).get();
+    el("reelsFeed").innerHTML="";
+    snap.forEach(doc=>{
+      const r=doc.data(),div=document.createElement("div");
+      div.className="post";
+      div.innerHTML=`<strong>${safeText(r.name||"Zenova Member")}</strong>
+        <p>${safeText(r.caption||"")}</p>
+        <video controls playsinline preload="metadata" src="${safeText(r.url)}"></video>`;
+      el("reelsFeed").appendChild(div);
+    });
+  }catch(e){el("reelsFeed").innerHTML=`<p class="status">${safeText(showError(e))}</p>`;}
+}
+async function uploadStory(){
+  try{
+    const file=el("storyFile").files[0];
+    if(!file)throw new Error("Photo ya video select karein.");
+    const type=file.type.startsWith("video/")?"video":"image";
+    const url=await uploadFile(file,`stories/${currentUser.uid}/${Date.now()}_${file.name}`,"storyStatus");
+    await db.collection("stories").add({
+      uid:currentUser.uid,name:currentUser.displayName||"Zenova Member",
+      url,type,createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    el("storyFile").value="";
+    setStatus("storyStatus","Story uploaded!");
+    await loadStories();
+  }catch(e){setStatus("storyStatus",showError(e));}
+}
+async function loadStories(){
+  try{
+    const snap=await db.collection("stories").orderBy("createdAt","desc").limit(40).get();
+    el("storiesFeed").innerHTML="";
+    snap.forEach(doc=>{
+      const s=doc.data(),div=document.createElement("div");
+      div.className="post";
+      div.innerHTML=`<strong>${safeText(s.name||"Zenova Member")}</strong>`+
+      (s.type==="video"?`<video controls playsinline preload="metadata" src="${safeText(s.url)}"></video>`:`<img loading="lazy" src="${safeText(s.url)}" alt="Story">`);
+      el("storiesFeed").appendChild(div);
+    });
+  }catch(e){el("storiesFeed").innerHTML=`<p class="status">${safeText(showError(e))}</p>`;}
+}
+async function saveProfile(){
+  try{
+    const name=el("displayName").value.trim();
+    if(!name)throw new Error("Name enter karein.");
+    await currentUser.updateProfile({displayName:name});
+    await db.collection("users").doc(currentUser.uid).set({name,email:currentUser.email},{merge:true});
+    el("profileName").textContent=name;
+    el("userBadge").textContent=name;
+    setStatus("profileStatus","Profile saved.");
+  }catch(e){setStatus("profileStatus",showError(e));}
+}
+async function uploadProfilePhoto(){
+  try{
+    const file=el("profilePhoto").files[0];
+    if(!file||!file.type.startsWith("image/"))throw new Error("Image select karein.");
+    const url=await uploadFile(file,`profiles/${currentUser.uid}/${Date.now()}_${file.name}`,"profileStatus");
+    await db.collection("users").doc(currentUser.uid).set({photoURL:url},{merge:true});
+    setStatus("profileStatus","Profile photo uploaded.");
+  }catch(e){setStatus("profileStatus",showError(e));}
 }
 
-function renderPosts(docs){
- const feed=$("feed"),mine=$("myPosts");
- feed.replaceChildren();mine.replaceChildren();
- const posts=docs.map(d=>({id:d.id,...d.data()}));
- const own=posts.filter(p=>p.uid===currentUser?.uid);
- msg("myPostCount","Your posts: "+own.length);
-
- if(!posts.length){msg("feedStatus","No posts yet. Create the first post!");mine.textContent="No posts yet.";return;}
-
- posts.forEach(p=>{
-  const article=document.createElement("article");article.className="post";
-  const head=document.createElement("div");
-  if(p.photoURL){
-   const im=document.createElement("img");im.src=p.photoURL;im.className="smallavatar";im.alt="DP";head.append(im);
+/* COUNTRY NEWS: GDELT public news index */
+async function loadNews(){
+  const requestId=++newsRequestId;
+  const country=el("newsCountry").value;
+  const list=el("newsList");
+  el("articleView").classList.add("hidden");
+  list.innerHTML="";
+  setStatus("newsStatus","Loading latest news...");
+  try{
+    const query=country ? `"${country}"` : "world news";
+    const params=new URLSearchParams({
+      query:query,
+      mode:"ArtList",
+      format:"json",
+      sort:"DateDesc",
+      maxrecords:"30",
+      timespan:"24h"
+    });
+    const response=await fetch("https://api.gdeltproject.org/api/v2/doc/doc?"+params.toString());
+    if(!response.ok)throw new Error("News source returned HTTP "+response.status);
+    const data=await response.json();
+    if(requestId!==newsRequestId)return;
+    const articles=data.articles||[];
+    if(!articles.length){
+      setStatus("newsStatus","Is waqt is selection ke liye news nahi mili. Doosri country try karein.");
+      return;
+    }
+    setStatus("newsStatus",articles.length+" news articles loaded. Last checked: "+new Date().toLocaleTimeString());
+    articles.forEach(article=>{
+      const card=document.createElement("div");
+      card.className="news-card";
+      const title=article.title||"News article";
+      const source=article.domain||article.source||"News publisher";
+      const date=article.seendate||"";
+      const image=article.socialimage||"";
+      card.innerHTML=`
+        ${image?`<img loading="lazy" src="${safeText(image)}" alt="" style="width:100%;max-height:230px;object-fit:cover;border-radius:9px" onerror="this.style.display='none'">`:""}
+        <div class="news-meta">${safeText(source)} · ${safeText(date)}</div>
+        <h3>${safeText(title)}</h3>
+        <button class="secondary" style="width:100%" type="button">Read News in Zenova</button>`;
+      card.querySelector("button").addEventListener("click",()=>openArticle({
+        title,source,date,url:article.url||"",image,
+        summary:article.seendescription||article.description||""
+      }));
+      list.appendChild(card);
+    });
+  }catch(e){
+    if(requestId!==newsRequestId)return;
+    setStatus("newsStatus","News load nahi hui: "+showError(e)+". Internet connection check karein.");
+  }
+}
+function openArticle(article){
+  selectedArticle=article;
+  el("articleTitle").textContent=article.title;
+  el("articleMeta").textContent=[article.source,article.date].filter(Boolean).join(" · ");
+  const content=el("articleContent");
+  content.replaceChildren();
+  if(article.image){
+    const img=document.createElement("img");
+    img.src=article.image;img.alt="";img.style.cssText="max-width:100%;border-radius:10px";
+    img.onerror=()=>img.remove();
+    content.appendChild(img);
+  }
+  const summary=document.createElement("p");
+  summary.textContent=article.summary||"This news item is indexed by the news provider. Read the publisher's full article for complete details.";
+  content.appendChild(summary);
+  el("articleView").classList.remove("hidden");
+  el("articleView").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function closeArticle(){
+  el("articleView").classList.add("hidden");
+  selectedArticle=null;
+}
+function openOriginalArticle(){
+  if(selectedArticle&&selectedArticle.url){
+    window.open(selectedArticle.url,"_blank","noopener,noreferrer");
+  }
+}
+function toggleLiveNews(){
+  if(liveNewsTimer){
+    clearInterval(liveNewsTimer);liveNewsTimer=null;
+    el("liveBtn").textContent="🔴 Start Live Updates";
+    setStatus("newsStatus","Automatic refresh stopped.");
   }else{
-   const av=document.createElement("span");av.textContent=(p.authorName||p.authorEmail||"Z")[0].toUpperCase();head.append(av);
+    el("liveBtn").textContent="⏹ Stop Live Updates";
+    loadNews();
+    liveNewsTimer=setInterval(loadNews,5*60*1000);
+    setStatus("newsStatus","Automatic refresh is on. News refreshes every 5 minutes; this is not a live TV stream.");
   }
-  const name=document.createElement("b");name.textContent=p.authorName||p.authorEmail||"Zenova User";head.append(name);
-  const text=document.createElement("div");text.className="posttext";text.textContent=p.text||"";
-  article.append(head,text);
-  if(p.mediaUrl)article.append(makeMedia(p.mediaUrl,p.mediaType));
-  feed.append(article);
-  if(p.uid===currentUser?.uid)mine.append(article.cloneNode(true));
- });
- msg("feedStatus",posts.length+" recent posts");
 }
+el("newsCountry").addEventListener("change",()=>loadNews());
 
-try{
- const app=initializeApp(firebaseConfig);
- auth=getAuth(app);db=getFirestore(app);storage=getStorage(app);
- msg("authStatus","");
-
- $("signupForm").onsubmit=async e=>{
-  e.preventDefault();
+async function checkConnection(){
   try{
-   msg("authStatus","Creating account…");
-   const cred=await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);
-   const name=$("signupName").value.trim();
-   if(name)await updateProfile(cred.user,{displayName:name});
-   msg("authStatus","Account created successfully!");
-  }catch(x){msg("authStatus",friendlyError(x));}
- };
-
- $("loginForm").onsubmit=async e=>{
-  e.preventDefault();
-  try{
-   msg("authStatus","Signing in…");
-   await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);
-   msg("authStatus","Signed in.");
-  }catch(x){msg("authStatus",friendlyError(x));}
- };
-
- $("googleBtn").onclick=async()=>{
-  try{
-   msg("authStatus","Opening Google sign-in…");
-   await signInWithPopup(auth,new GoogleAuthProvider());
-  }catch(x){msg("authStatus",friendlyError(x));}
- };
-
- async function logout(){
-  if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());
-  cameraStream=null;
-  try{await signOut(auth);}catch(e){alert(friendlyError(e));}
- }
- $("logoutBtn2").onclick=logout;
-
- onAuthStateChanged(auth,user=>{
-  currentUser=user;
-  $("authPage").classList.toggle("hidden",!!user);
-  if(stopPosts){stopPosts();stopPosts=null;}
-  if(stopStories){stopStories();stopStories=null;}
-
-  if(!user){
-   msg("feedStatus","Please sign in to view posts.");
-   $("feed").replaceChildren();
-   $("homeStories").replaceChildren();
-   return;
+    await db.collection("connectionCheck").limit(1).get();
+    setStatus("diagnosticStatus","Firestore connection successful.");
+  }catch(e){
+    setStatus("diagnosticStatus",showError(e)+"\nA Rules permission error may still mean the service is reachable but this test collection is blocked.");
   }
-
-  msg("profileName",user.displayName||"Zenova User");
-  msg("profileEmail",user.email||"");
-  $("displayName").value=user.displayName||"";
-  const fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100%25' height='100%25' fill='%231a2b43'/%3E%3Ctext x='50%25' y='60%25' font-size='48' text-anchor='middle' fill='%2314d6c5'%3E%E2%97%89%3C/text%3E%3C/svg%3E";
-  $("profilePhoto").src=user.photoURL||fallback;
-  $("dpPreview").src=user.photoURL||fallback;
-
-  stopPosts=onSnapshot(
-   query(collection(db,"posts"),orderBy("createdAt","desc"),limit(60)),
-   snap=>renderPosts(snap.docs),
-   err=>msg("feedStatus",friendlyError(err))
-  );
-
-  stopStories=onSnapshot(
-   query(collection(db,"stories"),orderBy("createdAt","desc"),limit(30)),
-   snap=>renderStories(snap.docs),
-   err=>msg("storyStatus",friendlyError(err))
-  );
- });
-
- $("mediaFile").onchange=()=>{
-  const f=$("mediaFile").files[0],box=$("mediaPreview");box.replaceChildren();
-  if(!f)return;
-  if(!f.type.startsWith("image/")&&!f.type.startsWith("video/")){
-   msg("postStatus","Select an image or video.");$("mediaFile").value="";return;
-  }
-  if(f.size>100*1024*1024){
-   msg("postStatus","File 100 MB se chhoti honi chahiye.");$("mediaFile").value="";return;
-  }
-  box.append(makeMedia(URL.createObjectURL(f),f.type));
-  msg("postStatus","File selected: "+f.name);
- };
-
- $("postForm").onsubmit=async e=>{
-  e.preventDefault();
-  const user=auth.currentUser,file=$("mediaFile").files[0],text=$("postText").value.trim();
-  if(!user){msg("postStatus","Pehle sign in karein.");return;}
-  if(!text&&!file){msg("postStatus","Text likhein ya photo/video select karein.");return;}
-  if(file&&file.size>100*1024*1024){msg("postStatus","File 100 MB se chhoti honi chahiye.");return;}
-  const btn=$("publishBtn");btn.disabled=true;
-  try{
-   let mediaUrl="",mediaType="";
-   if(file){
-    const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
-    mediaUrl=await uploadFile("posts/"+user.uid+"/"+Date.now()+"_"+safe,file,"postStatus");
-    mediaType=file.type;
-   }
-   msg("postStatus","Saving post…");
-   await addDoc(collection(db,"posts"),{
-    uid:user.uid,authorName:user.displayName||"",
-    authorEmail:user.email||"",photoURL:user.photoURL||"",
-    text,mediaUrl,mediaType,createdAt:serverTimestamp()
-   });
-   $("postText").value="";$("mediaFile").value="";$("mediaPreview").replaceChildren();
-   msg("postStatus","Published successfully!");
-   go("home");
-  }catch(x){msg("postStatus",friendlyError(x));}
-  finally{btn.disabled=false;}
- };
-
- $("uploadStory").onclick=async()=>{
-  const user=auth.currentUser,file=$("storyFile").files[0];
-  if(!user){msg("storyStatus","Pehle sign in karein.");return;}
-  if(!file){msg("storyStatus","Photo ya video select karein.");return;}
-  if(!file.type.startsWith("image/")&&!file.type.startsWith("video/")){
-   msg("storyStatus","Sirf photo ya video select karein.");return;
-  }
-  if(file.size>100*1024*1024){msg("storyStatus","File 100 MB se chhoti honi chahiye.");return;}
-  const btn=$("uploadStory");btn.disabled=true;
-  try{
-   const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
-   const mediaUrl=await uploadFile("stories/"+user.uid+"/"+Date.now()+"_"+safe,file,"storyStatus");
-   await addDoc(collection(db,"stories"),{
-    uid:user.uid,authorName:user.displayName||"",
-    authorEmail:user.email||"",mediaUrl,mediaType:file.type,
-    createdAt:serverTimestamp()
-   });
-   $("storyFile").value="";msg("storyStatus","Story published successfully!");
-   go("home");
-  }catch(x){msg("storyStatus",friendlyError(x));}
-  finally{btn.disabled=false;}
- };
-
- $("dpFile").onchange=()=>{
-  const f=$("dpFile").files[0];
-  if(!f)return;
-  if(!f.type.startsWith("image/")){msg("profileStatus","DP ke liye image select karein.");return;}
-  if(f.size>5*1024*1024){msg("profileStatus","DP 5 MB se chhoti honi chahiye.");return;}
-  $("dpPreview").src=URL.createObjectURL(f);
- };
-
- $("saveProfile").onclick=async()=>{
-  const user=auth.currentUser;
-  if(!user){msg("profileStatus","Pehle sign in karein.");return;}
-  const file=$("dpFile").files[0],name=$("displayName").value.trim();
-  const btn=$("saveProfile");btn.disabled=true;
-  try{
-   let photoURL=user.photoURL||"";
-   if(file){
-    if(!file.type.startsWith("image/"))throw Error("DP ke liye image select karein.");
-    if(file.size>5*1024*1024)throw Error("DP 5 MB se chhoti honi chahiye.");
-    photoURL=await uploadFile("profiles/"+user.uid+"/"+Date.now()+"_"+file.name,file,"profileStatus");
-   }
-   await updateProfile(user,{displayName:name||user.displayName||"",photoURL});
-   $("profilePhoto").src=photoURL||$("profilePhoto").src;
-   $("dpPreview").src=photoURL||$("dpPreview").src;
-   msg("profileName",user.displayName||"Zenova User");
-   msg("profileEmail",user.email||"");
-   msg("profileStatus","Profile and DP saved!");
-  }catch(x){msg("profileStatus",friendlyError(x));}
-  finally{btn.disabled=false;}
- };
-
- $("reelFile").onchange=()=>{
-  const f=$("reelFile").files[0];if(!f)return;
-  if(!f.type.startsWith("video/")){msg("reelStatus","Select a video file.");return;}
-  if(f.size>100*1024*1024){msg("reelStatus","Video 100 MB se chhoti honi chahiye.");return;}
-  $("reelPreview").src=URL.createObjectURL(f);
-  $("reelPreview").classList.remove("hidden");
-  msg("reelStatus","Preview ready. Share it from Create Post.");
- };
-
- $("startCamera").onclick=async()=>{
-  try{
-   if(!navigator.mediaDevices?.getUserMedia)throw Error("HTTPS website aur camera-supported browser chahiye.");
-   cameraStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-   $("cameraVideo").srcObject=cameraStream;$("cameraVideo").classList.remove("hidden");
-   msg("liveStatus","Camera preview started. Other users cannot see this broadcast.");
-  }catch(e){msg("liveStatus","Camera start nahi hua: "+e.message);}
- };
- $("stopCamera").onclick=()=>{
-  if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());
-  cameraStream=null;$("cameraVideo").srcObject=null;$("cameraVideo").classList.add("hidden");
-  msg("liveStatus","Camera stopped.");
- };
-
- $("loadNews").onclick=async()=>{
-  const country=$("country").value,mode=$("newsMode").value;
-  const search=mode==="video"?country+" video news":mode==="live"?country+" live news broadcast":country+" latest news";
-  msg("newsStatus","Loading news…");$("newsResults").replaceChildren();
-  try{
-   const url="https://api.gdeltproject.org/api/v2/doc/doc?query="+encodeURIComponent(search)+"&mode=ArtList&format=json&maxrecords=15&sort=HybridRel";
-   const response=await fetch(url);
-   if(!response.ok)throw Error("News service unavailable");
-   const data=await response.json(),articles=data.articles||[];
-   if(!articles.length){msg("newsStatus","No results found. Try another country or news type.");return;}
-   articles.forEach(article=>{
-    const box=document.createElement("div");box.className="newsitem";
-    const link=document.createElement("a");link.href=article.url;link.target="_blank";link.rel="noopener";link.textContent=article.title||"Open news";
-    const meta=document.createElement("p");meta.className="muted";meta.textContent=article.domain||"News publisher";
-    const listen=document.createElement("button");listen.className="btn secondary";listen.textContent="🔊 Listen";
-    listen.onclick=()=>speak(article.title||"News headline");
-    box.append(link,meta,listen);$("newsResults").append(box);
-   });
-   msg("newsStatus",articles.length+" results. Video searches can also include regular articles.");
-  }catch(e){msg("newsStatus","News load nahi hui: "+e.message);}
- };
-
- function speak(text){
-  if(!("speechSynthesis" in window)){msg("newsStatus","Voice reading browser mein available nahi.");return;}
-  speechSynthesis.cancel();
-  speechSynthesis.speak(new SpeechSynthesisUtterance(text));
- }
- $("listenNews").onclick=()=>{
-  const titles=[...$("newsResults").querySelectorAll(".newsitem a")].map(a=>a.textContent);
-  if(!titles.length){msg("newsStatus","Pehle Load News dabayein.");return;}
-  speak(titles.slice(0,10).join(". "));
- };
- $("stopNews").onclick=()=>{if("speechSynthesis" in window)speechSynthesis.cancel();};
-
- $("clearError").onclick=()=>{
-  msg("latestError","Abhi koi error record nahi hua.");
-  msg("diagnosticStatus","Error message clear kar diya gaya.");
- };
-
- $("runDiagnostics").onclick=()=>{
-  const results=[];
-  results.push("Internet: "+(navigator.onLine?"Browser online hai":"Browser offline hai — internet reconnect karein."));
-  results.push("Authentication: "+(auth?.currentUser?"Signed in ("+(auth.currentUser.email||"Google account")+")":"Signed out — pehle login karein."));
-  results.push("Firebase SDK: "+(auth&&db&&storage?"Initialize ho gaya":"Initialize nahi hua."));
-  results.push("Storage bucket: "+(firebaseConfig.storageBucket||"Missing — firebaseConfig mein bucket name add karein."));
-  results.push("Website: "+(location.protocol==="https:"||location.hostname==="localhost"?"HTTPS / secure context":"HTTPS use karein, khas taur par camera ke liye."));
-  results.push("Note: Yeh basic checks hain. Firebase Rules aur server permissions ko directly test/change nahi karte.");
-  msg("diagnosticStatus",results.join("\\n"));
-  if(!navigator.onLine) msg("latestError","Browser offline hai. Internet reconnect karke dobara Check App Setup karein.");
- };
-
-}catch(e){
- msg("authStatus","Firebase setup error: "+friendlyError(e));
 }
 </script>
 </body>
