@@ -2,319 +2,559 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#090914">
-  <title>ZenoTik — Connect Your World</title>
-  <style>
-    *{box-sizing:border-box}
-    :root{--bg:#090914;--panel:#121225;--purple:#965cff;--blue:#36baff;--text:#f6f3ff;--muted:#aaa6c4}
-    body{margin:0;background:radial-gradient(ellipse at top,#21103d 0%,var(--bg) 55%);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
-    button,input,textarea{font:inherit}
-    button{cursor:pointer}
-    .top{display:flex;justify-content:space-between;align-items:center;padding:18px 6%;border-bottom:1px solid #ffffff12;position:sticky;top:0;background:#090914eF;backdrop-filter:blur(15px);z-index:5}
-    .logo{font-size:27px;font-weight:900;letter-spacing:-1px;background:linear-gradient(90deg,#b98aff,#35c5ff);color:transparent;background-clip:text}
-    .wrap{width:min(960px,92%);margin:30px auto}
-    .card{background:#121225eF;border:1px solid #ffffff17;border-radius:20px;padding:24px;box-shadow:0 15px 55px #0005;margin-bottom:20px}
-    h1{font-size:clamp(28px,5vw,44px);margin:0 0 12px}
-    h2{margin:0 0 16px}
-    .gradient{background:linear-gradient(90deg,#c4a0ff,#48cfff);color:transparent;background-clip:text}
-    .muted{color:var(--muted);line-height:1.6}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    input,textarea{width:100%;padding:13px 14px;border:1px solid #393451;border-radius:12px;background:#090914;color:white;outline:none;margin:7px 0}
-    input:focus,textarea:focus{border-color:var(--purple)}
-    textarea{min-height:100px;resize:vertical}
-    .btn{border:0;border-radius:12px;padding:12px 16px;font-weight:bold;color:white;background:linear-gradient(100deg,#8b48ee,#377ff4)}
-    .btn:hover{filter:brightness(1.12)}
-    .secondary{background:#24213b;border:1px solid #ffffff20}
-    .full{width:100%;margin-top:9px}
-    .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .hidden{display:none!important}
-    .post{padding:18px 0;border-bottom:1px solid #ffffff16}
-    .post:last-child{border-bottom:0}
-    .posthead{display:flex;gap:10px;align-items:center;margin-bottom:12px}
-    .avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#9a55ff,#36c6ff);font-weight:bold;color:#090914}
-    .postbody{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55}
-    .status{font-size:14px;color:#c9b8ff;min-height:20px;margin-top:12px}
-    .badge{font-size:12px;border:1px solid #ffffff22;padding:6px 9px;border-radius:30px;color:#c6b4ff}
-    footer{text-align:center;padding:28px 12px;color:#77738f;font-size:12px}
-    @media(max-width:650px){.grid{grid-template-columns:1fr}.card{padding:19px}.top{padding:15px 4%}.wrap{margin:20px auto}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080817">
+<title>Zenova — Connect, Share, Earn</title>
+
+<style>
+:root {
+  --bg:#080817;
+  --panel:#121226;
+  --purple:#a34dff;
+  --blue:#27c7ff;
+  --text:#f7f4ff;
+  --muted:#aaa5c8;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:radial-gradient(ellipse at top,#281047,var(--bg) 55%);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+button,input,textarea { font:inherit; }
+button { cursor:pointer; color:white; }
+header {
+  position:sticky; top:0; z-index:5;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 5%; background:#090916ed;
+  border-bottom:1px solid #ffffff20;
+}
+.logo {
+  font-size:28px; font-weight:900;
+  background:linear-gradient(90deg,#f2a8ff,#9254ff,#35d5ff);
+  color:transparent; background-clip:text;
+}
+.wrap { width:min(1000px,94%); margin:22px auto 70px; }
+.hero,.card,.sidebar {
+  background:#121226ee; border:1px solid #ffffff20;
+  border-radius:18px; padding:20px; margin-bottom:16px;
+}
+.hero {
+  background:linear-gradient(110deg,#321050aa,#11152dcc);
+  border-color:#a34dff66;
+}
+.hero h1 { font-size:clamp(28px,5vw,44px); }
+.grad {
+  background:linear-gradient(90deg,#f2a8ff,#9b83ff,#32d6ff);
+  color:transparent; background-clip:text;
+}
+.muted { color:var(--muted); line-height:1.5; }
+.pill {
+  display:inline-block; padding:6px 10px;
+  border:1px solid #a34dff77; border-radius:30px;
+  font-size:12px; color:#dfc9ff;
+}
+.layout { display:grid; grid-template-columns:175px 1fr; gap:16px; }
+.sidebar { height:max-content; position:sticky; top:80px; padding:8px; }
+.nav {
+  display:block; width:100%; text-align:left;
+  padding:12px; margin:3px 0; border-radius:11px;
+  border:1px solid transparent; background:transparent; color:#ddd6f4;
+}
+.nav.active,.nav:hover { background:#8f3fff33; border-color:#9f5cff88; }
+.page { display:none; }
+.page.active { display:block; }
+.btn {
+  border:0; border-radius:11px; padding:11px 15px;
+  background:linear-gradient(100deg,#9c3eff,#386dff);
+  font-weight:bold;
+}
+.secondary { background:#25213d; border:1px solid #ffffff20; }
+.input {
+  width:100%; padding:12px; margin:7px 0;
+  border:1px solid #393456; border-radius:11px;
+  background:#090914; color:white;
+}
+.row { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
+.stories { display:flex; gap:14px; overflow:auto; }
+.story { min-width:60px; text-align:center; color:var(--muted); font-size:12px; }
+.ring {
+  width:55px; height:55px; border-radius:50%; padding:3px;
+  margin:0 auto 6px; background:linear-gradient(135deg,#ff4cff,#28d6ff);
+}
+.ring span {
+  height:100%; display:grid; place-items:center;
+  border-radius:50%; background:#25203d; color:white;
+}
+.post { border-top:1px solid #ffffff20; padding:15px 0; }
+.avatar {
+  display:inline-grid; place-items:center; width:38px; height:38px;
+  border-radius:50%; background:linear-gradient(135deg,#ad47ff,#23c9ff);
+  color:#090914; font-weight:bold; margin-right:8px;
+}
+.posttext { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.5; margin:12px 0; }
+.actions { display:flex; gap:7px; flex-wrap:wrap; }
+.actions button {
+  background:#211c39; border:1px solid #ffffff20;
+  border-radius:9px; padding:8px 11px;
+}
+.reelstage {
+  position:relative; width:min(420px,100%); height:65vh; min-height:400px;
+  margin:auto; border-radius:20px; overflow:hidden;
+  border:1px solid #a34dff77;
+  background:radial-gradient(circle at 50% 20%,#51258a,#111126 60%,#05050d);
+  display:grid; place-items:center;
+}
+.reelstage video { width:100%; height:100%; object-fit:contain; background:#05050d; }
+.reelcaption { position:absolute; bottom:15px; left:14px; text-shadow:0 2px 8px #000; }
+.reelactions { position:absolute; right:10px; bottom:90px; display:grid; gap:10px; }
+.reelactions button {
+  width:42px; height:42px; border-radius:50%;
+  background:#080817cc; border:1px solid #ffffff55;
+}
+.livebox {
+  border:1px solid #e14dff77; border-radius:16px; padding:25px;
+  text-align:center; background:radial-gradient(ellipse,#43164e,#100e25 70%);
+}
+.status,.hint { font-size:12px; color:#c5b9e8; line-height:1.5; }
+.hidden { display:none !important; }
+footer { text-align:center; color:#8c83ab; padding:25px; font-size:12px; }
+@media(max-width:700px) {
+  .layout { grid-template-columns:1fr; }
+  .sidebar { display:flex; overflow:auto; position:sticky; top:65px; z-index:4; }
+  .nav { white-space:nowrap; width:auto; }
+  .wrap { margin-top:14px; }
+  .reelstage { height:62vh; }
+}
+</style>
 </head>
+
 <body>
-  <header class="top">
-    <div class="logo">ZenoTik ✦</div>
-    <span class="badge" id="connection">Connecting...</span>
-  </header>
+<header>
+  <div>
+    <div class="logo">✦ Zenova</div>
+    <small class="muted">Connect • Share • Earn</small>
+  </div>
+  <span class="pill" id="connection">Connecting…</span>
+</header>
 
-  <main class="wrap">
-    <section class="card">
-      <span class="badge">YOUR WORLD. YOUR VOICE.</span>
-      <h1 style="margin-top:18px">Welcome to <span class="gradient">ZenoTik</span></h1>
-      <p class="muted">Connect with people, share your thoughts, and discover a new social world.</p>
-    </section>
+<main class="wrap">
+<section class="hero">
+  <span class="pill">THE NEXT GENERATION SOCIAL PLATFORM</span>
+  <h1>Be yourself.<br><span class="grad">Share your world.</span></h1>
+  <p class="muted">Stories, short videos, community posts and live experiences in one place.</p>
+</section>
 
-    <section id="authSection" class="grid">
-      <div class="card">
-        <h2>Join ZenoTik</h2>
-        <p class="muted">Create an account or sign in to get started.</p>
-        <form id="signupForm">
-          <input id="signupEmail" type="email" placeholder="Email address" required autocomplete="email">
-          <input id="signupPassword" type="password" placeholder="Password (at least 6 characters)" minlength="6" required autocomplete="new-password">
-          <button class="btn full" type="submit">Create account</button>
-        </form>
-        <form id="loginForm" style="margin-top:18px">
-          <input id="loginEmail" type="email" placeholder="Email address" required autocomplete="email">
-          <input id="loginPassword" type="password" placeholder="Password" required autocomplete="current-password">
-          <button class="btn secondary full" type="submit">Log in</button>
-        </form>
-        <button id="googleBtn" class="btn secondary full" type="button">Continue with Google</button>
-        <p id="authStatus" class="status" role="status"></p>
+<div class="layout">
+<nav class="sidebar">
+  <button class="nav active" data-page="home">⌂ Home</button>
+  <button class="nav" data-page="reels">▶ Reels</button>
+  <button class="nav" data-page="live">◉ Live</button>
+  <button class="nav" data-page="create">＋ Create</button>
+  <button class="nav" data-page="profile">◎ Profile</button>
+  <button class="nav" data-page="account">♙ Account</button>
+</nav>
+
+<div>
+<section id="home" class="page active">
+  <div class="card">
+    <div class="row"><h2>Stories</h2><span class="pill">Community</span></div>
+    <div class="stories">
+      <div class="story"><div class="ring"><span>＋</span></div>Add Story</div>
+      <div class="story"><div class="ring"><span>A</span></div>Ayesha</div>
+      <div class="story"><div class="ring"><span>R</span></div>Ali Raza</div>
+      <div class="story"><div class="ring"><span>S</span></div>Sara</div>
+      <div class="story"><div class="ring"><span>B</span></div>Bilal</div>
+    </div>
+    <p class="hint">Demo story circles. Real story uploads need Storage setup.</p>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <h2>Community Feed</h2>
+      <button class="btn" data-goto="create">＋ Create Post</button>
+    </div>
+    <p class="muted" id="feedMessage">Sign in to load community posts.</p>
+    <div id="feed"></div>
+  </div>
+</section>
+
+<section id="reels" class="page">
+  <div class="card">
+    <div class="row"><h2>Reels</h2><span class="pill">Short Videos</span></div>
+    <p class="muted">Choose a video from your device to preview it.</p>
+    <input class="input" id="reelFile" type="file" accept="video/*">
+    <div class="reelstage">
+      <div id="reelPlaceholder">
+        <div style="font-size:55px;text-align:center">▶</div>
+        <h2 class="grad">Your next Reel</h2>
+        <p class="muted">Select a video above</p>
       </div>
-
-      <div class="card">
-        <h2 class="gradient">A new social experience</h2>
-        <p class="muted">Your space to express yourself, share updates, and stay connected.</p>
-        <p>✦ Simple account creation</p>
-        <p>✦ Google sign-in</p>
-        <p>✦ Share text posts</p>
-        <p>✦ View the community feed</p>
-        <p class="muted">More features like image uploads, messaging and live streaming need additional development.</p>
+      <video id="reelVideo" class="hidden" controls playsinline loop></video>
+      <div id="reelCaption" class="reelcaption hidden"><b>@yourprofile</b><div>Your Reel preview</div></div>
+      <div class="reelactions">
+        <button id="likeReel" title="Like">♥</button>
+        <button id="commentReel" title="Comment">☏</button>
+        <button id="shareReel" title="Share">↗</button>
       </div>
-    </section>
+    </div>
+    <p id="reelStatus" class="status"></p>
+    <p class="hint">This is a local video preview. Public Reels require Firebase Storage upload functionality.</p>
+  </div>
+</section>
 
-    <section id="appSection" class="hidden">
-      <div class="card">
-        <div class="row">
-          <div>
-            <h2>Welcome back!</h2>
-            <p class="muted" id="userEmail"></p>
-          </div>
-          <button id="logoutBtn" class="btn secondary" type="button">Log out</button>
-        </div>
+<section id="live" class="page">
+  <div class="card">
+    <div class="row"><h2>Live Streaming</h2><span class="pill">LIVE STUDIO</span></div>
+    <div class="livebox">
+      <div style="font-size:48px">🔴</div>
+      <h2>Go Live on Zenova</h2>
+      <p class="muted">Enable your camera for a local preview.</p>
+      <button class="btn" id="cameraBtn">Enable Camera</button>
+      <button class="btn secondary" id="stopCamera">Stop Preview</button>
+      <video id="cameraVideo" class="hidden" autoplay muted playsinline style="width:100%;max-height:300px;margin-top:16px;border-radius:12px"></video>
+      <p id="liveStatus" class="status"></p>
+    </div>
+    <p class="muted">This is a local camera preview, not a public broadcast. Public live streaming requires a streaming service/backend such as WebRTC infrastructure.</p>
+  </div>
+</section>
+
+<section id="create" class="page">
+  <div class="card">
+    <h2>Create a Post</h2>
+    <form id="postForm">
+      <textarea class="input" id="postText" maxlength="1000" rows="4" placeholder="What's on your mind?"></textarea>
+      <input class="input" id="mediaFile" type="file" accept="image/*,video/*">
+      <div id="mediaPreview"></div>
+      <div class="row">
+        <span class="hint" id="charCount">0 / 1000</span>
+        <button class="btn" type="submit">Publish Post</button>
       </div>
+    </form>
+    <p id="postStatus" class="status"></p>
+    <p class="hint">Text posts can be saved to Firestore after sign-in. Media is only previewed locally until Storage is configured.</p>
+  </div>
+</section>
 
-      <div class="card">
-        <h2>Share an update</h2>
-        <form id="postForm">
-          <textarea id="postText" maxlength="1000" placeholder="What's on your mind?" required></textarea>
-          <div class="row">
-            <span class="muted" id="charCount">0 / 1000</span>
-            <button id="postBtn" class="btn" type="submit">Publish post</button>
-          </div>
-        </form>
-        <p id="postStatus" class="status" role="status"></p>
-      </div>
+<section id="profile" class="page">
+  <div class="card">
+    <h2 id="profileName">Your Zenova Profile</h2>
+    <p id="profileEmail" class="muted">Sign in to load your account.</p>
+    <div class="row">
+      <div><h2 id="postCount">0</h2><span class="hint">Your posts</span></div>
+      <div><h2>—</h2><span class="hint">Followers</span></div>
+      <div><h2>—</h2><span class="hint">Following</span></div>
+    </div>
+    <p class="hint">Followers/following and editable profile details require additional database features.</p>
+    <h3>Your Posts</h3>
+    <div id="myPosts" class="muted">Sign in to view posts.</div>
+  </div>
+</section>
 
-      <div class="card">
-        <div class="row">
-          <h2>Community Feed</h2>
-          <span class="badge">Latest posts</span>
-        </div>
-        <div id="feed"><p class="muted">Loading posts...</p></div>
-      </div>
-    </section>
-  </main>
+<section id="account" class="page">
+  <div class="card">
+    <h2>Sign in to Zenova</h2>
+    <form id="signupForm">
+      <input class="input" id="signupEmail" type="email" placeholder="Email address" required>
+      <input class="input" id="signupPassword" type="password" minlength="6" placeholder="Password (minimum 6 characters)" required>
+      <button class="btn" type="submit">Create Account</button>
+    </form>
+    <hr style="border-color:#ffffff20;margin:20px 0">
+    <form id="loginForm">
+      <input class="input" id="loginEmail" type="email" placeholder="Email address" required>
+      <input class="input" id="loginPassword" type="password" placeholder="Password" required>
+      <button class="btn secondary" type="submit">Log In</button>
+    </form>
+    <button class="btn secondary" id="googleBtn" style="margin-top:10px">Continue with Google</button>
+    <button class="btn secondary hidden" id="logoutBtn" style="margin-left:8px">Log Out</button>
+    <p id="authStatus" class="status"></p>
+  </div>
+</section>
+</div>
+</div>
+</main>
 
-  <footer>
-    ZenoTik · Connect Your World<br><br>
-    MADE IN MIAN ABDULLAH GULZAR
-  </footer>
+<footer>Zenova · Connect • Share • Earn<br><br>MADE IN MIAN ABDULLAH GULZAR</footer>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
-    import {
-      getAuth, onAuthStateChanged, createUserWithEmailAndPassword,
-      signInWithEmailAndPassword, GoogleAuthProvider,
-      signInWithPopup, signOut
-    } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
-    import {
-      getFirestore, collection, addDoc, query, orderBy, limit,
-      onSnapshot, serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+import {
+  getAuth, onAuthStateChanged, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+import {
+  getFirestore, collection, addDoc, query, orderBy,
+  limit, onSnapshot, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
-    // Your Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyDmwJMYmfhOUclZF5drJUC8nsQN_OQdWWY",
-      authDomain: "zenotik-8fe5b.firebaseapp.com",
-      projectId: "zenotik-8fe5b",
-      storageBucket: "zenotik-8fe5b.firebasestorage.app",
-      messagingSenderId: "196726457517",
-      appId: "1:196726457517:web:20b604b7a44e6cb8bf3224",
-      measurementId: "G-G8QB24W3Y8"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyDmwJMYmfhOUclZF5drJUC8nsQN_OQdWWY",
+  authDomain: "zenotik-8fe5b.firebaseapp.com",
+  projectId: "zenotik-8fe5b",
+  storageBucket: "zenotik-8fe5b.firebasestorage.app",
+  messagingSenderId: "196726457517",
+  appId: "1:196726457517:web:20b604b7a44e6cb8bf3224",
+  measurementId: "G-G8QB24W3Y8"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const googleProvider = new GoogleAuthProvider();
+const $ = id => document.getElementById(id);
+let auth, db, unsubscribe = null, camera = null;
 
-    const $ = id => document.getElementById(id);
-    let stopFeed = null;
+function showMessage(id, text) { $(id).textContent = text; }
 
-    function showStatus(id, message) {
-      $(id).textContent = message;
-    }
+function readableError(e) {
+  const errors = {
+    "auth/unauthorized-domain": "Add your GitHub Pages domain in Firebase Authentication > Settings > Authorized domains.",
+    "auth/operation-not-allowed": "Enable this sign-in method in Firebase Authentication.",
+    "auth/invalid-credential": "Email or password is incorrect.",
+    "auth/email-already-in-use": "This email already has an account. Please log in.",
+    "permission-denied": "Firestore Rules denied access. Check your published rules."
+  };
+  return errors[e.code] || e.message || "Something went wrong.";
+}
 
-    function friendlyError(error) {
-      const messages = {
-        "auth/email-already-in-use": "This email already has an account. Please log in.",
-        "auth/invalid-credential": "Email or password is incorrect.",
-        "auth/weak-password": "Use a stronger password with at least 6 characters.",
-        "auth/popup-closed-by-user": "Google sign-in was cancelled.",
-        "auth/unauthorized-domain": "Add this website domain in Firebase Authentication → Settings → Authorized domains.",
-        "auth/operation-not-allowed": "Enable this sign-in method in Firebase Authentication.",
-        "permission-denied": "Firestore Rules are blocking this action. Check your published rules."
-      };
-      return messages[error.code] || error.message || "Something went wrong.";
-    }
+function navigate(page) {
+  document.querySelectorAll(".page").forEach(el => el.classList.toggle("active", el.id === page));
+  document.querySelectorAll(".nav").forEach(el => el.classList.toggle("active", el.dataset.page === page));
+  window.scrollTo({top:0, behavior:"smooth"});
+}
 
-    $("connection").textContent = "Firebase ready";
+document.querySelectorAll("[data-page]").forEach(button => {
+  button.addEventListener("click", () => navigate(button.dataset.page));
+});
+document.querySelectorAll("[data-goto]").forEach(button => {
+  button.addEventListener("click", () => navigate(button.dataset.goto));
+});
 
-    $("signupForm").addEventListener("submit", async event => {
-      event.preventDefault();
-      showStatus("authStatus", "Creating your account...");
-      try {
-        await createUserWithEmailAndPassword(
-          auth, $("signupEmail").value.trim(), $("signupPassword").value
-        );
-        showStatus("authStatus", "Account created successfully!");
-      } catch (error) {
-        showStatus("authStatus", friendlyError(error));
-      }
-    });
+$("postText").addEventListener("input", () => {
+  showMessage("charCount", $("postText").value.length + " / 1000");
+});
 
-    $("loginForm").addEventListener("submit", async event => {
-      event.preventDefault();
-      showStatus("authStatus", "Signing in...");
-      try {
-        await signInWithEmailAndPassword(
-          auth, $("loginEmail").value.trim(), $("loginPassword").value
-        );
-      } catch (error) {
-        showStatus("authStatus", friendlyError(error));
-      }
-    });
+$("reelFile").addEventListener("change", () => {
+  const file = $("reelFile").files[0];
+  if (!file) return;
+  if (!file.type.startsWith("video/")) {
+    showMessage("reelStatus", "Please choose a video file.");
+    return;
+  }
+  $("reelVideo").src = URL.createObjectURL(file);
+  $("reelVideo").classList.remove("hidden");
+  $("reelPlaceholder").classList.add("hidden");
+  $("reelCaption").classList.remove("hidden");
+  showMessage("reelStatus", "Video preview ready on this device.");
+});
 
-    $("googleBtn").addEventListener("click", async () => {
-      showStatus("authStatus", "Opening Google sign-in...");
-      try {
-        await signInWithPopup(auth, googleProvider);
-      } catch (error) {
-        showStatus("authStatus", friendlyError(error));
-      }
-    });
+$("likeReel").addEventListener("click", () => showMessage("reelStatus", "Like preview only. Likes are not saved yet."));
+$("commentReel").addEventListener("click", () => showMessage("reelStatus", "Comments need a comments database feature."));
+$("shareReel").addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(location.href);
+    showMessage("reelStatus", "Page link copied.");
+  } catch {
+    showMessage("reelStatus", "Copy the website URL from your browser.");
+  }
+});
 
-    $("logoutBtn").addEventListener("click", async () => {
-      try {
-        await signOut(auth);
-      } catch (error) {
-        alert(friendlyError(error));
-      }
-    });
+$("cameraBtn").addEventListener("click", async () => {
+  try {
+    camera = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
+    $("cameraVideo").srcObject = camera;
+    $("cameraVideo").classList.remove("hidden");
+    showMessage("liveStatus", "Camera preview is on. You are NOT broadcasting publicly.");
+  } catch (e) {
+    showMessage("liveStatus", "Camera unavailable or permission denied: " + e.message);
+  }
+});
 
-    $("postText").addEventListener("input", () => {
-      $("charCount").textContent = `${$("postText").value.length} / 1000`;
-    });
+$("stopCamera").addEventListener("click", () => {
+  if (camera) camera.getTracks().forEach(track => track.stop());
+  camera = null;
+  $("cameraVideo").srcObject = null;
+  $("cameraVideo").classList.add("hidden");
+  showMessage("liveStatus", "Camera preview stopped.");
+});
 
-    $("postForm").addEventListener("submit", async event => {
-      event.preventDefault();
-      const user = auth.currentUser;
-      const text = $("postText").value.trim();
-      if (!user || !text) return;
+$("mediaFile").addEventListener("change", () => {
+  const file = $("mediaFile").files[0];
+  const container = $("mediaPreview");
+  container.replaceChildren();
+  if (!file) return;
 
-      $("postBtn").disabled = true;
-      showStatus("postStatus", "Publishing...");
-      try {
-        await addDoc(collection(db, "posts"), {
-          uid: user.uid,
-          authorEmail: user.email || user.displayName || "ZenoTik user",
-          text,
-          createdAt: serverTimestamp()
-        });
-        $("postText").value = "";
-        $("charCount").textContent = "0 / 1000";
-        showStatus("postStatus", "Your post has been published!");
-      } catch (error) {
-        showStatus("postStatus", friendlyError(error));
-      } finally {
-        $("postBtn").disabled = false;
-      }
-    });
+  let element;
+  if (file.type.startsWith("video/")) {
+    element = document.createElement("video");
+    element.controls = true;
+  } else if (file.type.startsWith("image/")) {
+    element = document.createElement("img");
+  } else {
+    return;
+  }
+  element.src = URL.createObjectURL(file);
+  element.style.cssText = "width:100%;max-height:300px;object-fit:contain;border-radius:12px";
+  container.append(element);
+});
 
-    function renderFeed(posts) {
-      const feed = $("feed");
-      feed.replaceChildren();
+function renderPosts(posts) {
+  $("feed").replaceChildren();
+  $("myPosts").replaceChildren();
 
-      if (!posts.length) {
-        const empty = document.createElement("p");
-        empty.className = "muted";
-        empty.textContent = "No posts yet. Be the first to share something!";
-        feed.append(empty);
-        return;
-      }
+  const currentUser = auth.currentUser;
+  const mine = posts.filter(post => post.uid === currentUser?.uid);
+  $("postCount").textContent = mine.length;
 
-      for (const post of posts) {
-        const article = document.createElement("article");
-        article.className = "post";
+  if (!posts.length) {
+    $("feed").textContent = "No posts yet. Create the first post!";
+    $("myPosts").textContent = "No posts yet.";
+    return;
+  }
 
-        const head = document.createElement("div");
-        head.className = "posthead";
+  for (const post of posts) {
+    const article = document.createElement("article");
+    article.className = "post";
 
-        const avatar = document.createElement("div");
-        avatar.className = "avatar";
-        avatar.textContent = (post.authorEmail || "Z").charAt(0).toUpperCase();
+    const heading = document.createElement("div");
+    const avatar = document.createElement("span");
+    avatar.className = "avatar";
+    avatar.textContent = (post.authorEmail || "Z").charAt(0).toUpperCase();
 
-        const meta = document.createElement("div");
-        const author = document.createElement("strong");
-        author.textContent = post.authorEmail || "ZenoTik user";
-        const time = document.createElement("div");
-        time.className = "muted";
-        time.style.fontSize = "12px";
-        time.textContent = post.createdAt?.toDate
-          ? post.createdAt.toDate().toLocaleString()
-          : "Just now";
+    const name = document.createElement("b");
+    name.textContent = post.authorEmail || "Zenova user";
+    heading.append(avatar, name);
 
-        meta.append(author, time);
-        head.append(avatar, meta);
+    const body = document.createElement("div");
+    body.className = "posttext";
+    body.textContent = post.text || "";
 
-        const body = document.createElement("div");
-        body.className = "postbody";
-        body.textContent = post.text || "";
+    const actions = document.createElement("div");
+    actions.className = "actions";
 
-        article.append(head, body);
-        feed.append(article);
-      }
-    }
-
-    onAuthStateChanged(auth, user => {
-      $("authSection").classList.toggle("hidden", !!user);
-      $("appSection").classList.toggle("hidden", !user);
-      $("userEmail").textContent = user ? (user.email || user.displayName || "Signed in") : "";
-
-      if (stopFeed) {
-        stopFeed();
-        stopFeed = null;
-      }
-
-      if (!user) {
-        $("feed").replaceChildren();
-        return;
-      }
-
-      const postsQuery = query(
-        collection(db, "posts"),
-        orderBy("createdAt", "desc"),
-        limit(50)
-      );
-
-      stopFeed = onSnapshot(postsQuery, snapshot => {
-        renderFeed(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-      }, error => {
-        showStatus("postStatus", friendlyError(error));
-        $("feed").textContent = "Could not load posts. Check Firestore Rules and Database.";
+    ["♥ Like", "☏ Comment", "↗ Share"].forEach(label => {
+      const button = document.createElement("button");
+      button.textContent = label;
+      button.addEventListener("click", () => {
+        alert(label + " is a preview. This action is not saved yet.");
       });
+      actions.append(button);
     });
-  </script>
+
+    article.append(heading, body, actions);
+    $("feed").append(article);
+
+    if (post.uid === currentUser?.uid) {
+      $("myPosts").append(article.cloneNode(true));
+    }
+  }
+}
+
+try {
+  const app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
+  $("connection").textContent = "Firebase ready";
+
+  $("signupForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    try {
+      await createUserWithEmailAndPassword(
+        auth, $("signupEmail").value.trim(), $("signupPassword").value
+      );
+      showMessage("authStatus", "Account created successfully.");
+    } catch (e) {
+      showMessage("authStatus", readableError(e));
+    }
+  });
+
+  $("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    try {
+      await signInWithEmailAndPassword(
+        auth, $("loginEmail").value.trim(), $("loginPassword").value
+      );
+    } catch (e) {
+      showMessage("authStatus", readableError(e));
+    }
+  });
+
+  $("googleBtn").addEventListener("click", async () => {
+    try {
+      await signInWithPopup(auth, new GoogleAuthProvider());
+    } catch (e) {
+      showMessage("authStatus", readableError(e));
+    }
+  });
+
+  $("logoutBtn").addEventListener("click", async () => {
+    try { await signOut(auth); }
+    catch (e) { showMessage("authStatus", readableError(e)); }
+  });
+
+  $("postForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    const user = auth.currentUser;
+    const text = $("postText").value.trim();
+
+    if (!user) {
+      showMessage("postStatus", "Please sign in before publishing.");
+      navigate("account");
+      return;
+    }
+    if (!text) {
+      showMessage("postStatus", "Enter some text first. Media upload needs Storage setup.");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "posts"), {
+        uid: user.uid,
+        authorEmail: user.email || "Zenova user",
+        text,
+        createdAt: serverTimestamp()
+      });
+      $("postText").value = "";
+      showMessage("charCount", "0 / 1000");
+      showMessage("postStatus", "Post published successfully!");
+    } catch (e) {
+      showMessage("postStatus", readableError(e));
+    }
+  });
+
+  onAuthStateChanged(auth, user => {
+    $("logoutBtn").classList.toggle("hidden", !user);
+    $("profileEmail").textContent = user?.email || "Sign in to load your account.";
+    $("profileName").textContent = user?.displayName || "Your Zenova Profile";
+
+    if (unsubscribe) {
+      unsubscribe();
+      unsubscribe = null;
+    }
+
+    if (!user) {
+      showMessage("feedMessage", "Sign in to load community posts.");
+      $("feed").textContent = "Sign in to view posts.";
+      $("myPosts").textContent = "Sign in to view your posts.";
+      $("postCount").textContent = "0";
+      return;
+    }
+
+    navigate("home");
+    showMessage("feedMessage", "Latest posts from Firebase.");
+
+    unsubscribe = onSnapshot(
+      query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(50)),
+      snapshot => renderPosts(snapshot.docs.map(doc => ({id:doc.id, ...doc.data()}))),
+      error => {
+        showMessage("postStatus", readableError(error));
+        $("feed").textContent = "Could not load posts. Check Firestore Rules.";
+      }
+    );
+  });
+
+} catch (e) {
+  $("connection").textContent = "Firebase error";
+  showMessage("authStatus", e.message);
+}
+</script>
 </body>
 </html>
