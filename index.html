@@ -8,479 +8,441 @@
 
 <style>
 :root {
-  --purple:#833ab4;
-  --pink:#e1306c;
-  --orange:#f77737;
-  --blue:#2563eb;
-  --white:#fff;
-  --black:#050505;
-  --muted:#64748b;
-  --line:#e5e7eb;
+  --red: #ff0033;
+  --red-dark: #cc0029;
+  --black: #0f0f0f;
+  --grey: #606060;
+  --light: #f9f9f9;
+  --line: #e5e5e5;
+  --white: #fff;
 }
-
-* { box-sizing:border-box; }
-
+* { box-sizing: border-box; }
 body {
-  margin:0;
-  background:#fff;
-  color:var(--black);
-  font-family:Arial,Helvetica,sans-serif;
+  margin: 0;
+  background: var(--light);
+  color: var(--black);
+  font-family: Arial, Helvetica, sans-serif;
 }
-
-button,input,textarea,select { font:inherit; }
-button { cursor:pointer; }
-
-.hidden { display:none!important; }
-
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+.hidden { display: none !important; }
 header {
-  position:sticky;
-  top:0;
-  z-index:20;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:13px 5%;
-  background:#ffffffed;
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 4%;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
 }
-
-.logo {
-  font-size:27px;
-  font-weight:900;
-  letter-spacing:-1px;
-  background:linear-gradient(100deg,var(--purple),var(--pink),var(--orange));
-  color:transparent;
-  background-clip:text;
+.brand {
+  color: var(--red);
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -1px;
 }
-
-.brand-note {
-  color:#444;
-  font-size:11px;
-  letter-spacing:1px;
+.brand-sub {
+  color: var(--grey);
+  font-size: 10px;
+  letter-spacing: 1.5px;
 }
-
 main {
-  width:min(1000px,94%);
-  margin:20px auto 120px;
+  width: min(1050px, 95%);
+  margin: 20px auto 120px;
 }
-
 .card {
-  background:white;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:19px;
-  margin:14px 0;
-  box-shadow:0 8px 26px #00000008;
+  padding: 20px;
+  margin: 14px 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
 }
-
-h1,h2,h3,p { color:#050505; }
-h2 { font-size:22px; }
-.muted,.status { color:var(--muted); line-height:1.6; }
-.status { font-size:13px; overflow-wrap:anywhere; }
-
-input,textarea,select {
-  display:block;
-  width:100%;
-  margin:10px 0;
-  padding:13px;
-  color:#050505;
-  background:white;
-  border:1px solid #d1d5db;
-  border-radius:12px;
-  outline:none;
+h1, h2, h3, p { color: var(--black); }
+h2 { font-size: 22px; margin-top: 4px; }
+.muted, .status {
+  color: var(--grey);
+  line-height: 1.55;
 }
-
-input:focus,textarea:focus,select:focus {
-  border-color:var(--purple);
-  box-shadow:0 0 0 3px #833ab420;
-}
-
-.btn {
-  min-height:45px;
-  padding:12px 17px;
-  border:0;
-  border-radius:13px;
-  font-weight:800;
-  transition:.2s;
-}
-
-.btn:hover { transform:translateY(-2px); }
-
-.primary {
-  color:white;
-  background:linear-gradient(120deg,var(--purple),var(--pink),var(--orange));
-}
-
-.secondary {
-  color:#222;
-  background:linear-gradient(120deg,#fce7f3,#ede9fe,#dbeafe);
-  border:1px solid #ddd6fe;
-}
-
-.danger {
-  color:white;
-  background:linear-gradient(120deg,#ef4444,#db2777);
-}
-
-.full { width:100%; }
-
-.hero {
-  padding:clamp(25px,5vw,44px);
-  border-radius:25px;
-  color:white;
-  background:linear-gradient(120deg,#312e81,#833ab4,#e1306c,#f77737);
-}
-
-.hero h1,.hero p { color:white; }
-.hero h1 { font-size:clamp(30px,5vw,46px); }
-
-.page { display:none; }
-.page.active { display:block; }
-
-.bottomnav {
-  position:fixed;
-  z-index:50;
-  bottom:0;
-  left:0;
-  right:0;
-  display:flex;
-  gap:6px;
-  justify-content:flex-start;
-  overflow-x:auto;
-  padding:9px 8px calc(9px + env(safe-area-inset-bottom));
-  background:#fffffffa;
-  border-top:1px solid var(--line);
-  box-shadow:0 -5px 20px #0000000d;
-}
-
-.bottomnav button {
-  flex:0 0 76px;
-  min-height:67px;
-  padding:7px 4px;
-  border:1px solid #eee;
-  border-radius:15px;
-  background:white;
-  color:#333;
-  font-size:11px;
-  font-weight:800;
-}
-
-.bottomnav .ico {
-  display:block;
-  font-size:25px;
-  margin-bottom:5px;
-}
-
-.bottomnav button.active {
-  color:white;
-  background:linear-gradient(135deg,var(--purple),var(--pink),var(--orange));
-}
-
-.avatar {
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  border:3px solid var(--purple);
-  object-fit:cover;
-  background:#f1f5f9;
-  cursor:pointer;
-}
-
-.post {
-  padding:15px 0;
-  border-bottom:1px solid var(--line);
-  overflow-wrap:anywhere;
-}
-
-.post img,.post video,.preview-media {
-  display:block;
-  width:100%;
-  max-height:520px;
-  object-fit:contain;
-  margin:12px 0;
-  background:#111;
-  border-radius:14px;
-}
-
+.status { font-size: 13px; overflow-wrap: anywhere; }
 .row {
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
-
-.row > * { flex:1; }
-
-.auth-page {
-  position:fixed;
-  z-index:100;
-  inset:0;
-  overflow:auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:16px;
-  background:
-    linear-gradient(135deg,#070b29bd,#5b21b6a1),
-    url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1800&q=85")
-    center/cover no-repeat;
+.row > * { flex: 1; min-width: 100px; }
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  min-height: 44px;
+  font-weight: 700;
+  transition: .2s;
 }
-
-.auth-box {
-  width:min(440px,100%);
-  padding:25px;
-  border:1px solid #ffffffa0;
-  border-radius:25px;
-  background:#fffffff2;
-  box-shadow:0 25px 80px #0004;
-  backdrop-filter:blur(12px);
+.btn:hover { transform: translateY(-1px); }
+.primary { background: var(--red); color: #fff; }
+.primary:hover { background: var(--red-dark); }
+.secondary { background: #f2f2f2; color: #111; }
+.danger { background: #b91c1c; color: #fff; }
+.full { width: 100%; }
+input, textarea, select {
+  width: 100%;
+  display: block;
+  margin: 10px 0;
+  padding: 13px;
+  color: var(--black);
+  background: #fff;
+  border: 1px solid #c6c6c6;
+  border-radius: 12px;
+  outline: none;
 }
-
-.auth-box h1 { text-align:center; font-size:38px; }
-.auth-box p { text-align:center; }
-
-.mark {
-  display:grid;
-  place-items:center;
-  width:70px;
-  height:70px;
-  margin:auto;
-  border-radius:22px;
-  color:white;
-  background:linear-gradient(135deg,var(--purple),var(--pink),var(--orange));
-  font-size:38px;
+input:focus, textarea:focus, select:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 2px #ff003318;
 }
-
-.story-list {
-  display:flex;
-  gap:14px;
-  overflow-x:auto;
+input[type="file"] { font-size: 13px; }
+input[type="range"] { padding: 0; }
+.page { display: none; }
+.page.active { display: block; }
+.hero {
+  padding: clamp(24px, 5vw, 42px);
+  background: linear-gradient(120deg, #111, #292929);
+  border-left: 5px solid var(--red);
+  border-radius: 18px;
+  color: #fff;
 }
-
+.hero h1, .hero p { color: #fff; }
+.hero h1 { font-size: clamp(29px, 5vw, 44px); }
+.hero p { line-height: 1.7; }
+.bottomnav {
+  position: fixed;
+  z-index: 30;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  gap: 5px;
+  justify-content: flex-start;
+  overflow-x: auto;
+  padding: 8px 7px calc(8px + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1px solid var(--line);
+  scrollbar-width: none;
+}
+.bottomnav button {
+  flex: 0 0 72px;
+  min-height: 64px;
+  padding: 7px 3px;
+  background: #fff;
+  color: var(--grey);
+  border: 0;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.bottomnav .ico {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 23px;
+}
+.bottomnav button.active {
+  background: var(--red);
+  color: #fff;
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+  border: 3px solid var(--red);
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+  cursor: pointer;
+}
+.smallavatar {
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+  vertical-align: middle;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.stories {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+}
 .story {
-  min-width:65px;
-  text-align:center;
-  font-size:12px;
+  min-width: 65px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--grey);
 }
-
-.story img {
-  width:60px;
-  height:60px;
-  object-fit:cover;
-  border-radius:50%;
-  border:3px solid var(--pink);
+.story img, .story video {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--red);
 }
-
-.creator-layout {
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 220px;
-  gap:15px;
+.post {
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
 }
-
-.edit-tools {
-  padding:14px;
-  background:#fafafa;
-  border:1px solid var(--line);
-  border-radius:15px;
+.posthead { display: flex; align-items: center; }
+.posttext { line-height: 1.6; white-space: pre-wrap; }
+.media {
+  display: block;
+  width: 100%;
+  max-height: 600px;
+  margin: 12px 0;
+  border-radius: 14px;
+  background: #111;
+  object-fit: contain;
 }
-
-.edit-tools label {
-  display:block;
-  font-weight:bold;
-  font-size:13px;
-  margin-top:12px;
+.creator {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 14px;
+  align-items: start;
 }
-
-.edit-tools input[type=range] { padding:0; }
-
+.editbox {
+  padding: 14px;
+  background: #f9f9f9;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+}
+.editbox label { display: block; margin-top: 13px; font-size: 13px; }
 .camera {
-  display:block;
-  width:100%;
-  max-height:480px;
-  background:#111;
-  border-radius:15px;
+  width: 100%;
+  max-height: 450px;
+  background: #111;
+  border-radius: 15px;
 }
-
-a { color:var(--purple); font-weight:bold; }
-.news-item { padding:15px 0; border-bottom:1px solid var(--line); }
-
+.auth {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  padding: 16px;
+  background:
+    linear-gradient(135deg, #080808c9, #a400208c),
+    url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1800&q=85")
+    center/cover fixed;
+}
+.authbox {
+  width: min(440px, 100%);
+  padding: 25px;
+  border: 1px solid #ffffff80;
+  border-radius: 22px;
+  background: #ffffffed;
+  box-shadow: 0 20px 65px #0004;
+}
+.authbox h1 { text-align: center; color: var(--red); font-size: 36px; }
+.authbox p { text-align: center; }
+.mark {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  margin: auto;
+  border-radius: 20px;
+  color: white;
+  background: var(--red);
+  font-size: 36px;
+  font-weight: 900;
+}
+.chatbox {
+  height: 300px;
+  overflow: auto;
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 14px;
+}
+.bubble {
+  padding: 10px 13px;
+  margin: 7px 0;
+  background: #e5e5e5;
+  border-radius: 13px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.bubble.mine {
+  background: #ffe6eb;
+  border: 1px solid #ffc5d0;
+}
+.newsitem {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+a { color: #065fd4; font-weight: 700; }
+details { padding: 13px 0; border-bottom: 1px solid var(--line); }
+summary { cursor: pointer; font-weight: 700; }
 footer {
-  padding:20px 10px 130px;
-  text-align:center;
-  font-weight:bold;
-  font-size:12px;
+  padding: 20px 10px 120px;
+  text-align: center;
+  color: var(--grey);
+  font-size: 12px;
+  font-weight: bold;
 }
-
-@media(max-width:600px) {
-  header { padding:12px 4%; }
-  .logo { font-size:23px; }
-  .card { padding:15px; }
-  .creator-layout { grid-template-columns:1fr; }
-  .bottomnav button { flex-basis:72px; }
+@media (max-width: 600px) {
+  main { margin-top: 12px; }
+  .card { padding: 15px; }
+  .creator { grid-template-columns: 1fr; }
+  .bottomnav button { flex-basis: 70px; }
 }
-
-@media(min-width:800px) {
+@media (min-width: 760px) {
   .bottomnav {
-    left:50%;
-    right:auto;
-    bottom:10px;
-    width:min(900px,96%);
-    transform:translateX(-50%);
-    justify-content:center;
-    border:1px solid var(--line);
-    border-radius:20px;
+    left: 50%;
+    right: auto;
+    bottom: 12px;
+    transform: translateX(-50%);
+    justify-content: center;
+    width: min(900px, 96%);
+    border: 1px solid var(--line);
+    border-radius: 18px;
   }
+  .bottomnav button { flex: 1; max-width: 115px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN / SIGNUP PAGE -->
-<section id="authPage" class="auth-page">
-  <div class="auth-box">
-    <div class="mark">✦</div>
-    <h1 style="background:linear-gradient(90deg,#833ab4,#e1306c,#f77737);color:transparent;background-clip:text">ZENOVA</h1>
-    <p><b>CONNECT • SHARE • EXPLORE</b></p>
+<!-- LOGIN AND SIGNUP -->
+<section id="authPage" class="auth">
+  <div class="authbox">
+    <div class="mark">▶</div>
+    <h1>ZENOVA</h1>
+    <p><b>SOCIAL WORLD</b></p>
     <p>MADE IN MIAN ABDULLAH GULZAR</p>
-
     <hr>
-    <h2>Create Account</h2>
 
+    <h2>Create Account</h2>
     <form id="signupForm">
       <input id="signupName" placeholder="Your name" maxlength="40">
       <input id="signupEmail" type="email" placeholder="Email address" required>
-      <input id="signupPassword" type="password" minlength="6"
-             placeholder="Password (6+ characters)" required>
+      <input id="signupPassword" type="password" placeholder="Password (6+ characters)" minlength="6" required>
       <button class="btn primary full">Sign Up</button>
     </form>
 
     <hr>
-    <h2>Already have an account?</h2>
-
+    <h2>Log In</h2>
     <form id="loginForm">
       <input id="loginEmail" type="email" placeholder="Email address" required>
       <input id="loginPassword" type="password" placeholder="Password" required>
       <button class="btn secondary full">Log In</button>
     </form>
 
-    <button id="googleBtn" class="btn full"
-            style="background:#fff;border:1px solid #ddd;margin-top:10px">
-      🌐 Continue with Google
-    </button>
-
+    <button id="googleBtn" class="btn secondary full">🌐 Continue with Google</button>
     <p id="authStatus" class="status"></p>
   </div>
 </section>
 
 <header>
   <div>
-    <div class="logo">✦ ZENOVA</div>
-    <div class="brand-note">SOCIAL WORLD</div>
+    <div class="brand">▶ ZENOVA</div>
+    <div class="brand-sub">SOCIAL WORLD</div>
   </div>
-  <button class="btn secondary" data-go="account">⚙ Settings</button>
+  <button class="btn secondary" data-go="settings">⚙ Settings</button>
 </header>
 
 <main>
-
   <!-- HOME -->
   <section id="home" class="page active">
     <div class="hero">
       <p>WELCOME TO ZENOVA SOCIAL WORLD</p>
-      <h1>Share your world. Be yourself.</h1>
-      <p>Share photos, videos, stories and explore news from around the world.</p>
-      <button class="btn secondary" data-go="create">＋ Create Post</button>
+      <h1>Watch. Share. Connect.</h1>
+      <p>Discover videos, share moments and connect with people.</p>
+      <button class="btn primary" data-go="create">＋ Create Post</button>
     </div>
 
     <div class="card">
-      <h2>⭕ Stories</h2>
-      <div id="stories" class="story-list">
-        <p class="muted">Your stories will appear here.</p>
+      <div class="row">
+        <h2>⭕ Stories</h2>
+        <button class="btn primary" data-go="create">＋ Add Story</button>
       </div>
-      <button class="btn primary" data-go="create">＋ Add Story</button>
+      <div id="stories" class="stories"></div>
     </div>
 
     <div class="card">
-      <h2>🏠 Home Feed</h2>
-      <p id="feedStatus" class="status">Sign in to see posts.</p>
+      <div class="row">
+        <h2>Community Feed</h2>
+        <button class="btn primary" data-go="create">＋ Upload</button>
+      </div>
+      <p id="feedStatus" class="status">Sign in to load posts.</p>
       <div id="feed"></div>
     </div>
   </section>
 
-  <!-- REELS / CAMERA / GALLERY -->
+  <!-- REELS -->
   <section id="reels" class="page">
     <div class="card">
       <h2>🎬 Reels Studio</h2>
-      <p class="muted">Open your camera or select photos/videos from your gallery.</p>
+      <p class="muted">Gallery se photo/video select karein ya camera use karein.</p>
 
       <div class="row">
-        <button id="openCamera" class="btn primary">📷 Open Camera</button>
-        <button id="openGallery" class="btn secondary">🖼 Gallery</button>
+        <button id="openCamera" type="button" class="btn primary">📷 Open Camera</button>
+        <button id="openGallery" type="button" class="btn secondary">🖼 Gallery</button>
       </div>
 
-      <input id="galleryFile" type="file" accept="image/*,video/*" class="hidden">
+      <input id="reelFile" type="file" accept="image/*,video/*" class="hidden">
       <input id="cameraFile" type="file" accept="video/*" capture="environment" class="hidden">
-
       <video id="cameraPreview" class="camera hidden" autoplay muted playsinline></video>
 
       <div class="row">
-        <button id="startRecording" class="btn primary">⏺ Record Video</button>
-        <button id="stopCamera" class="btn secondary">Stop Camera</button>
+        <button id="recordBtn" type="button" class="btn primary">⏺ Record Video</button>
+        <button id="stopCameraBtn" type="button" class="btn secondary">Stop Camera</button>
       </div>
 
       <p id="reelStatus" class="status"></p>
 
-      <div class="creator-layout">
+      <div class="creator">
         <div>
           <h3>Preview</h3>
-          <video id="videoPreview" class="preview-media hidden" controls playsinline></video>
-          <img id="imagePreview" class="preview-media hidden" alt="Selected image">
-
-          <button id="useMedia" class="btn primary full">Use in Create Post</button>
+          <video id="reelVideo" class="media hidden" controls playsinline></video>
+          <img id="reelImage" class="media hidden" alt="Reel preview">
+          <button id="useReel" type="button" class="btn primary full">Use in Create Post</button>
         </div>
 
-        <aside class="edit-tools">
-          <h3>🎨 Editing Tools</h3>
-
+        <aside class="editbox">
+          <h3>🎨 Editing</h3>
           <label for="brightness">Brightness</label>
           <input id="brightness" type="range" min="50" max="150" value="100">
-
           <label for="contrast">Contrast</label>
           <input id="contrast" type="range" min="50" max="180" value="100">
-
           <label for="saturation">Saturation</label>
           <input id="saturation" type="range" min="0" max="200" value="100">
-
-          <button id="resetFilters" class="btn secondary full">Reset Editing</button>
-          <p class="muted">Filters preview par apply hote hain; original media file permanently edit nahi hoti.</p>
+          <button id="resetFilters" type="button" class="btn secondary full">Reset Effects</button>
+          <p class="muted">These are preview effects; they do not permanently change the original file.</p>
         </aside>
       </div>
     </div>
   </section>
 
-  <!-- CREATE POST -->
+  <!-- CREATE -->
   <section id="create" class="page">
     <div class="card">
       <h2>＋ Create Post</h2>
-
       <form id="postForm">
-        <textarea id="postText" rows="4" maxlength="1000"
-                  placeholder="What's on your mind?"></textarea>
-
-        <label>Select photo/video from gallery</label>
+        <textarea id="postText" maxlength="1000" rows="4" placeholder="What's on your mind?"></textarea>
+        <label for="postFile">Select a photo or video</label>
         <input id="postFile" type="file" accept="image/*,video/*">
-
         <div id="postPreview"></div>
         <button id="publishBtn" class="btn primary full">Upload & Publish</button>
       </form>
-
       <p id="postStatus" class="status"></p>
-      <hr>
 
+      <hr>
       <h2>⭕ Create Story</h2>
       <input id="storyFile" type="file" accept="image/*,video/*">
-      <button id="uploadStory" class="btn primary full">Upload Story</button>
+      <button id="storyBtn" class="btn primary full">Upload Story</button>
       <p id="storyStatus" class="status"></p>
     </div>
   </section>
@@ -489,25 +451,16 @@ footer {
   <section id="live" class="page">
     <div class="card">
       <h2>🔴 Live Studio</h2>
-
-      <p class="muted">
-        Camera preview is available here. Public live broadcasting to users worldwide
-        needs a streaming server/provider and server-side signaling.
-      </p>
-
-      <button id="startLiveCamera" class="btn primary">Start Camera</button>
-      <button id="stopLiveCamera" class="btn secondary">Stop Camera</button>
-
+      <p class="muted">This section opens your local camera preview. Worldwide public livestreaming requires a streaming provider and backend.</p>
+      <button id="startLive" class="btn primary">Start Camera</button>
+      <button id="stopLive" class="btn secondary">Stop Camera</button>
       <video id="liveVideo" class="camera hidden" autoplay muted playsinline></video>
       <p id="liveStatus" class="status"></p>
 
       <hr>
-      <h3>🌍 Watch Live News</h3>
-      <a href="https://www.youtube.com/results?search_query=Pakistan+live+news"
-         target="_blank" rel="noopener">Pakistan Live News ↗</a>
-      <br><br>
-      <a href="https://www.youtube.com/results?search_query=world+live+news"
-         target="_blank" rel="noopener">World Live News ↗</a>
+      <h3>World Live News</h3>
+      <p><a href="https://www.youtube.com/results?search_query=Pakistan+live+news" target="_blank" rel="noopener">▶ Pakistan Live News</a></p>
+      <p><a href="https://www.youtube.com/results?search_query=world+live+news" target="_blank" rel="noopener">▶ World Live News</a></p>
     </div>
   </section>
 
@@ -515,44 +468,38 @@ footer {
   <section id="chat" class="page">
     <div class="card">
       <h2>💬 Chat</h2>
-      <p class="muted">Chat with another registered Zenova user using their email address.</p>
-
       <input id="friendEmail" type="email" placeholder="Friend's registered email">
       <button id="openChat" class="btn primary full">Open Conversation</button>
       <p id="chatStatus" class="status"></p>
     </div>
 
     <div id="chatRoom" class="card hidden">
-      <h3 id="chatTitle">Conversation</h3>
-      <div id="messages"></div>
-
+      <h3 id="chatHeading">Conversation</h3>
+      <div id="messages" class="chatbox"></div>
       <form id="chatForm">
-        <textarea id="chatText" rows="2" maxlength="2000"
-                  placeholder="Write a message..." required></textarea>
+        <textarea id="chatText" rows="2" maxlength="2000" placeholder="Write a message..." required></textarea>
         <button class="btn primary full">Send Message</button>
       </form>
     </div>
   </section>
 
-  <!-- WORLD NEWS -->
+  <!-- NEWS -->
   <section id="news" class="page">
     <div class="card">
       <h2>🌍 World News</h2>
-
-      <label for="country">Choose country</label>
+      <label for="country">Choose Country</label>
       <select id="country"></select>
 
-      <label for="newsType">News type</label>
+      <label for="newsType">News Type</label>
       <select id="newsType">
         <option value="latest news">Latest Headlines</option>
         <option value="live news">Live News Updates</option>
-        <option value="video news">Video News Reports</option>
+        <option value="video news">Video News</option>
       </select>
 
       <button id="loadNews" class="btn primary full">Load News</button>
       <button id="readNews" class="btn secondary full">🔊 Read Headlines</button>
-      <button id="stopReading" class="btn secondary full">Stop Voice</button>
-
+      <button id="stopNews" class="btn secondary full">Stop Voice</button>
       <p id="newsStatus" class="status"></p>
       <div id="newsResults"></div>
     </div>
@@ -562,32 +509,23 @@ footer {
   <section id="profile" class="page">
     <div class="card">
       <h2>👤 My Profile</h2>
-
-      <img id="profilePhoto" class="avatar" alt="Your DP"
-           title="Click to change your profile picture">
-
-      <p class="muted">Tap your profile picture to choose a new DP from your gallery.</p>
-
+      <img id="profilePhoto" class="avatar" alt="Profile picture" title="Change profile picture">
       <h3 id="profileName">Zenova User</h3>
       <p id="profileEmail" class="muted"></p>
-
-      <button class="btn primary" data-go="account">Edit Profile / DP</button>
+      <button class="btn primary" data-go="settings">Edit Profile / DP</button>
       <h3>My Posts</h3>
       <div id="myPosts"></div>
     </div>
   </section>
 
   <!-- SETTINGS -->
-  <section id="account" class="page">
+  <section id="settings" class="page">
     <div class="card">
       <h2>⚙ Settings</h2>
-      <p class="muted">Manage your profile and account.</p>
-
       <h3>Profile Picture</h3>
       <img id="dpPreview" class="avatar" alt="DP preview">
       <input id="dpFile" type="file" accept="image/*">
-      <input id="displayName" maxlength="40" placeholder="Your display name">
-
+      <input id="displayName" maxlength="40" placeholder="Display name">
       <button id="saveProfile" class="btn primary full">Save Profile & DP</button>
       <p id="profileStatus" class="status"></p>
 
@@ -597,26 +535,16 @@ footer {
       <p>MADE IN MIAN ABDULLAH GULZAR</p>
 
       <details>
-        <summary>Login and Google sign-in help</summary>
-        <p class="muted">
-          Firebase Console → Authentication → Sign-in method mein Email/Password
-          aur Google enable karein. Apni website ka domain Authorized domains mein add karein.
-        </p>
+        <summary>Login / Google sign-in setup</summary>
+        <p class="muted">Firebase Console → Authentication mein Email/Password aur Google enable karein. Authorized domains mein apni website ka domain add karein.</p>
       </details>
-
       <details>
-        <summary>Photo/video upload help</summary>
-        <p class="muted">
-          Firebase Storage enable karein aur Storage Rules set karein.
-          Firestore aur Storage dono ko secure rules ki zaroorat hai.
-        </p>
+        <summary>Video / DP upload setup</summary>
+        <p class="muted">Firebase Storage enable karein aur Storage Rules publish karein. Storage bucket ka naam code ke firebaseConfig se match karna chahiye.</p>
       </details>
-
       <details>
-        <summary>Camera permission help</summary>
-        <p class="muted">
-          Camera use karne ke liye HTTPS website aur browser camera permission zaroori hai.
-        </p>
+        <summary>Video call and public livestream</summary>
+        <p class="muted">Public livestreaming ke liye streaming backend/provider chahiye. HTML-only camera preview doosre users tak live broadcast nahi karta.</p>
       </details>
 
       <hr>
@@ -624,18 +552,17 @@ footer {
       <p id="settingsStatus" class="status"></p>
     </div>
   </section>
-
 </main>
 
 <nav class="bottomnav">
   <button class="active" data-go="home"><span class="ico">⌂</span>Home</button>
-  <button data-go="reels"><span class="ico">▣</span>Reels</button>
+  <button data-go="reels"><span class="ico">▶</span>Reels</button>
   <button data-go="live"><span class="ico">🔴</span>Live</button>
   <button data-go="create"><span class="ico">＋</span>Create</button>
   <button data-go="chat"><span class="ico">✉</span>Chat</button>
   <button data-go="news"><span class="ico">🌍</span>News</button>
-  <button data-go="profile"><span class="ico">♙</span>Profile</button>
-  <button data-go="account"><span class="ico">⚙</span>Settings</button>
+  <button data-go="profile"><span class="ico">●</span>Profile</button>
+  <button data-go="settings"><span class="ico">⚙</span>Settings</button>
 </nav>
 
 <footer>
@@ -644,24 +571,24 @@ footer {
 </footer>
 
 <script type="module">
-import {initializeApp}
-  from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
 
 import {
-  getAuth,onAuthStateChanged,createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,
-  signOut,updateProfile
+  getAuth, onAuthStateChanged, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup,
+  signOut, updateProfile
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
 
 import {
-  getFirestore,collection,addDoc,query,orderBy,limit,onSnapshot,
-  serverTimestamp,doc,setDoc,getDocs,where
+  getFirestore, collection, addDoc, query, orderBy, limit,
+  onSnapshot, serverTimestamp, doc, setDoc, getDocs, where
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
 import {
-  getStorage,ref,uploadBytesResumable,getDownloadURL
+  getStorage, ref, uploadBytesResumable, getDownloadURL
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-storage.js";
 
+/* Firebase project configuration */
 const firebaseConfig = {
   apiKey: "AIzaSyDmwJMYmfhOUclZF5drJUC8nsQN_OQdWWY",
   authDomain: "zenotik-8fe5b.firebaseapp.com",
@@ -673,85 +600,105 @@ const firebaseConfig = {
 };
 
 const $ = id => document.getElementById(id);
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-let user = null;
-let selectedMedia = null;
+let currentUser = null;
+let stopPosts = null;
+let stopStories = null;
+let stopMessages = null;
+let chatId = null;
+let selectedReel = null;
+let reelObjectURL = null;
 let cameraStream = null;
 let liveStream = null;
 let recorder = null;
-let recordedParts = [];
-let mediaUrl = null;
-let chatId = null;
-let stopFeed = null;
-let stopChat = null;
+let recordedChunks = [];
 
-function status(id,text) {
-  const element = $(id);
-  if(element) element.textContent = text;
+function msg(id, text) {
+  const el = $(id);
+  if (el) el.textContent = text;
 }
 
 function showError(error) {
   console.error(error);
-  return error?.message || error?.code || "An unknown error occurred.";
+  const code = error?.code || "";
+  if (code === "storage/unauthorized") {
+    return "Upload denied by Firebase Storage Rules. Settings aur Storage Rules check karein.";
+  }
+  if (code === "storage/bucket-not-found") {
+    return "Storage bucket nahi mila. Firebase Console mein bucket name check karein.";
+  }
+  if (code === "permission-denied") {
+    return "Firestore Rules ne request block ki. Firestore Rules check karein.";
+  }
+  if (code === "auth/unauthorized-domain") {
+    return "Firebase Authentication ke Authorized domains mein website ka domain add karein.";
+  }
+  if (code === "auth/operation-not-allowed") {
+    return "Firebase Console mein Email/Password aur Google sign-in enable karein.";
+  }
+  if (code === "auth/email-already-in-use") {
+    return "Is email ka account pehle se hai. Log In karein.";
+  }
+  if (code === "auth/invalid-credential") {
+    return "Email ya password ghalat hai.";
+  }
+  if (code === "storage/canceled") {
+    return "Upload cancel ho gaya.";
+  }
+  return (error?.message || "Unknown error") + (code ? " (" + code + ")" : "");
 }
 
-/* Navigation */
+/* Page navigation */
 function go(page) {
-  document.querySelectorAll(".page").forEach(section => {
-    section.classList.toggle("active", section.id === page);
+  document.querySelectorAll(".page").forEach(el => {
+    el.classList.toggle("active", el.id === page);
   });
-
-  document.querySelectorAll("[data-go]").forEach(button => {
-    button.classList.toggle("active", button.dataset.go === page);
+  document.querySelectorAll("[data-go]").forEach(el => {
+    el.classList.toggle("active", el.dataset.go === page);
   });
-
-  window.scrollTo({top:0,behavior:"smooth"});
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 document.querySelectorAll("[data-go]").forEach(button => {
-  button.addEventListener("click",() => go(button.dataset.go));
+  button.addEventListener("click", () => go(button.dataset.go));
 });
 
-/* Generate a broad country list using the browser's international display names */
-(function populateCountries() {
+/* Country options */
+(function fillCountries() {
   const codes = (
-    "AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ " +
-    "CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR " +
-    "GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO " +
-    "JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR " +
-    "MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO " +
-    "RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV " +
-    "TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW"
-  ).trim().split(/\s+/);
+    "AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BM BN BO BR BS BT BW BY BZ " +
+    "CA CD CF CG CH CI CL CM CN CO CR CU CV CY CZ DE DJ DK DM DO DZ EC EE EG ER ES ET FI FJ FM FO FR GA GB GD GE GH " +
+    "GM GN GQ GR GT GU GW GY HK HN HR HT HU ID IE IL IN IQ IR IS IT JM JO JP KE KG KH KI KM KN KR KW KZ LA LB LC LK " +
+    "LR LS LT LU LV LY MA MC MD ME MG MH MK ML MM MN MO MR MT MU MV MW MX MY MZ NA NE NG NI NL NO NP NR NZ OM PA PE " +
+    "PG PH PK PL PR PT PY QA RO RS RU RW SA SB SC SD SE SG SI SK SL SM SN SO SR SV SY TH TJ TM TN TO TR TT TW TZ UA " +
+    "UG US UY UZ VA VC VE VN WS YE ZA ZM ZW"
+  ).split(/\s+/);
 
-  const names = new Intl.DisplayNames(["en"],{type:"region"});
-  const countrySelect = $("country");
+  const labels = new Intl.DisplayNames(["en"], { type: "region" });
+  const country = $("country");
 
-  codes.map(code => ({code,name:names.of(code)}))
-    .filter(x => x.name && x.code !== x.name)
-    .sort((a,b) => a.name.localeCompare(b.name))
+  codes.map(code => ({ code, name: labels.of(code) }))
+    .filter(item => item.name && item.name !== item.code)
+    .sort((a, b) => a.name.localeCompare(b.name))
     .forEach(item => {
       const option = document.createElement("option");
       option.value = item.name;
       option.textContent = item.name;
-      countrySelect.appendChild(option);
+      country.appendChild(option);
     });
 
-  countrySelect.value = "Pakistan";
+  country.value = "Pakistan";
 })();
 
 /* Authentication */
-$("signupForm").addEventListener("submit",async event => {
+$("signupForm").addEventListener("submit", async event => {
   event.preventDefault();
-
   try {
-    status("authStatus","Creating account...");
-
+    msg("authStatus", "Creating account...");
     const credential = await createUserWithEmailAndPassword(
       auth,
       $("signupEmail").value.trim(),
@@ -759,59 +706,147 @@ $("signupForm").addEventListener("submit",async event => {
     );
 
     const name = $("signupName").value.trim();
-
-    if(name) await updateProfile(credential.user,{displayName:name});
-
-    status("authStatus","Account created.");
-  } catch(error) {
-    status("authStatus",showError(error));
+    if (name) await updateProfile(credential.user, { displayName: name });
+    msg("authStatus", "Account created successfully.");
+  } catch (error) {
+    msg("authStatus", showError(error));
   }
 });
 
-$("loginForm").addEventListener("submit",async event => {
+$("loginForm").addEventListener("submit", async event => {
   event.preventDefault();
-
   try {
-    status("authStatus","Signing in...");
-
+    msg("authStatus", "Signing in...");
     await signInWithEmailAndPassword(
       auth,
       $("loginEmail").value.trim(),
       $("loginPassword").value
     );
-
-    status("authStatus","Signed in.");
-  } catch(error) {
-    status("authStatus",showError(error));
+    msg("authStatus", "Login successful.");
+  } catch (error) {
+    msg("authStatus", showError(error));
   }
 });
 
-$("googleBtn").addEventListener("click",async () => {
+$("googleBtn").addEventListener("click", async () => {
   try {
-    status("authStatus","Opening Google sign-in...");
-    await signInWithPopup(auth,new GoogleAuthProvider());
-  } catch(error) {
-    status("authStatus",showError(error));
+    msg("authStatus", "Opening Google login...");
+    await signInWithPopup(auth, new GoogleAuthProvider());
+  } catch (error) {
+    msg("authStatus", showError(error));
   }
 });
 
-/* Reusable Firebase upload */
-function uploadFile(path,file,statusId) {
-  return new Promise((resolve,reject) => {
-    const task = uploadBytesResumable(ref(storage,path),file);
+/* User state */
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+  $("authPage").classList.toggle("hidden", !!user);
+
+  if (stopPosts) { stopPosts(); stopPosts = null; }
+  if (stopStories) { stopStories(); stopStories = null; }
+  if (stopMessages) { stopMessages(); stopMessages = null; }
+
+  if (!user) {
+    $("feed").replaceChildren();
+    $("stories").replaceChildren();
+    msg("feedStatus", "Please log in to view posts.");
+    return;
+  }
+
+  msg("profileName", user.displayName || "Zenova User");
+  msg("profileEmail", user.email || "");
+  $("displayName").value = user.displayName || "";
+
+  const fallback =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100%25' height='100%25' fill='%23eeeeee'/%3E%3Ctext x='50%25' y='60%25' font-size='42' text-anchor='middle' fill='%23ff0033'%3EZ%3C/text%3E%3C/svg%3E";
+
+  $("profilePhoto").src = user.photoURL || fallback;
+  $("dpPreview").src = user.photoURL || fallback;
+
+  try {
+    await setDoc(doc(db, "users", user.uid), {
+      uid: user.uid,
+      email: (user.email || "").toLowerCase(),
+      displayName: user.displayName || user.email?.split("@")[0] || "Zenova User",
+      photoURL: user.photoURL || "",
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+  } catch (error) {
+    console.warn("Profile sync failed:", error);
+  }
+
+  stopPosts = onSnapshot(
+    query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(60)),
+    snapshot => renderPosts(snapshot.docs),
+    error => msg("feedStatus", showError(error))
+  );
+
+  stopStories = onSnapshot(
+    query(collection(db, "stories"), orderBy("createdAt", "desc"), limit(30)),
+    snapshot => renderStories(snapshot.docs),
+    error => msg("storyStatus", showError(error))
+  );
+});
+
+/* File helpers */
+function normalizedMediaType(file) {
+  const type = (file?.type || "").toLowerCase();
+  if (type.startsWith("image/") || type.startsWith("video/")) return type;
+
+  const name = (file?.name || "").toLowerCase();
+  if (/\.(mp4|m4v)$/i.test(name)) return "video/mp4";
+  if (/\.webm$/i.test(name)) return "video/webm";
+  if (/\.mov$/i.test(name)) return "video/quicktime";
+  if (/\.(ogv|ogg)$/i.test(name)) return "video/ogg";
+  if (/\.(jpg|jpeg)$/i.test(name)) return "image/jpeg";
+  if (/\.png$/i.test(name)) return "image/png";
+  if (/\.gif$/i.test(name)) return "image/gif";
+  if (/\.webp$/i.test(name)) return "image/webp";
+  return type || "application/octet-stream";
+}
+
+function isImageOrVideo(file) {
+  const type = normalizedMediaType(file);
+  return type.startsWith("image/") || type.startsWith("video/");
+}
+
+function makeMedia(url, type) {
+  const isVideo = (type || "").startsWith("video/");
+  const element = document.createElement(isVideo ? "video" : "img");
+  element.src = url;
+  element.className = "media";
+
+  if (isVideo) {
+    element.controls = true;
+    element.playsInline = true;
+    element.preload = "metadata";
+  } else {
+    element.alt = "Post media";
+  }
+  return element;
+}
+
+function uploadFile(path, file, statusID) {
+  return new Promise((resolve, reject) => {
+    const contentType = normalizedMediaType(file);
+    const task = uploadBytesResumable(
+      ref(storage, path),
+      file,
+      { contentType: contentType }
+    );
 
     task.on("state_changed",
       snapshot => {
         const percent = Math.round(
           snapshot.bytesTransferred / snapshot.totalBytes * 100
         );
-        status(statusId,"Uploading... "+percent+"%");
+        msg(statusID, "Uploading... " + percent + "%");
       },
-      reject,
+      error => reject(error),
       async () => {
         try {
           resolve(await getDownloadURL(task.snapshot.ref));
-        } catch(error) {
+        } catch (error) {
           reject(error);
         }
       }
@@ -819,545 +854,518 @@ function uploadFile(path,file,statusId) {
   });
 }
 
-function mediaElement(url,type) {
-  const element = document.createElement(
-    (type || "").startsWith("video/") ? "video" : "img"
-  );
+/* Feed and story rendering */
+function renderPosts(documents) {
+  const feed = $("feed");
+  const myPosts = $("myPosts");
+  feed.replaceChildren();
+  myPosts.replaceChildren();
 
-  element.src = url;
-  element.className = "preview-media";
+  const posts = documents.map(d => ({ id: d.id, ...d.data() }));
+  const ownPosts = posts.filter(post => post.uid === currentUser?.uid);
 
-  if(element.tagName === "VIDEO") {
-    element.controls = true;
-    element.playsInline = true;
-  } else {
-    element.alt = "Post image";
-  }
-
-  return element;
-}
-
-/* Sign-in state and profile */
-onAuthStateChanged(auth,async currentUser => {
-  user = currentUser;
-
-  $("authPage").classList.toggle("hidden",!!user);
-
-  if(stopFeed) {
-    stopFeed();
-    stopFeed = null;
-  }
-
-  if(!user) {
-    status("feedStatus","Please sign in to see posts.");
-    $("feed").replaceChildren();
-
-    if(stopChat) {
-      stopChat();
-      stopChat = null;
-    }
-
+  if (!posts.length) {
+    msg("feedStatus", "No posts yet. Be the first to upload!");
+    myPosts.textContent = "You haven't uploaded a post yet.";
     return;
   }
 
-  status("profileName",user.displayName || "Zenova User");
-  status("profileEmail",user.email || "");
+  posts.forEach(post => {
+    const article = document.createElement("article");
+    article.className = "post";
 
-  $("displayName").value = user.displayName || "";
+    const head = document.createElement("div");
+    head.className = "posthead";
 
-  const fallback =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100%25' height='100%25' fill='%23eee'/%3E%3Ctext x='50%25' y='60%25' font-size='40' text-anchor='middle' fill='%23833ab4'%3EZ%3C/text%3E%3C/svg%3E";
+    if (post.photoURL) {
+      const avatar = document.createElement("img");
+      avatar.src = post.photoURL;
+      avatar.className = "smallavatar";
+      avatar.alt = "User DP";
+      head.appendChild(avatar);
+    }
 
-  $("profilePhoto").src = user.photoURL || fallback;
-  $("dpPreview").src = user.photoURL || fallback;
+    const author = document.createElement("b");
+    author.textContent = post.authorName || post.authorEmail || "Zenova User";
+    head.appendChild(author);
 
-  try {
-    await setDoc(doc(db,"users",user.uid),{
-      uid:user.uid,
-      email:(user.email || "").toLowerCase(),
-      displayName:user.displayName || user.email?.split("@")[0] || "Zenova User",
-      photoURL:user.photoURL || "",
-      updatedAt:serverTimestamp()
-    },{merge:true});
-  } catch(error) {
-    console.warn("User profile sync failed:",error);
+    const text = document.createElement("p");
+    text.className = "posttext";
+    text.textContent = post.text || "";
+    article.append(head, text);
+
+    if (post.mediaUrl) {
+      article.appendChild(makeMedia(post.mediaUrl, post.mediaType));
+    }
+
+    feed.appendChild(article);
+
+    if (post.uid === currentUser?.uid) {
+      myPosts.appendChild(article.cloneNode(true));
+    }
+  });
+
+  msg("feedStatus", posts.length + " recent posts");
+  msg("myPostCount", "Your posts: " + ownPosts.length);
+}
+
+function renderStories(documents) {
+  const box = $("stories");
+  box.replaceChildren();
+
+  if (!documents.length) {
+    box.textContent = "No stories yet.";
+    return;
   }
 
-  stopFeed = onSnapshot(
-    query(collection(db,"posts"),orderBy("createdAt","desc"),limit(60)),
-    snapshot => {
-      const feed = $("feed");
-      const mine = $("myPosts");
+  documents.forEach(document => {
+    const story = document.data();
+    const item = document.createElement("div");
+    item.className = "story";
 
-      feed.replaceChildren();
-      mine.replaceChildren();
+    const link = document.createElement("a");
+    link.href = story.mediaUrl;
+    link.target = "_blank";
+    link.rel = "noopener";
 
-      let count = 0;
-
-      snapshot.docs.forEach(document => {
-        const post = document.data();
-        const article = document.createElement("article");
-        article.className = "post";
-
-        const heading = document.createElement("b");
-        heading.textContent = post.authorName || post.authorEmail || "Zenova User";
-
-        const text = document.createElement("p");
-        text.textContent = post.text || "";
-
-        article.append(heading,text);
-
-        if(post.mediaUrl) {
-          article.append(mediaElement(post.mediaUrl,post.mediaType));
-        }
-
-        feed.append(article);
-
-        if(post.uid === user.uid) {
-          mine.append(article.cloneNode(true));
-          count++;
-        }
-      });
-
-      status("myPosts",count ? "Your posts: "+count : "You haven't published a post yet.");
-      status("feedStatus",snapshot.empty ? "No posts yet. Create the first post!" : "Latest community posts.");
-    },
-    error => status("feedStatus",showError(error))
-  );
-
-  onSnapshot(
-    query(collection(db,"stories"),orderBy("createdAt","desc"),limit(30)),
-    snapshot => {
-      const stories = $("stories");
-      stories.replaceChildren();
-
-      if(snapshot.empty) {
-        stories.textContent = "No stories yet.";
-        return;
-      }
-
-      snapshot.docs.forEach(document => {
-        const story = document.data();
-        const card = document.createElement("div");
-        card.className = "story";
-
-        const link = document.createElement("a");
-        link.href = story.mediaUrl;
-        link.target = "_blank";
-        link.rel = "noopener";
-
-        const image = document.createElement("img");
-        image.src = story.mediaUrl;
-        image.alt = "Story";
-
-        const title = document.createElement("p");
-        title.textContent = story.authorName || "Zenova User";
-
-        link.append(image,title);
-        card.append(link);
-        stories.append(card);
-      });
+    let media;
+    if ((story.mediaType || "").startsWith("video/")) {
+      media = document.createElement("video");
+      media.muted = true;
+    } else {
+      media = document.createElement("img");
+      media.alt = "Story";
     }
-  );
-});
+    media.src = story.mediaUrl;
 
-/* Post creation */
-$("postFile").addEventListener("change",() => {
+    const label = document.createElement("p");
+    label.textContent = story.authorName || "Zenova User";
+
+    link.append(media, label);
+    item.appendChild(link);
+    box.appendChild(item);
+  });
+}
+
+/* Photo/video selection preview */
+$("postFile").addEventListener("change", () => {
   const file = $("postFile").files[0];
-  const preview = $("postPreview");
+  $("postPreview").replaceChildren();
+  if (!file) return;
 
-  preview.replaceChildren();
-
-  if(!file) return;
-
-  if(file.size > 500 * 1024 * 1024) {
-    status("postStatus","Please choose a file below 500 MB.");
+  if (!isImageOrVideo(file)) {
+    msg("postStatus", "Please select a supported photo or video.");
+    $("postFile").value = "";
+    return;
+  }
+  if (file.size > 500 * 1024 * 1024) {
+    msg("postStatus", "File must be smaller than 500 MB.");
     $("postFile").value = "";
     return;
   }
 
-  preview.append(mediaElement(URL.createObjectURL(file),file.type));
+  $("postPreview").appendChild(
+    makeMedia(URL.createObjectURL(file), normalizedMediaType(file))
+  );
+  msg("postStatus", "Selected: " + file.name);
 });
 
-$("postForm").addEventListener("submit",async event => {
+/* Publish post */
+$("postForm").addEventListener("submit", async event => {
   event.preventDefault();
 
-  if(!user) {
-    status("postStatus","Please sign in first.");
+  if (!currentUser) {
+    msg("postStatus", "Please log in first.");
     return;
   }
 
   const text = $("postText").value.trim();
   const file = $("postFile").files[0];
 
-  if(!text && !file) {
-    status("postStatus","Write something or choose a photo/video.");
+  if (!text && !file) {
+    msg("postStatus", "Write something or select a photo/video.");
     return;
   }
 
-  if(file && file.size > 500 * 1024 * 1024) {
-    status("postStatus","File must be below 500 MB.");
+  if (file && (!isImageOrVideo(file) || file.size > 500 * 1024 * 1024)) {
+    msg("postStatus", "Please select a supported media file smaller than 500 MB.");
     return;
   }
 
   $("publishBtn").disabled = true;
 
   try {
-    let url = "";
-    let type = "";
+    let mediaUrl = "";
+    let mediaType = "";
 
-    if(file) {
-      url = await uploadFile(
-        "posts/"+user.uid+"/"+Date.now()+"_"+file.name.replace(/[^a-zA-Z0-9._-]/g,"_"),
+    if (file) {
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      mediaUrl = await uploadFile(
+        "posts/" + currentUser.uid + "/" + Date.now() + "_" + safeName,
         file,
         "postStatus"
       );
-      type = file.type;
+      mediaType = normalizedMediaType(file);
     }
 
-    await addDoc(collection(db,"posts"),{
-      uid:user.uid,
-      authorName:user.displayName || "",
-      authorEmail:user.email || "",
-      text,
-      mediaUrl:url,
-      mediaType:type,
-      createdAt:serverTimestamp()
+    await addDoc(collection(db, "posts"), {
+      uid: currentUser.uid,
+      authorName: currentUser.displayName || "",
+      authorEmail: currentUser.email || "",
+      photoURL: currentUser.photoURL || "",
+      text: text,
+      mediaUrl: mediaUrl,
+      mediaType: mediaType,
+      createdAt: serverTimestamp()
     });
 
     $("postText").value = "";
     $("postFile").value = "";
     $("postPreview").replaceChildren();
 
-    status("postStatus","Post published!");
+    msg("postStatus", "Post published successfully.");
     go("home");
-  } catch(error) {
-    status("postStatus",showError(error));
+  } catch (error) {
+    msg("postStatus", showError(error));
   } finally {
     $("publishBtn").disabled = false;
   }
 });
 
-/* Create a story */
-$("uploadStory").addEventListener("click",async () => {
+/* Story upload */
+$("storyBtn").addEventListener("click", async () => {
   const file = $("storyFile").files[0];
 
-  if(!user) {
-    status("storyStatus","Please sign in first.");
+  if (!currentUser) {
+    msg("storyStatus", "Please log in first.");
+    return;
+  }
+  if (!file || !isImageOrVideo(file)) {
+    msg("storyStatus", "Please choose a photo or video.");
+    return;
+  }
+  if (file.size > 500 * 1024 * 1024) {
+    msg("storyStatus", "File must be smaller than 500 MB.");
     return;
   }
 
-  if(!file) {
-    status("storyStatus","Choose a photo or video.");
-    return;
-  }
+  $("storyBtn").disabled = true;
 
   try {
-    const url = await uploadFile(
-      "stories/"+user.uid+"/"+Date.now()+"_"+file.name,
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const mediaUrl = await uploadFile(
+      "stories/" + currentUser.uid + "/" + Date.now() + "_" + safeName,
       file,
       "storyStatus"
     );
 
-    await addDoc(collection(db,"stories"),{
-      uid:user.uid,
-      authorName:user.displayName || "",
-      mediaUrl:url,
-      mediaType:file.type,
-      createdAt:serverTimestamp()
+    await addDoc(collection(db, "stories"), {
+      uid: currentUser.uid,
+      authorName: currentUser.displayName || "",
+      mediaUrl: mediaUrl,
+      mediaType: normalizedMediaType(file),
+      createdAt: serverTimestamp()
     });
 
     $("storyFile").value = "";
-    status("storyStatus","Story published.");
+    msg("storyStatus", "Story uploaded successfully.");
     go("home");
-  } catch(error) {
-    status("storyStatus",showError(error));
+  } catch (error) {
+    msg("storyStatus", showError(error));
+  } finally {
+    $("storyBtn").disabled = false;
   }
 });
 
-/* Reels: gallery and camera */
+/* Reels gallery, camera and effects */
 function applyFilters() {
   const filter =
-    "brightness("+$("brightness").value+"%) "+
-    "contrast("+$("contrast").value+"%) "+
-    "saturate("+$("saturation").value+"%)";
+    "brightness(" + $("brightness").value + "%) " +
+    "contrast(" + $("contrast").value + "%) " +
+    "saturate(" + $("saturation").value + "%)";
 
-  $("videoPreview").style.filter = filter;
-  $("imagePreview").style.filter = filter;
+  $("reelVideo").style.filter = filter;
+  $("reelImage").style.filter = filter;
 }
 
-["brightness","contrast","saturation"].forEach(id => {
-  $(id).addEventListener("input",applyFilters);
+["brightness", "contrast", "saturation"].forEach(id => {
+  $(id).addEventListener("input", applyFilters);
 });
 
-$("resetFilters").addEventListener("click",() => {
+$("resetFilters").addEventListener("click", () => {
   $("brightness").value = 100;
   $("contrast").value = 100;
   $("saturation").value = 100;
   applyFilters();
 });
 
-$("openGallery").addEventListener("click",() => {
-  $("galleryFile").click();
+function showSelectedReel(file) {
+  selectedReel = file;
+
+  if (reelObjectURL) URL.revokeObjectURL(reelObjectURL);
+  reelObjectURL = URL.createObjectURL(file);
+
+  $("reelVideo").classList.add("hidden");
+  $("reelImage").classList.add("hidden");
+
+  const type = normalizedMediaType(file);
+  if (type.startsWith("video/")) {
+    $("reelVideo").src = reelObjectURL;
+    $("reelVideo").classList.remove("hidden");
+  } else if (type.startsWith("image/")) {
+    $("reelImage").src = reelObjectURL;
+    $("reelImage").classList.remove("hidden");
+  }
+  applyFilters();
+  msg("reelStatus", "Selected: " + file.name);
+}
+
+$("openGallery").addEventListener("click", () => $("reelFile").click());
+
+$("reelFile").addEventListener("change", () => {
+  const file = $("reelFile").files[0];
+  if (!file) return;
+
+  if (!isImageOrVideo(file) || file.size > 500 * 1024 * 1024) {
+    msg("reelStatus", "Choose an image/video smaller than 500 MB.");
+    $("reelFile").value = "";
+    return;
+  }
+  showSelectedReel(file);
 });
 
-$("openCamera").addEventListener("click",async () => {
-  // On mobile, open the device's camera/video recording screen.
-  if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+$("openCamera").addEventListener("click", async () => {
+  if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     $("cameraFile").click();
     return;
   }
 
   try {
+    if (!navigator.mediaDevices?.getUserMedia) {
+      throw new Error("Open this page through HTTPS to use the camera.");
+    }
+
     cameraStream = await navigator.mediaDevices.getUserMedia({
-      video:true,
-      audio:true
+      video: { facingMode: "user" },
+      audio: true
     });
 
     $("cameraPreview").srcObject = cameraStream;
     $("cameraPreview").classList.remove("hidden");
-    status("reelStatus","Camera is ready. Press Record Video.");
-  } catch(error) {
-    status("reelStatus","Camera error: "+showError(error));
+    msg("reelStatus", "Camera ready. Press Record Video to start.");
+  } catch (error) {
+    msg("reelStatus", showError(error));
   }
 });
 
-function displaySelectedMedia(file) {
-  if(mediaUrl) URL.revokeObjectURL(mediaUrl);
-  mediaUrl = URL.createObjectURL(file);
-
-  selectedMedia = file;
-
-  $("videoPreview").classList.add("hidden");
-  $("imagePreview").classList.add("hidden");
-
-  if(file.type.startsWith("video/")) {
-    $("videoPreview").src = mediaUrl;
-    $("videoPreview").classList.remove("hidden");
-  } else if(file.type.startsWith("image/")) {
-    $("imagePreview").src = mediaUrl;
-    $("imagePreview").classList.remove("hidden");
-  }
-
-  applyFilters();
-  status("reelStatus","Media selected: "+file.name);
-}
-
-$("galleryFile").addEventListener("change",() => {
-  const file = $("galleryFile").files[0];
-  if(!file) return;
-
-  if(file.size > 500 * 1024 * 1024) {
-    status("reelStatus","File must be below 500 MB.");
-    return;
-  }
-
-  displaySelectedMedia(file);
-});
-
-$("cameraFile").addEventListener("change",() => {
+$("cameraFile").addEventListener("change", () => {
   const file = $("cameraFile").files[0];
-  if(file) displaySelectedMedia(file);
+  if (file) showSelectedReel(file);
 });
 
-/* Record a video on compatible desktop browsers */
-$("startRecording").addEventListener("click",() => {
+$("recordBtn").addEventListener("click", () => {
   try {
-    if(!cameraStream) {
-      status("reelStatus","Open Camera first.");
+    if (!cameraStream) {
+      msg("reelStatus", "Please open the camera first.");
       return;
     }
-
-    if(!window.MediaRecorder) {
-      status("reelStatus","Video recording is not supported in this browser.");
-      return;
+    if (!window.MediaRecorder) {
+      throw new Error("Video recording is not supported in this browser.");
     }
 
-    if(recorder && recorder.state === "recording") {
+    if (recorder && recorder.state === "recording") {
       recorder.stop();
       return;
     }
 
-    recordedParts = [];
+    recordedChunks = [];
     recorder = new MediaRecorder(cameraStream);
 
     recorder.ondataavailable = event => {
-      if(event.data.size) recordedParts.push(event.data);
+      if (event.data?.size) recordedChunks.push(event.data);
     };
 
     recorder.onstop = () => {
-      const blob = new Blob(recordedParts,{
-        type:recorder.mimeType || "video/webm"
-      });
-
-      const file = new File([blob],"zenova-video.webm",{type:blob.type});
-      displaySelectedMedia(file);
-      status("reelStatus","Recording finished. You can share it as a post.");
+      const type = recorder.mimeType || "video/webm";
+      const blob = new Blob(recordedChunks, { type });
+      const file = new File([blob], "zenova-reel.webm", { type });
+      const transfer = new DataTransfer();
+      transfer.items.add(file);
+      $("reelFile").files = transfer.files;
+      showSelectedReel(file);
     };
 
     recorder.start();
-    status("reelStatus","Recording... Press Record Video again to stop.");
-  } catch(error) {
-    status("reelStatus",showError(error));
+    msg("reelStatus", "Recording... press Record Video again to stop.");
+  } catch (error) {
+    msg("reelStatus", showError(error));
   }
 });
 
-$("stopCamera").addEventListener("click",() => {
-  if(recorder && recorder.state === "recording") recorder.stop();
+$("stopCameraBtn").addEventListener("click", () => {
+  if (recorder && recorder.state === "recording") recorder.stop();
 
-  if(cameraStream) cameraStream.getTracks().forEach(track => track.stop());
-
+  if (cameraStream) cameraStream.getTracks().forEach(track => track.stop());
   cameraStream = null;
   $("cameraPreview").srcObject = null;
   $("cameraPreview").classList.add("hidden");
-  status("reelStatus","Camera stopped.");
+  msg("reelStatus", "Camera stopped.");
 });
 
-$("useMedia").addEventListener("click",() => {
-  if(!selectedMedia) {
-    status("reelStatus","Choose a photo/video first.");
+$("useReel").addEventListener("click", () => {
+  if (!selectedReel) {
+    msg("reelStatus", "Please select a gallery photo/video or record a video.");
     return;
   }
 
   const transfer = new DataTransfer();
-  transfer.items.add(selectedMedia);
+  transfer.items.add(selectedReel);
   $("postFile").files = transfer.files;
   $("postPreview").replaceChildren(
-    mediaElement(URL.createObjectURL(selectedMedia),selectedMedia.type)
+    makeMedia(URL.createObjectURL(selectedReel), normalizedMediaType(selectedReel))
   );
 
-  if(!$("postText").value.trim()) {
+  if (!$("postText").value.trim()) {
     $("postText").value = "Shared from Zenova Reels";
   }
 
   go("create");
-  status("postStatus","Media ready. Press Upload & Publish.");
+  msg("postStatus", "Media ready. Press Upload & Publish.");
 });
 
-/* Profile picture picker */
-$("profilePhoto").addEventListener("click",() => {
-  go("account");
+/* Profile photo picker */
+$("profilePhoto").addEventListener("click", () => {
+  go("settings");
   $("dpFile").click();
 });
+$("dpPreview").addEventListener("click", () => $("dpFile").click());
 
-$("dpPreview").addEventListener("click",() => $("dpFile").click());
-
-$("dpFile").addEventListener("change",() => {
+$("dpFile").addEventListener("change", () => {
   const file = $("dpFile").files[0];
-  if(!file) return;
+  if (!file) return;
 
-  if(!file.type.startsWith("image/")) {
-    status("profileStatus","Select an image.");
+  if (!normalizedMediaType(file).startsWith("image/")) {
+    msg("profileStatus", "Please choose an image for your DP.");
+    $("dpFile").value = "";
     return;
   }
 
-  if(file.size > 5 * 1024 * 1024) {
-    status("profileStatus","Profile picture must be below 5 MB.");
+  if (file.size > 5 * 1024 * 1024) {
+    msg("profileStatus", "Profile picture must be smaller than 5 MB.");
+    $("dpFile").value = "";
     return;
   }
 
   $("dpPreview").src = URL.createObjectURL(file);
 });
 
-$("saveProfile").addEventListener("click",async () => {
-  if(!user) {
-    status("profileStatus","Please sign in first.");
+/* Save DP in Firebase Authentication and Firestore */
+$("saveProfile").addEventListener("click", async () => {
+  if (!currentUser) {
+    msg("profileStatus", "Please log in first.");
     return;
   }
 
   const name = $("displayName").value.trim();
   const file = $("dpFile").files[0];
+  $("saveProfile").disabled = true;
 
   try {
-    let photoURL = user.photoURL || "";
+    let photoURL = currentUser.photoURL || "";
 
-    if(file) {
+    if (file) {
+      if (!normalizedMediaType(file).startsWith("image/")) {
+        throw new Error("Please choose an image for your profile picture.");
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        throw new Error("Profile picture must be smaller than 5 MB.");
+      }
+
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
       photoURL = await uploadFile(
-        "profiles/"+user.uid+"/"+Date.now()+"_"+file.name,
+        "profiles/" + currentUser.uid + "/" + Date.now() + "_" + safeName,
         file,
         "profileStatus"
       );
     }
 
-    await updateProfile(user,{
-      displayName:name || user.displayName || "",
-      photoURL
-    });
+    const displayName =
+      name || currentUser.displayName || currentUser.email?.split("@")[0] || "Zenova User";
 
-    await setDoc(doc(db,"users",user.uid),{
-      uid:user.uid,
-      email:(user.email || "").toLowerCase(),
-      displayName:name || user.displayName || "Zenova User",
-      photoURL,
-      updatedAt:serverTimestamp()
-    },{merge:true});
+    await updateProfile(currentUser, { displayName, photoURL });
 
-    $("profilePhoto").src = photoURL;
-    $("dpPreview").src = photoURL;
+    await setDoc(doc(db, "users", currentUser.uid), {
+      uid: currentUser.uid,
+      email: (currentUser.email || "").toLowerCase(),
+      displayName: displayName,
+      photoURL: photoURL,
+      updatedAt: serverTimestamp()
+    }, { merge: true });
 
-    status("profileName",name || user.displayName || "Zenova User");
-    status("profileStatus","Profile saved successfully.");
-  } catch(error) {
-    status("profileStatus",showError(error));
+    $("profilePhoto").src = photoURL || $("profilePhoto").src;
+    $("dpPreview").src = photoURL || $("dpPreview").src;
+    msg("profileName", displayName);
+    msg("profileEmail", currentUser.email || "");
+    msg("profileStatus", "Profile and DP saved successfully.");
+    $("dpFile").value = "";
+  } catch (error) {
+    msg("profileStatus", showError(error));
+  } finally {
+    $("saveProfile").disabled = false;
   }
 });
 
-/* Local live camera preview */
-$("startLiveCamera").addEventListener("click",async () => {
+/* Local camera preview for Live Studio */
+$("startLive").addEventListener("click", async () => {
   try {
-    liveStream = await navigator.mediaDevices.getUserMedia({
-      video:true,
-      audio:true
-    });
-
+    if (!navigator.mediaDevices?.getUserMedia) {
+      throw new Error("Use HTTPS and a camera-supported browser.");
+    }
+    liveStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
     $("liveVideo").srcObject = liveStream;
     $("liveVideo").classList.remove("hidden");
-
-    status("liveStatus","Your local camera preview is running.");
-  } catch(error) {
-    status("liveStatus","Camera error: "+showError(error));
+    msg("liveStatus", "Local camera preview is running.");
+  } catch (error) {
+    msg("liveStatus", showError(error));
   }
 });
 
-$("stopLiveCamera").addEventListener("click",() => {
-  if(liveStream) liveStream.getTracks().forEach(track => track.stop());
-
+$("stopLive").addEventListener("click", () => {
+  if (liveStream) liveStream.getTracks().forEach(track => track.stop());
   liveStream = null;
   $("liveVideo").srcObject = null;
   $("liveVideo").classList.add("hidden");
-
-  status("liveStatus","Camera stopped.");
+  msg("liveStatus", "Camera stopped.");
 });
 
-/* Country-wise news */
-$("loadNews").addEventListener("click",async () => {
+/* Country-specific news search */
+$("loadNews").addEventListener("click", async () => {
   const country = $("country").value;
-  const type = $("newsType").value;
-  const queryText = country+" "+type;
+  const queryText = country + " " + $("newsType").value;
 
-  status("newsStatus","Loading news...");
+  msg("newsStatus", "Loading headlines...");
   $("newsResults").replaceChildren();
 
   try {
     const url =
-      "https://api.gdeltproject.org/api/v2/doc/doc?query="+
-      encodeURIComponent(queryText)+
+      "https://api.gdeltproject.org/api/v2/doc/doc?query=" +
+      encodeURIComponent(queryText) +
       "&mode=ArtList&format=json&maxrecords=15&sort=HybridRel";
 
     const response = await fetch(url);
-    if(!response.ok) throw Error("News service is unavailable.");
+    if (!response.ok) throw new Error("News provider is unavailable.");
 
     const data = await response.json();
     const articles = data.articles || [];
 
-    if(!articles.length) {
-      status("newsStatus","No articles found. Try another country.");
+    if (!articles.length) {
+      msg("newsStatus", "No articles found. Try another country.");
       return;
     }
 
     articles.forEach(article => {
       const item = document.createElement("div");
-      item.className = "news-item";
+      item.className = "newsitem";
 
       const link = document.createElement("a");
       link.href = article.url;
@@ -1365,153 +1373,151 @@ $("loadNews").addEventListener("click",async () => {
       link.rel = "noopener";
       link.textContent = article.title || "Open news";
 
-      const meta = document.createElement("p");
-      meta.className = "muted";
-      meta.textContent = article.domain || "News publisher";
+      const publisher = document.createElement("p");
+      publisher.className = "muted";
+      publisher.textContent = article.domain || "News publisher";
 
-      item.append(link,meta);
+      item.append(link, publisher);
       $("newsResults").append(item);
     });
 
-    status("newsStatus","Loaded "+articles.length+" results.");
-  } catch(error) {
-    status("newsStatus","News error: "+showError(error));
+    msg("newsStatus", articles.length + " news results loaded.");
+  } catch (error) {
+    msg("newsStatus", "News error: " + showError(error));
   }
 });
 
-$("readNews").addEventListener("click",() => {
+$("readNews").addEventListener("click", () => {
   const headlines = [...$("newsResults").querySelectorAll("a")]
     .map(link => link.textContent);
 
-  if(!headlines.length) {
-    status("newsStatus","Load news first.");
+  if (!headlines.length) {
+    msg("newsStatus", "Load news first.");
     return;
   }
 
-  if(!("speechSynthesis" in window)) {
-    status("newsStatus","Voice reading is not supported in this browser.");
+  if (!("speechSynthesis" in window)) {
+    msg("newsStatus", "Voice reading is not supported in this browser.");
     return;
   }
 
   speechSynthesis.cancel();
-  speechSynthesis.speak(
-    new SpeechSynthesisUtterance(headlines.join(". "))
-  );
+  speechSynthesis.speak(new SpeechSynthesisUtterance(headlines.join(". ")));
 });
 
-$("stopReading").addEventListener("click",() => {
-  if("speechSynthesis" in window) speechSynthesis.cancel();
+$("stopNews").addEventListener("click", () => {
+  if ("speechSynthesis" in window) speechSynthesis.cancel();
 });
 
-/* One-to-one text chat using Firestore */
-$("openChat").addEventListener("click",async () => {
-  if(!user) {
-    status("chatStatus","Please sign in first.");
+/* Real-time one-to-one text chat */
+$("openChat").addEventListener("click", async () => {
+  if (!currentUser) {
+    msg("chatStatus", "Please log in first.");
     return;
   }
 
   const email = $("friendEmail").value.trim().toLowerCase();
 
-  if(!email || email === (user.email || "").toLowerCase()) {
-    status("chatStatus","Enter another user's registered email.");
+  if (!email || email === (currentUser.email || "").toLowerCase()) {
+    msg("chatStatus", "Enter another registered user's email.");
     return;
   }
 
   try {
+    msg("chatStatus", "Finding account...");
+
     const result = await getDocs(
-      query(collection(db,"users"),where("email","==",email),limit(1))
+      query(collection(db, "users"), where("email", "==", email), limit(1))
     );
 
-    if(result.empty) {
-      status("chatStatus","User not found. Ask them to register first.");
+    if (result.empty) {
+      msg("chatStatus", "User not found. Ask them to create a Zenova account first.");
       return;
     }
 
     const friend = result.docs[0].data();
-
-    if(!friend.uid || friend.uid === user.uid) {
-      status("chatStatus","Invalid friend account.");
+    if (!friend.uid || friend.uid === currentUser.uid) {
+      msg("chatStatus", "Invalid friend account.");
       return;
     }
 
-    chatId = [user.uid,friend.uid].sort().join("_");
-
-    $("chatTitle").textContent = "Chat with "+(friend.displayName || email);
+    chatId = [currentUser.uid, friend.uid].sort().join("_");
+    $("chatHeading").textContent = "Chat with " + (friend.displayName || email);
     $("chatRoom").classList.remove("hidden");
 
-    if(stopChat) stopChat();
+    if (stopMessages) stopMessages();
 
-    stopChat = onSnapshot(
-      query(collection(db,"chats",chatId,"messages"),orderBy("createdAt","asc"),limit(200)),
+    stopMessages = onSnapshot(
+      query(collection(db, "chats", chatId, "messages"), orderBy("createdAt", "asc"), limit(200)),
       snapshot => {
         const box = $("messages");
         box.replaceChildren();
 
         snapshot.docs.forEach(document => {
           const message = document.data();
-          const bubble = document.createElement("p");
-
+          const bubble = document.createElement("div");
+          bubble.className = "bubble" + (message.senderUid === currentUser.uid ? " mine" : "");
           bubble.textContent =
-            (message.senderUid === user.uid ? "You: " : "Friend: ")+
+            (message.senderUid === currentUser.uid ? "You: " : "Friend: ") +
             (message.text || "");
-
-          box.append(bubble);
+          box.appendChild(bubble);
         });
+
+        box.scrollTop = box.scrollHeight;
       },
-      error => status("chatStatus",showError(error))
+      error => msg("chatStatus", showError(error))
     );
 
-    status("chatStatus","Conversation opened.");
-  } catch(error) {
-    status("chatStatus",showError(error));
+    msg("chatStatus", "Conversation opened.");
+  } catch (error) {
+    msg("chatStatus", showError(error));
   }
 });
 
-$("chatForm").addEventListener("submit",async event => {
+$("chatForm").addEventListener("submit", async event => {
   event.preventDefault();
 
-  if(!user || !chatId) return;
+  if (!currentUser || !chatId) {
+    msg("chatStatus", "Open a conversation first.");
+    return;
+  }
 
   const text = $("chatText").value.trim();
-  if(!text) return;
+  if (!text) return;
 
   try {
-    await addDoc(collection(db,"chats",chatId,"messages"),{
-      text,
-      senderUid:user.uid,
-      senderName:user.displayName || user.email || "Zenova User",
-      createdAt:serverTimestamp()
+    await addDoc(collection(db, "chats", chatId, "messages"), {
+      text: text,
+      senderUid: currentUser.uid,
+      senderName: currentUser.displayName || currentUser.email || "Zenova User",
+      createdAt: serverTimestamp()
     });
 
     $("chatText").value = "";
-  } catch(error) {
-    status("chatStatus",showError(error));
+  } catch (error) {
+    msg("chatStatus", showError(error));
   }
 });
 
-/* Logout and clean up cameras */
-$("logoutBtn").addEventListener("click",async () => {
-  if(!confirm("Do you want to log out of Zenova?")) return;
+/* Log out */
+$("logoutBtn").addEventListener("click", async () => {
+  if (!confirm("Do you want to log out of Zenova?")) return;
 
-  [cameraStream,liveStream].forEach(stream => {
-    if(stream) stream.getTracks().forEach(track => track.stop());
+  [cameraStream, liveStream].forEach(stream => {
+    if (stream) stream.getTracks().forEach(track => track.stop());
   });
 
   cameraStream = null;
   liveStream = null;
 
-  if(stopFeed) stopFeed();
-  if(stopChat) stopChat();
-
   try {
     await signOut(auth);
     go("home");
-    status("authStatus","You have logged out.");
-  } catch(error) {
-    status("settingsStatus",showError(error));
+    msg("settingsStatus", "Logged out successfully.");
+  } catch (error) {
+    msg("settingsStatus", showError(error));
   }
 });
-
 </script>
 </body>
 </html>
