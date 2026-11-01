@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,7 +89,6 @@ footer{text-align:center;color:#8293ae;padding:22px;font-size:12px}
 
 <header>
  <div><div class="brand">✦ ZENOVA</div><small>Social World</small></div>
- <button id="logoutBtn" class="btn secondary hidden">Log Out</button>
 </header>
 
 <main>
@@ -172,7 +170,8 @@ footer{text-align:center;color:#8293ae;padding:22px;font-size:12px}
 
  <section id="account" class="page">
   <div class="card">
-   <h2>Account & Profile Settings</h2>
+   <h2>⚙️ Settings</h2>
+   <p class="muted">Profile, account access, app diagnostics aur common errors ke hal yahin milenge.</p>
    <h3>Profile Picture (DP)</h3>
    <img id="dpPreview" class="avatar" alt="DP preview">
    <input id="dpFile" type="file" accept="image/*">
@@ -180,8 +179,40 @@ footer{text-align:center;color:#8293ae;padding:22px;font-size:12px}
    <button id="saveProfile" class="btn primary">Save Profile & DP</button>
    <p id="profileStatus" class="status"></p>
    <hr>
+   <h3>🛠️ Error Help & App Check</h3>
+   <p class="muted">Login, post, photo, video, story, profile ya news mein error aaye to yahan check karein. App detected error aur mumkin hal dikhayegi.</p>
+   <button id="runDiagnostics" class="btn primary">Check App Setup</button>
+   <p id="diagnosticStatus" class="status" role="status">App check chalane ke liye button dabayein.</p>
+   <h4>Latest Error</h4>
+   <p id="latestError" class="status">Abhi koi error record nahi hua.</p>
+   <button id="clearError" class="btn secondary">Clear Error Message</button>
+   <details>
+    <summary>Login / Google sign-in error</summary>
+    <p class="muted">Firebase Console → Authentication → Sign-in method mein Email/Password aur Google enable karein. Authentication → Settings → Authorized domains mein apna GitHub Pages domain add karein. Google popup block ho to browser popup allow karein.</p>
+   </details>
+   <details>
+    <summary>Photo, video, story ya DP upload error</summary>
+    <p class="muted">Firebase Console → Storage mein bucket setup karein aur firebaseConfig.storageBucket ka naam match karein. Storage Rules publish karein. Post/story 100 MB se chhoti aur DP 5 MB se chhoti honi chahiye. Upload ke liye signed in hona zaroori hai.</p>
+   </details>
+   <details>
+    <summary>Posts ya stories load/save nahi hote</summary>
+    <p class="muted">Firebase Console → Firestore Database check karein. Database bana ho aur Firestore Rules signed-in users ko required read/create access deti hon. Exact error code bhi check karein.</p>
+   </details>
+   <details>
+    <summary>Camera / Live error</summary>
+    <p class="muted">Website HTTPS par kholein aur browser ko camera/microphone permission dein. Is app ka Live section local camera preview hai, public broadcast nahi.</p>
+   </details>
+   <details>
+    <summary>News load nahi hoti</summary>
+    <p class="muted">Internet check karein aur dobara Load News dabayein. News service temporarily unavailable ho sakti hai.</p>
+   </details>
+   <details>
+    <summary>Firebase Rules error ko kaise theek karein?</summary>
+    <p class="muted">Firebase Console → Firestore Database → Rules ya Storage → Rules kholein, rules verify karein aur Publish karein. App khud server security rules ko change nahi kar sakti.</p>
+   </details>
+   <hr>
    <h3>Account Access</h3>
-   <p class="muted">Use Sign Up, Log In or Google sign-in on the first page. To switch accounts, log out first.</p>
+   <p class="muted">Sign out karne ke liye neeche wala button use karein. Logout ke baad dobara login kar sakte hain.</p>
    <button id="logoutBtn2" class="btn danger">Log Out</button>
   </div>
  </section>
@@ -262,18 +293,28 @@ let auth,db,storage,currentUser=null,stopPosts=null,stopStories=null,cameraStrea
 
 function msg(id,text){$(id).textContent=text}
 function friendlyError(e){
- const code=e.code||"";
- if(code==="storage/unauthorized")return "Upload permission denied. Firebase Storage Rules check karein.";
- if(code==="storage/bucket-not-found")return "Firebase Storage bucket nahi mila. Firebase Console mein Storage setup karein aur bucket name check karein.";
- if(code==="storage/unknown")return "Storage error. Storage enable, internet aur Firebase bucket check karein.";
- if(code==="storage/canceled")return "Upload cancel ho gaya.";
- if(code==="permission-denied"||code==="firestore/permission-denied")return "Firestore Rules ne request block kar di. Firestore Rules publish karein.";
- if(code==="auth/unauthorized-domain")return "Firebase Authentication > Settings > Authorized domains mein apna GitHub Pages domain add karein.";
- if(code==="auth/operation-not-allowed")return "Firebase Authentication mein Email/Password aur Google sign-in enable karein.";
- if(code==="auth/email-already-in-use")return "Is email ka account pehle se hai. Log In karein.";
- if(code==="auth/invalid-credential")return "Email ya password ghalat hai.";
- if(code==="auth/popup-blocked")return "Browser ne Google login popup block kar diya.";
- return (e.message||"Unknown error")+" ("+code+")";
+ const code=e?.code||"";
+ let help="";
+ if(code==="storage/unauthorized") help="Upload permission denied. Firebase Console → Storage → Rules check karke sahi rules Publish karein; user signed in hona chahiye.";
+ else if(code==="storage/bucket-not-found") help="Firebase Console → Storage mein bucket setup karein aur firebaseConfig.storageBucket ka naam verify karein.";
+ else if(code==="storage/unknown") help="Storage enable, bucket name, internet aur Storage Rules check karein.";
+ else if(code==="storage/canceled") help="Upload cancel ho gaya. Dobara upload karein.";
+ else if(code==="permission-denied"||code==="firestore/permission-denied") help="Firestore Rules ne request block ki. Firebase Console → Firestore Database → Rules mein rules check karke Publish karein.";
+ else if(code==="auth/unauthorized-domain") help="Firebase Console → Authentication → Settings → Authorized domains mein apna website domain add karein.";
+ else if(code==="auth/operation-not-allowed") help="Firebase Console → Authentication → Sign-in method mein Email/Password aur/ya Google enable karein.";
+ else if(code==="auth/email-already-in-use") help="Is email ka account pehle se hai. Sign Up ki bajaye Log In karein.";
+ else if(code==="auth/invalid-credential"||code==="auth/wrong-password"||code==="auth/user-not-found") help="Email aur password dobara check karein. Password bhool gaye hon to Firebase Authentication mein password reset flow set karna hoga.";
+ else if(code==="auth/popup-blocked") help="Browser settings mein is website ke pop-ups allow karein, phir Google sign-in dobara try karein.";
+ else if(code==="auth/network-request-failed") help="Internet connection check karein aur page reload karke dobara try karein.";
+ else if(code==="auth/weak-password") help="Kam az kam 6 characters ka password use karein.";
+ else if(code==="storage/quota-exceeded") help="Firebase Storage quota/billing status check karein.";
+ else if((e?.message||"").toLowerCase().includes("failed to fetch")) help="Internet connection, Firebase service availability aur browser network restrictions check karein.";
+ else help="Exact error code/message ko note karein. Firebase Console aur browser Console mein is error ki details check karein.";
+ const message=(e?.message||"Unknown error")+(code?" ("+code+")":"");
+ const combined=message+"\nSuggested fix: "+help;
+ const target=$("latestError");
+ if(target) target.textContent=combined;
+ return combined;
 }
 
 function go(page){
@@ -393,13 +434,11 @@ try{
   cameraStream=null;
   try{await signOut(auth);}catch(e){alert(friendlyError(e));}
  }
- $("logoutBtn").onclick=logout;
  $("logoutBtn2").onclick=logout;
 
  onAuthStateChanged(auth,user=>{
   currentUser=user;
   $("authPage").classList.toggle("hidden",!!user);
-  $("logoutBtn").classList.toggle("hidden",!user);
   if(stopPosts){stopPosts();stopPosts=null;}
   if(stopStories){stopStories();stopStories=null;}
 
@@ -580,8 +619,25 @@ try{
  };
  $("stopNews").onclick=()=>{if("speechSynthesis" in window)speechSynthesis.cancel();};
 
+ $("clearError").onclick=()=>{
+  msg("latestError","Abhi koi error record nahi hua.");
+  msg("diagnosticStatus","Error message clear kar diya gaya.");
+ };
+
+ $("runDiagnostics").onclick=()=>{
+  const results=[];
+  results.push("Internet: "+(navigator.onLine?"Browser online hai":"Browser offline hai — internet reconnect karein."));
+  results.push("Authentication: "+(auth?.currentUser?"Signed in ("+(auth.currentUser.email||"Google account")+")":"Signed out — pehle login karein."));
+  results.push("Firebase SDK: "+(auth&&db&&storage?"Initialize ho gaya":"Initialize nahi hua."));
+  results.push("Storage bucket: "+(firebaseConfig.storageBucket||"Missing — firebaseConfig mein bucket name add karein."));
+  results.push("Website: "+(location.protocol==="https:"||location.hostname==="localhost"?"HTTPS / secure context":"HTTPS use karein, khas taur par camera ke liye."));
+  results.push("Note: Yeh basic checks hain. Firebase Rules aur server permissions ko directly test/change nahi karte.");
+  msg("diagnosticStatus",results.join("\\n"));
+  if(!navigator.onLine) msg("latestError","Browser offline hai. Internet reconnect karke dobara Check App Setup karein.");
+ };
+
 }catch(e){
- msg("authStatus","Firebase setup error: "+e.message);
+ msg("authStatus","Firebase setup error: "+friendlyError(e));
 }
 </script>
 </body>
