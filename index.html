@@ -4,420 +4,468 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#ffffff">
-<title>ZENOVA Social World</title>
+<title>Zenova Social World</title>
+
 <style>
-:root{
-  --bg:#fff;--text:#080808;--muted:#626b7a;--line:#e7e8ef;
-  --purple:#752cff;--blue:#246bfe;--pink:#ef3f9b;--cyan:#00a9c7;
-  --shadow:0 8px 28px #16152a10;
+:root {
+  --bg: #ffffff;
+  --panel: #ffffff;
+  --text: #050505;
+  --muted: #596273;
+  --line: #e5e7eb;
+  --purple: #9333ea;
+  --blue: #2563eb;
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);
-font:15px Arial,Helvetica,sans-serif}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer;transition:.2s}
-button:hover{transform:translateY(-2px);filter:saturate(1.2)}
-button:active{transform:scale(.98)}
-header{position:sticky;top:0;z-index:5;background:#ffffffed;
-backdrop-filter:blur(15px);border-bottom:1px solid var(--line);
-padding:14px 5%;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:25px;font-weight:950;letter-spacing:-1px;
-background:linear-gradient(100deg,#752cff,#246bfe,#00a9c7);
--webkit-background-clip:text;background-clip:text;color:transparent}
-.tag{font-size:10px;color:#707787;letter-spacing:2px;margin-top:4px}
-main{width:min(900px,94%);margin:22px auto 110px}
-.page{display:none;animation:appear .2s ease}
-.page.active{display:block}
-@keyframes appear{from{opacity:.5;transform:translateY(5px)}to{opacity:1;transform:none}}
-.card{background:white;border:1px solid var(--line);border-radius:22px;
-padding:20px;margin:15px 0;box-shadow:var(--shadow)}
-.hero{border-radius:26px;padding:30px 25px;color:white;
-background:linear-gradient(125deg,#6d28d9,#2563eb 58%,#00a9c7)}
-.hero h1{font-size:clamp(29px,6vw,45px);margin:15px 0}
-.hero p{line-height:1.7;color:#f2f5ff}
-.hero h1,.hero p,.hero small{color:white}
-h2{font-size:22px;margin:2px 0 15px}
-h3{font-size:17px}
-.muted,.status{color:var(--muted);line-height:1.6}
-.row{display:flex;align-items:center;justify-content:space-between;
-gap:10px;flex-wrap:wrap}
-.btn{border:0;border-radius:13px;padding:12px 16px;
-font-weight:800;margin:3px 2px}
-.primary{color:white;background:linear-gradient(110deg,#752cff,#246bfe)}
-.pink{color:white;background:linear-gradient(110deg,#ef3f9b,#ff7043)}
-.cyan{color:white;background:linear-gradient(110deg,#00a9c7,#2563eb)}
-.soft{color:#241747;background:linear-gradient(110deg,#f3e8ff,#dbeafe);
-border:1px solid #ded6ff}
-.danger{background:linear-gradient(110deg,#ef4444,#db2777);color:white}
-input,textarea,select{width:100%;padding:13px;margin:8px 0;
-border:1px solid #d5d8e2;border-radius:13px;background:white;color:#080808}
-input:focus,textarea:focus,select:focus{outline:2px solid #c4b5fd;border-color:#752cff}
-.story-list{display:flex;gap:14px;overflow-x:auto;padding:8px 0}
-.story{min-width:70px;text-align:center;font-size:12px;color:#505767}
-.story img{width:60px;height:60px;border-radius:50%;object-fit:cover;
-border:3px solid #a855f7;padding:2px}
-.post{padding:15px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
-.post:last-child{border:0}
-.post-media{width:100%;max-height:480px;object-fit:contain;
-border-radius:16px;margin-top:12px;background:#f4f4f5}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.actions button{border:0;border-radius:10px;padding:9px 12px;
-background:linear-gradient(110deg,#f3e8ff,#dbeafe);color:#30245c;font-weight:700}
-.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:10;
-display:flex;justify-content:space-around;gap:3px;
-padding:8px 3px calc(8px + env(safe-area-inset-bottom));
-background:#ffffffed;backdrop-filter:blur(16px);
-border-top:1px solid var(--line);box-shadow:0 -5px 20px #00000008}
-.bottomnav button{flex:1;min-width:0;padding:7px 1px;border:0;
-border-radius:12px;background:white;color:#5d6473;font-size:10px;font-weight:800}
-.bottomnav .ico{display:block;font-size:19px;margin-bottom:4px}
-.bottomnav button.active{background:linear-gradient(130deg,#eee5ff,#e0f2fe);color:#6524d6}
-.avatar{width:95px;height:95px;border-radius:50%;object-fit:cover;
-border:4px solid #e9d5ff;background:#f3e8ff}
-.chatbox{min-height:120px;max-height:300px;overflow:auto;
-border:1px solid var(--line);padding:12px;border-radius:15px;background:#fafafa}
-.bubble{padding:10px 13px;margin:8px 0;border-radius:14px;
-background:#eee8ff;overflow-wrap:anywhere}
-video{width:100%;max-height:430px;border-radius:16px;background:#111}
-.newsitem{padding:14px 0;border-bottom:1px solid var(--line)}
-a{color:#6128dc;font-weight:bold}
-footer{text-align:center;color:#737b89;padding:20px;font-size:12px}
-@media(max-width:480px){
- header{padding:12px 4%}.logo{font-size:22px}
- main{margin-top:12px}.card{padding:15px;border-radius:18px}
- .bottomnav button{font-size:9px}.bottomnav .ico{font-size:18px}
- .hero{padding:23px 18px}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: #050505;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 5%;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  background: linear-gradient(100deg, #833ab4, #fd1d1d, #fcb045);
+  color: transparent;
+  background-clip: text;
+}
+
+main {
+  width: min(1050px, 94%);
+  margin: 22px auto 130px;
+}
+
+.card {
+  padding: 20px;
+  margin: 15px 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 10px 28px #0000000a;
+}
+
+h1, h2, h3, p, label {
+  color: #050505;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+input, textarea, select {
+  display: block;
+  width: 100%;
+  padding: 13px 14px;
+  margin: 10px 0;
+  color: #050505;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 13px;
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #9333ea;
+  box-shadow: 0 0 0 3px #9333ea20;
+}
+
+.btn {
+  padding: 13px 20px;
+  border: 0;
+  border-radius: 14px;
+  font-weight: 800;
+}
+
+.primary {
+  color: #fff;
+  background: linear-gradient(120deg, #833ab4, #fd1d1d, #fcb045);
+}
+
+.secondary {
+  color: #111;
+  background: linear-gradient(120deg, #fce7f3, #ede9fe, #dbeafe);
+  border: 1px solid #ddd6fe;
+}
+
+.danger {
+  color: #fff;
+  background: linear-gradient(120deg, #ef4444, #db2777);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px #00000018;
+}
+
+.hero {
+  padding: 35px;
+  border-radius: 26px;
+  color: #fff;
+  background: linear-gradient(120deg, #833ab4, #fd1d1d, #fcb045);
+}
+
+.hero h1, .hero p {
+  color: #fff;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Instagram-style bottom navigation */
+.bottomnav {
+  position: fixed;
+  z-index: 30;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 5px calc(10px + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -6px 25px #0000000d;
+}
+
+.bottomnav button {
+  flex: 1;
+  min-width: 58px;
+  min-height: 64px;
+  padding: 8px 4px;
+  border: 0;
+  border-radius: 16px;
+  background: #fff;
+  color: #333;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.bottomnav .ico {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 25px;
+}
+
+.bottomnav button.active {
+  color: #fff;
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  box-shadow: 0 5px 14px #fd1d1d30;
+}
+
+.avatar {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #833ab4;
+}
+
+.stories {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 12px 0;
+}
+
+.story {
+  min-width: 68px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.storyring {
+  width: 62px;
+  height: 62px;
+  padding: 3px;
+  margin: auto auto 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+}
+
+.storyring img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.post {
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+
+.media {
+  display: block;
+  width: 100%;
+  max-height: 560px;
+  object-fit: contain;
+  background: #111;
+  border-radius: 18px;
+  margin: 13px 0;
+}
+
+.postactions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.postactions button {
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 13px;
+  background: #f3e8ff;
+  color: #581c87;
+  font-weight: 800;
+}
+
+footer {
+  padding: 25px;
+  text-align: center;
+  color: #111;
+  font-weight: 800;
+}
+
+@media (max-width: 540px) {
+  header {
+    padding: 12px 4%;
+  }
+
+  .brand {
+    font-size: 21px;
+  }
+
+  main {
+    width: 94%;
+    margin-top: 13px;
+  }
+
+  .card {
+    padding: 15px;
+    border-radius: 18px;
+  }
+
+  .bottomnav {
+    gap: 2px;
+  }
+
+  .bottomnav button {
+    min-width: 0;
+    min-height: 62px;
+    padding: 7px 2px;
+    font-size: 10px;
+  }
+
+  .bottomnav .ico {
+    font-size: 23px;
+  }
+
+  .hero {
+    padding: 24px;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <header>
   <div>
-    <div class="logo">✦ ZENOVA</div>
-    <div class="tag">SOCIAL WORLD · CONNECT · CREATE</div>
+    <div class="brand">ZENOVA</div>
+    <small>Social World · Made in Mian Abdullah</small>
   </div>
-  <button class="btn primary" onclick="showPage('profile')">My Profile</button>
 </header>
 
 <main>
-<section id="home" class="page active">
-  <div class="hero">
-    <small>WELCOME TO YOUR SOCIAL WORLD</small>
-    <h1>Share your world.<br>Be yourself.</h1>
-    <p>Connect with friends, share photos, create videos and explore news.</p>
-    <button class="btn pink" onclick="showPage('create')">＋ Create Post</button>
-    <button class="btn soft" onclick="showPage('reels')">▶ Explore Reels</button>
-  </div>
+  <section class="hero">
+    <h1>Welcome to ZENOVA Social World</h1>
+    <p>Connect, create and share your world with friends.</p>
+    <button class="btn primary" onclick="showPage('home')">
+      Explore Now
+    </button>
+  </section>
 
-  <div class="card">
-    <div class="row">
-      <h2>Stories</h2>
-      <button class="btn primary" onclick="showPage('create')">＋ Add Story</button>
+  <section id="home" class="page active">
+    <div class="card">
+      <h2>🏠 Home Feed</h2>
+      <p>Welcome to your social world.</p>
     </div>
-    <div class="story-list">
-      <div class="story"><img src="https://placehold.co/80x80/752cff/ffffff?text=You" alt="Your story"><p>Your Story</p></div>
-      <div class="story"><img src="https://placehold.co/80x80/246bfe/ffffff?text=Z" alt="Zenova"><p>Zenova</p></div>
-      <div class="story"><img src="https://placehold.co/80x80/ef3f9b/ffffff?text=Hi" alt="Friends"><p>Friends</p></div>
-      <div class="story"><img src="https://placehold.co/80x80/00a9c7/ffffff?text=Live" alt="Live"><p>Live</p></div>
+  </section>
+
+  <section id="reels" class="page">
+    <div class="card">
+      <h2>🎬 Reels</h2>
+      <p>Discover short videos.</p>
     </div>
-  </div>
+  </section>
 
-  <div class="card">
-    <div class="row">
-      <h2>Community Feed</h2>
-      <button class="btn cyan" onclick="showPage('create')">Create</button>
+  <section id="create" class="page">
+    <div class="card">
+      <h2>➕ Create Post</h2>
+      <textarea id="postText" placeholder="What's on your mind?"></textarea>
+      <input id="postFile" type="file" accept="image/*,video/*">
+      <button class="btn primary" onclick="createPost()">Share Post</button>
     </div>
-    <p class="muted">Your new posts will appear below in this browser demo.</p>
-    <div id="feed">
-      <article class="post">
-        <strong>✦ ZENOVA TEAM</strong>
-        <p>Welcome to ZENOVA Social World! Connect, create and discover something new.</p>
-        <div class="actions">
-          <button onclick="likeDemo(this)">♡ Like 0</button>
-          <button onclick="alert('Sign in and backend setup are needed for real comments.')">💬 Comment</button>
-          <button onclick="shareDemo()">↗ Share</button>
-        </div>
-      </article>
+    <div class="card" id="postFeed"></div>
+  </section>
+
+  <section id="chat" class="page">
+    <div class="card">
+      <h2>💬 Chat</h2>
+      <p>Chat feature section.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="reels" class="page">
-  <div class="card">
-    <h2>🎬 Video Reels</h2>
-    <p class="muted">Choose a video to preview it on your device.</p>
-    <input id="reelFile" type="file" accept="video/*">
-    <video id="reelPreview" class="post-media" controls playsinline hidden></video>
-    <p id="reelStatus" class="status"></p>
-    <button class="btn primary" onclick="previewReel()">Preview Video</button>
-    <button class="btn soft" onclick="showPage('create')">＋ Create Post</button>
-  </div>
-</section>
-
-<section id="live" class="page">
-  <div class="card">
-    <h2>🔴 Live Studio</h2>
-    <p class="muted">Camera preview only. Public broadcasting needs a streaming backend.</p>
-    <button class="btn pink" onclick="startCamera()">Start Camera</button>
-    <button class="btn soft" onclick="stopCamera()">Stop Camera</button>
-    <video id="liveVideo" autoplay muted playsinline hidden></video>
-    <p id="liveStatus" class="status"></p>
-  </div>
-  <div class="card">
-    <h2>📺 Live News</h2>
-    <p>Pakistan live news search</p>
-    <a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Pakistan+live+news">Open Pakistan Live News ↗</a>
-    <hr>
-    <p>World live news search</p>
-    <a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=world+live+news">Open World Live News ↗</a>
-  </div>
-</section>
-
-<section id="create" class="page">
-  <div class="card">
-    <h2>✨ Create a Post</h2>
-    <input id="postAuthor" placeholder="Your name">
-    <textarea id="postText" rows="4" maxlength="2000" placeholder="What's on your mind?"></textarea>
-    <label for="postFile">Add a photo or video</label>
-    <input id="postFile" type="file" accept="image/*,video/*">
-    <div id="postPreview"></div>
-    <button class="btn primary" onclick="publishPost()">Publish Post</button>
-    <p id="postStatus" class="status"></p>
-  </div>
-  <div class="card">
-    <h2>📸 Create a Story</h2>
-    <p class="muted">Choose a photo or video to preview it.</p>
-    <input id="storyFile" type="file" accept="image/*,video/*">
-    <button class="btn pink" onclick="previewStory()">Preview Story</button>
-    <div id="storyPreview"></div>
-    <p id="storyStatus" class="status"></p>
-  </div>
-</section>
-
-<section id="news" class="page">
-  <div class="card">
-    <h2>🌍 Latest News</h2>
-    <p class="muted">Select a country and load recent headlines.</p>
-    <select id="newsCountry">
-      <option>Pakistan</option>
-      <option>World</option>
-      <option>United States</option>
-      <option>United Kingdom</option>
-      <option>India</option>
-      <option>Saudi Arabia</option>
-      <option>United Arab Emirates</option>
-    </select>
-    <button class="btn primary" onclick="loadNews()">Load News</button>
-    <button class="btn soft" onclick="readNews()">🔊 Read Headlines</button>
-    <button class="btn danger" onclick="stopReading()">Stop Voice</button>
-    <p id="newsStatus" class="status"></p>
-    <div id="newsResults"></div>
-  </div>
-</section>
-
-<section id="chat" class="page">
-  <div class="card">
-    <h2>💬 Chat Demo</h2>
-    <p class="muted">This demo stores messages only in this open page. Real online chat requires Firebase.</p>
-    <div id="chatMessages" class="chatbox"></div>
-    <form id="chatForm">
-      <input id="chatName" placeholder="Your name" required>
-      <input id="chatText" placeholder="Write a message..." required maxlength="500">
-      <button class="btn primary" type="submit">Send Message</button>
-    </form>
-  </div>
-</section>
-
-<section id="profile" class="page">
-  <div class="card">
-    <h2>👤 My Profile</h2>
-    <img id="profileAvatar" class="avatar" src="https://placehold.co/120x120/752cff/ffffff?text=Z" alt="Profile photo">
-    <input id="profileNameInput" placeholder="Your display name">
-    <input id="profilePhotoInput" type="file" accept="image/*">
-    <button class="btn primary" onclick="saveProfile()">Save Profile</button>
-    <h3 id="profileName">ZENOVA User</h3>
-    <p class="muted">MADE IN MIAN ABDULLAH GULZAR</p>
-    <p id="profileStatus" class="status"></p>
-    <button class="btn soft" onclick="showPage('account')">⚙ Settings</button>
-  </div>
-</section>
-
-<section id="account" class="page">
-  <div class="card">
-    <h2>⚙ Settings</h2>
-    <label for="themeColor">Accent colour</label>
-    <select id="themeColor" onchange="changeAccent(this.value)">
-      <option value="#752cff">Purple</option>
-      <option value="#246bfe">Blue</option>
-      <option value="#ef3f9b">Pink</option>
-      <option value="#00a9c7">Cyan</option>
-      <option value="#16a34a">Green</option>
-    </select>
-    <button class="btn primary" onclick="showPage('home')">Back to Home</button>
-    <p class="muted">This standalone version is a front-end demo. Configure Firebase Authentication, Firestore and Storage to enable accounts and online sharing.</p>
-  </div>
-</section>
-
-<section id="more" class="page">
-  <div class="card">
-    <h2>✨ Explore More</h2>
-    <div class="row">
-      <button class="btn primary" onclick="showPage('home')">🏠 Home</button>
-      <button class="btn pink" onclick="showPage('reels')">🎬 Reels</button>
-      <button class="btn cyan" onclick="showPage('live')">🔴 Live</button>
-      <button class="btn soft" onclick="showPage('news')">🌍 News</button>
-      <button class="btn soft" onclick="showPage('chat')">💬 Chat</button>
-      <button class="btn soft" onclick="showPage('profile')">👤 Profile</button>
-      <button class="btn soft" onclick="showPage('account')">⚙ Settings</button>
+  <section id="live" class="page">
+    <div class="card">
+      <h2>🔴 Live</h2>
+      <p>Live section.</p>
     </div>
-  </div>
-</section>
+  </section>
+
+  <section id="news" class="page">
+    <div class="card">
+      <h2>📰 News</h2>
+      <p>Latest news section.</p>
+    </div>
+  </section>
+
+  <section id="profile" class="page">
+    <div class="card">
+      <h2>👤 My Profile</h2>
+      <p>MADE IN MIAN ABDULLAH</p>
+    </div>
+  </section>
 </main>
 
 <nav class="bottomnav">
-  <button class="active" data-page="home" onclick="showPage('home')"><span class="ico">🏠</span>Home</button>
-  <button data-page="reels" onclick="showPage('reels')"><span class="ico">🎬</span>Reels</button>
-  <button data-page="live" onclick="showPage('live')"><span class="ico">🔴</span>Live</button>
-  <button data-page="create" onclick="showPage('create')"><span class="ico">＋</span>Create</button>
-  <button data-page="news" onclick="showPage('news')"><span class="ico">🌍</span>News</button>
-  <button data-page="chat" onclick="showPage('chat')"><span class="ico">💬</span>Chat</button>
-  <button data-page="profile" onclick="showPage('profile')"><span class="ico">👤</span>Profile</button>
-  <button data-page="more" onclick="showPage('more')"><span class="ico">☰</span>More</button>
+  <button class="active" onclick="showPage('home',this)">
+    <span class="ico">⌂</span>Home
+  </button>
+  <button onclick="showPage('reels',this)">
+    <span class="ico">▶</span>Reels
+  </button>
+  <button onclick="showPage('create',this)">
+    <span class="ico">＋</span>Create
+  </button>
+  <button onclick="showPage('chat',this)">
+    <span class="ico">✉</span>Chat
+  </button>
+  <button onclick="showPage('live',this)">
+    <span class="ico">◉</span>Live
+  </button>
+  <button onclick="showPage('news',this)">
+    <span class="ico">▤</span>News
+  </button>
+  <button onclick="showPage('profile',this)">
+    <span class="ico">●</span>Profile
+  </button>
 </nav>
 
-<footer>ZENOVA SOCIAL WORLD · MADE IN MIAN ABDULLAH GULZAR</footer>
-
 <script>
-let cameraStream=null;
-function showPage(id){
- document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
- document.querySelectorAll('.bottomnav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
- window.scrollTo({top:0,behavior:'smooth'});
-}
-function likeDemo(button){
- let n=Number(button.textContent.match(/\d+/)?.[0]||0);
- button.textContent='♥ Like '+(n+1);
-}
-function shareDemo(){
- if(navigator.share){navigator.share({title:'ZENOVA Social World',text:'Join me on ZENOVA!'}).catch(()=>{});}
- else alert('ZENOVA Social World');
-}
-function previewReel(){
- const f=document.getElementById('reelFile').files[0];
- if(!f){document.getElementById('reelStatus').textContent='Pehle video select karein.';return;}
- const video=document.getElementById('reelPreview');
- video.src=URL.createObjectURL(f);video.hidden=false;
- document.getElementById('reelStatus').textContent='Video preview ready.';
-}
-async function startCamera(){
- try{
-  cameraStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-  const v=document.getElementById('liveVideo');v.srcObject=cameraStream;v.hidden=false;
-  document.getElementById('liveStatus').textContent='Camera started. Yeh public broadcast nahi hai.';
- }catch(e){document.getElementById('liveStatus').textContent='Camera error: '+e.message+' — HTTPS aur permission check karein.';}
-}
-function stopCamera(){
- if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());
- cameraStream=null;
- const v=document.getElementById('liveVideo');v.srcObject=null;v.hidden=true;
- document.getElementById('liveStatus').textContent='Camera stopped.';
-}
-function previewStory(){
- const f=document.getElementById('storyFile').files[0];
- const box=document.getElementById('storyPreview');
- if(!f){document.getElementById('storyStatus').textContent='Photo ya video select karein.';return;}
- box.replaceChildren();
- const el=document.createElement(f.type.startsWith('video/')?'video':'img');
- el.src=URL.createObjectURL(f);el.className='post-media';
- if(el.tagName==='VIDEO'){el.controls=true;el.playsInline=true;}
- box.append(el);
- document.getElementById('storyStatus').textContent='Story preview ready. Online publish ke liye backend chahiye.';
-}
-document.getElementById('postFile').addEventListener('change',()=>{
- const f=document.getElementById('postFile').files[0],box=document.getElementById('postPreview');
- box.replaceChildren();if(!f)return;
- const el=document.createElement(f.type.startsWith('video/')?'video':'img');
- el.src=URL.createObjectURL(f);el.className='post-media';
- if(el.tagName==='VIDEO'){el.controls=true;el.playsInline=true;}
- box.append(el);
-});
-function publishPost(){
- const text=document.getElementById('postText').value.trim();
- const file=document.getElementById('postFile').files[0];
- if(!text&&!file){document.getElementById('postStatus').textContent='Text ya media add karein.';return;}
- const feed=document.getElementById('feed'),post=document.createElement('article');
- post.className='post';
- const name=document.createElement('strong');
- name.textContent=document.getElementById('postAuthor').value.trim()||'ZENOVA User';
- post.append(name);
- if(text){const p=document.createElement('p');p.textContent=text;post.append(p);}
- if(file){
-  const media=document.createElement(file.type.startsWith('video/')?'video':'img');
-  media.src=URL.createObjectURL(file);media.className='post-media';
-  if(media.tagName==='VIDEO'){media.controls=true;media.playsInline=true;}
-  post.append(media);
- }
- const actions=document.createElement('div');actions.className='actions';
- const like=document.createElement('button');like.textContent='♡ Like 0';like.onclick=()=>likeDemo(like);
- actions.append(like);post.append(actions);feed.prepend(post);
- document.getElementById('postText').value='';
- document.getElementById('postFile').value='';
- document.getElementById('postPreview').replaceChildren();
- document.getElementById('postStatus').textContent='Post is demo mein add ho gayi. Online sharing ke liye Firebase chahiye.';
- showPage('home');
-}
-document.getElementById('chatForm').addEventListener('submit',e=>{
- e.preventDefault();
- const name=document.getElementById('chatName').value.trim()||'User';
- const text=document.getElementById('chatText').value.trim();if(!text)return;
- const bubble=document.createElement('div');bubble.className='bubble';
- bubble.textContent=name+': '+text;
- document.getElementById('chatMessages').append(bubble);
- document.getElementById('chatText').value='';
-});
-function saveProfile(){
- const name=document.getElementById('profileNameInput').value.trim()||'ZENOVA User';
- document.getElementById('profileName').textContent=name;
- const f=document.getElementById('profilePhotoInput').files[0];
- if(f){
-  if(!f.type.startsWith('image/')){document.getElementById('profileStatus').textContent='Image file select karein.';return;}
-  document.getElementById('profileAvatar').src=URL.createObjectURL(f);
- }
- document.getElementById('profileStatus').textContent='Profile is demo mein save ho gayi. Permanent online save ke liye Firebase chahiye.';
-}
-function changeAccent(color){
- document.documentElement.style.setProperty('--purple',color);
- document.documentElement.style.setProperty('--purple',color);
- document.querySelectorAll('.primary').forEach(b=>b.style.background='linear-gradient(110deg,'+color+',#246bfe)');
-}
-function loadNews(){
- const country=document.getElementById('newsCountry').value;
- const results=document.getElementById('newsResults');
- const status=document.getElementById('newsStatus');
- results.replaceChildren();status.textContent='Loading latest headlines…';
- const url='https://api.gdeltproject.org/api/v2/doc/doc?query='+encodeURIComponent(country+' news')+'&mode=ArtList&format=json&maxrecords=10&sort=HybridRel';
- fetch(url).then(r=>{if(!r.ok)throw Error('News service unavailable');return r.json();})
- .then(data=>{
-  const articles=data.articles||[];
-  if(!articles.length){status.textContent='News nahi mili. Baad mein try karein.';return;}
-  articles.forEach(a=>{
-   const box=document.createElement('div');box.className='newsitem';
-   const link=document.createElement('a');link.href=a.url;link.target='_blank';link.rel='noopener';
-   link.textContent=a.title||'Open news';
-   const meta=document.createElement('p');meta.className='muted';meta.textContent=a.domain||country;
-   box.append(link,meta);results.append(box);
+function showPage(pageId, button) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
   });
-  status.textContent=articles.length+' headlines loaded. News source ke links khol kar poori report dekhein.';
- }).catch(()=>status.textContent='News service abhi available nahi. Internet connection check karein.');
+
+  const selected = document.getElementById(pageId);
+  if (selected) selected.classList.add('active');
+
+  document.querySelectorAll('.bottomnav button').forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  if (button) button.classList.add('active');
 }
-function readNews(){
- const titles=[...document.querySelectorAll('#newsResults a')].map(a=>a.textContent);
- if(!titles.length){document.getElementById('newsStatus').textContent='Pehle Load News dabayein.';return;}
- if(!('speechSynthesis' in window)){document.getElementById('newsStatus').textContent='Voice reading supported nahi.';return;}
- speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance(titles.join('. ')));
+
+function createPost() {
+  const text = document.getElementById('postText').value.trim();
+  const fileInput = document.getElementById('postFile');
+  const feed = document.getElementById('postFeed');
+
+  if (!text && !fileInput.files.length) {
+    alert('Write something or select a photo/video first.');
+    return;
+  }
+
+  const post = document.createElement('article');
+  post.className = 'post';
+
+  if (text) {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = text;
+    post.appendChild(paragraph);
+  }
+
+  if (fileInput.files.length) {
+    const file = fileInput.files[0];
+    const media = document.createElement(file.type.startsWith('video/') ? 'video' : 'img');
+    media.className = 'media';
+    media.src = URL.createObjectURL(file);
+
+    if (media.tagName === 'VIDEO') {
+      media.controls = true;
+    }
+
+    post.appendChild(media);
+  }
+
+  feed.prepend(post);
+  document.getElementById('postText').value = '';
+  fileInput.value = '';
 }
-function stopReading(){if('speechSynthesis' in window)speechSynthesis.cancel();}
 </script>
+
+<footer>
+  ZENOVA SOCIAL WORLD<br>
+  MADE IN MIAN ABDULLAH
+</footer>
+
 </body>
 </html>
