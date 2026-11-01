@@ -2,1522 +2,1393 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
-<title>ZENOVA Social World</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#000000">
+<title>Zenova Social World</title>
 <style>
-:root {
-  --red: #ff0033;
-  --red-dark: #cc0029;
-  --black: #0f0f0f;
-  --grey: #606060;
-  --light: #f9f9f9;
-  --line: #e5e5e5;
-  --white: #fff;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--light);
-  color: var(--black);
-  font-family: Arial, Helvetica, sans-serif;
-}
-button, input, textarea, select { font: inherit; }
-button { cursor: pointer; }
-.hidden { display: none !important; }
-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 4%;
-  background: #fff;
-  border-bottom: 1px solid var(--line);
-}
-.brand {
-  color: var(--red);
-  font-size: 26px;
-  font-weight: 900;
-  letter-spacing: -1px;
-}
-.brand-sub {
-  color: var(--grey);
-  font-size: 10px;
-  letter-spacing: 1.5px;
-}
-main {
-  width: min(1050px, 95%);
-  margin: 20px auto 120px;
-}
-.card {
-  padding: 20px;
-  margin: 14px 0;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-}
-h1, h2, h3, p { color: var(--black); }
-h2 { font-size: 22px; margin-top: 4px; }
-.muted, .status {
-  color: var(--grey);
-  line-height: 1.55;
-}
-.status { font-size: 13px; overflow-wrap: anywhere; }
-.row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.row > * { flex: 1; min-width: 100px; }
-.btn {
-  border: none;
-  border-radius: 999px;
-  padding: 12px 18px;
-  min-height: 44px;
-  font-weight: 700;
-  transition: .2s;
-}
-.btn:hover { transform: translateY(-1px); }
-.primary { background: var(--red); color: #fff; }
-.primary:hover { background: var(--red-dark); }
-.secondary { background: #f2f2f2; color: #111; }
-.danger { background: #b91c1c; color: #fff; }
-.full { width: 100%; }
-input, textarea, select {
-  width: 100%;
-  display: block;
-  margin: 10px 0;
-  padding: 13px;
-  color: var(--black);
-  background: #fff;
-  border: 1px solid #c6c6c6;
-  border-radius: 12px;
-  outline: none;
-}
-input:focus, textarea:focus, select:focus {
-  border-color: var(--red);
-  box-shadow: 0 0 0 2px #ff003318;
-}
-input[type="file"] { font-size: 13px; }
-input[type="range"] { padding: 0; }
-.page { display: none; }
-.page.active { display: block; }
-.hero {
-  padding: clamp(24px, 5vw, 42px);
-  background: linear-gradient(120deg, #111, #292929);
-  border-left: 5px solid var(--red);
-  border-radius: 18px;
-  color: #fff;
-}
-.hero h1, .hero p { color: #fff; }
-.hero h1 { font-size: clamp(29px, 5vw, 44px); }
-.hero p { line-height: 1.7; }
-.bottomnav {
-  position: fixed;
-  z-index: 30;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  gap: 5px;
-  justify-content: flex-start;
-  overflow-x: auto;
-  padding: 8px 7px calc(8px + env(safe-area-inset-bottom));
-  background: #fff;
-  border-top: 1px solid var(--line);
-  scrollbar-width: none;
-}
-.bottomnav button {
-  flex: 0 0 72px;
-  min-height: 64px;
-  padding: 7px 3px;
-  background: #fff;
-  color: var(--grey);
-  border: 0;
-  border-radius: 12px;
-  font-size: 10px;
-  font-weight: 700;
-}
-.bottomnav .ico {
-  display: block;
-  margin-bottom: 4px;
-  font-size: 23px;
-}
-.bottomnav button.active {
-  background: var(--red);
-  color: #fff;
-}
-.avatar {
-  width: 100px;
-  height: 100px;
-  border: 3px solid var(--red);
-  border-radius: 50%;
-  object-fit: cover;
-  background: #eee;
-  cursor: pointer;
-}
-.smallavatar {
-  width: 38px;
-  height: 38px;
-  object-fit: cover;
-  vertical-align: middle;
-  border-radius: 50%;
-  margin-right: 8px;
-}
-.stories {
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-}
-.story {
-  min-width: 65px;
-  text-align: center;
-  font-size: 12px;
-  color: var(--grey);
-}
-.story img, .story video {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid var(--red);
-}
-.post {
-  padding: 17px 0;
-  border-bottom: 1px solid var(--line);
-  overflow-wrap: anywhere;
-}
-.posthead { display: flex; align-items: center; }
-.posttext { line-height: 1.6; white-space: pre-wrap; }
-.media {
-  display: block;
-  width: 100%;
-  max-height: 600px;
-  margin: 12px 0;
-  border-radius: 14px;
-  background: #111;
-  object-fit: contain;
-}
-.creator {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 220px;
-  gap: 14px;
-  align-items: start;
-}
-.editbox {
-  padding: 14px;
-  background: #f9f9f9;
-  border: 1px solid var(--line);
-  border-radius: 15px;
-}
-.editbox label { display: block; margin-top: 13px; font-size: 13px; }
-.camera {
-  width: 100%;
-  max-height: 450px;
-  background: #111;
-  border-radius: 15px;
-}
-.auth {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-  padding: 16px;
-  background:
-    linear-gradient(135deg, #080808c9, #a400208c),
-    url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1800&q=85")
-    center/cover fixed;
-}
-.authbox {
-  width: min(440px, 100%);
-  padding: 25px;
-  border: 1px solid #ffffff80;
-  border-radius: 22px;
-  background: #ffffffed;
-  box-shadow: 0 20px 65px #0004;
-}
-.authbox h1 { text-align: center; color: var(--red); font-size: 36px; }
-.authbox p { text-align: center; }
-.mark {
-  display: grid;
-  place-items: center;
-  width: 68px;
-  height: 68px;
-  margin: auto;
-  border-radius: 20px;
-  color: white;
-  background: var(--red);
-  font-size: 36px;
-  font-weight: 900;
-}
-.chatbox {
-  height: 300px;
-  overflow: auto;
-  padding: 12px;
-  background: #f5f5f5;
-  border-radius: 14px;
-}
-.bubble {
-  padding: 10px 13px;
-  margin: 7px 0;
-  background: #e5e5e5;
-  border-radius: 13px;
-  overflow-wrap: anywhere;
-  white-space: pre-wrap;
-}
-.bubble.mine {
-  background: #ffe6eb;
-  border: 1px solid #ffc5d0;
-}
-.newsitem {
-  padding: 15px 0;
-  border-bottom: 1px solid var(--line);
-}
-a { color: #065fd4; font-weight: 700; }
-details { padding: 13px 0; border-bottom: 1px solid var(--line); }
-summary { cursor: pointer; font-weight: 700; }
-footer {
-  padding: 20px 10px 120px;
-  text-align: center;
-  color: var(--grey);
-  font-size: 12px;
-  font-weight: bold;
-}
-@media (max-width: 600px) {
-  main { margin-top: 12px; }
-  .card { padding: 15px; }
-  .creator { grid-template-columns: 1fr; }
-  .bottomnav button { flex-basis: 70px; }
-}
-@media (min-width: 760px) {
-  .bottomnav {
-    left: 50%;
-    right: auto;
-    bottom: 12px;
-    transform: translateX(-50%);
-    justify-content: center;
-    width: min(900px, 96%);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-  }
-  .bottomnav button { flex: 1; max-width: 115px; }
+:root{--bg:#000;--panel:#111;--panel2:#181818;--red:#fe2c55;--cyan:#25f4ee;--text:#f7f7f7;--muted:#a7a7a7;--line:#2b2b2b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#000;color:var(--text);font:15px Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;color:inherit;transition:transform .18s,background .18s}
+button:active{transform:scale(.98)}
+.hidden{display:none!important}
+header{position:sticky;top:0;z-index:15;display:flex;justify-content:space-between;align-items:center;padding:13px max(4%,calc((100% - 1120px)/2));gap:14px;background:#050505;border-bottom:1px solid var(--line)}
+.brand{font-size:25px;font-weight:950;letter-spacing:-1px;color:#fff}
+.brand:before{content:'▶ ';color:var(--red)}
+header small{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#aaa}
+main{width:min(1050px,94%);margin:18px auto 120px}
+h1,h2,h3{letter-spacing:-.3px;color:#fff}
+h2{margin:2px 0 14px;font-size:22px}
+h3{font-size:17px}
+.muted,.status,small,.country-note{color:var(--muted);line-height:1.55}
+.status{font-size:13px;overflow-wrap:anywhere}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.row>*{min-width:0}
+.card{padding:20px;margin:14px 0;border-radius:15px;background:var(--panel);border:1px solid var(--line);box-shadow:none}
+.hero{position:relative;overflow:hidden;padding:clamp(24px,5vw,44px);border-radius:16px;color:#fff;background:linear-gradient(135deg,#151515,#050505);border-left:4px solid var(--red)}
+.hero small{color:#bbb;letter-spacing:2px;font-weight:800}
+.hero h1{font-size:clamp(30px,5vw,46px);line-height:1.08;max-width:620px;margin:15px 0}
+.hero h1 span{color:var(--cyan)!important}
+.hero p{max-width:560px;color:#ddd;line-height:1.7}
+.btn{padding:11px 16px;border-radius:7px;border:0;font-weight:800;min-height:43px}
+.btn.primary,button.primary{background:var(--red);color:#fff}
+.btn.primary:hover,button.primary:hover{background:#e42449}
+.btn.secondary,button.secondary{background:#242424;color:#fff;border:1px solid #373737}
+.btn.danger,button.danger{background:#333;color:#ff6a85;border:1px solid #4a4a4a}
+.btn:hover{transform:translateY(-1px)}
+input,textarea,select{display:block;width:100%;padding:13px 14px;margin:10px 0;background:#1b1b1b;color:#fff;border:1px solid #333;border-radius:8px;outline:none}
+input::placeholder,textarea::placeholder{color:#8c8c8c}
+input:focus,textarea:focus,select:focus{border-color:var(--red);box-shadow:0 0 0 2px #fe2c5528}
+input[type=file]{font-size:13px;background:#161616}
+input[type=range]{padding:0}
+.page{display:none}
+.page.active{display:block;animation:fadeUp .2s ease}
+@keyframes fadeUp{from{opacity:.7;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.bottomnav{position:fixed;z-index:30;left:0;right:0;bottom:0;display:flex;gap:5px;justify-content:space-around;padding:6px max(10px,calc((100% - 600px)/2)) calc(6px + env(safe-area-inset-bottom));background:#050505;border-top:1px solid #292929;box-shadow:0 -4px 18px #000}
+.bottomnav button{flex:1;min-width:0;padding:7px 3px;border:0;border-radius:8px;background:transparent;color:#b6b6b6;font-size:11px;font-weight:800;min-height:58px}
+.bottomnav .ico{display:block;font-size:23px;line-height:1.2;margin-bottom:3px}
+.bottomnav button.active{background:#202020;color:#fff;border-bottom:3px solid var(--red)}
+.avatar{width:92px;height:92px;border-radius:50%;object-fit:cover;border:3px solid var(--red);background:#151515;cursor:pointer}
+.smallavatar{width:38px;height:38px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px;border:1px solid #444}
+.stories{display:flex;gap:14px;overflow-x:auto;padding:10px 0 4px}
+.story{text-align:center;min-width:66px;font-size:12px;color:var(--muted)}
+.storyring{width:62px;height:62px;padding:3px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--cyan));margin:auto auto 6px}
+.storyring img{width:100%;height:100%;object-fit:cover;border-radius:50%;background:#222;border:2px solid #111}
+.post{padding:17px 0;border-bottom:1px solid #292929;overflow-wrap:anywhere}
+.post:last-child{border-bottom:0}
+.posthead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.posthead b{color:#fff}
+.posttext{white-space:pre-wrap;line-height:1.7;color:#eee}
+.media{display:block;width:100%;max-height:560px;object-fit:contain;background:#000;border-radius:10px;margin:13px 0}
+.feed-video{width:min(100%,480px);margin:12px auto;display:block;aspect-ratio:9/16;max-height:72vh;object-fit:contain;background:#000;border-radius:10px}
+.postactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.postactions button{background:#242424;color:#f8f8f8;border:1px solid #333;border-radius:7px;padding:9px 12px;font-weight:750;min-height:38px}
+.postactions button:hover{background:#303030}
+.lock-note{font-size:11px;color:var(--cyan)!important;padding:4px 0}
+#authPage{position:fixed;inset:0;z-index:100;overflow:auto;display:flex;align-items:center;justify-content:center;padding:18px;background:radial-gradient(circle at 20% 15%,#272727 0,transparent 35%),linear-gradient(135deg,#000,#101010 70%,#2b0610)}
+.authbox{width:min(430px,100%);padding:clamp(22px,5vw,34px);border-radius:20px;background:#101010f2;border:1px solid #303030;box-shadow:none}
+.authbox h1{text-align:center;font-size:38px;color:#fff;margin:12px 0 3px}
+.authbox p{text-align:center;color:#ddd}
+.authbox button{width:100%;margin:5px 0}
+.mark{width:70px;height:70px;border-radius:16px;margin:auto;display:grid;place-items:center;font-size:38px;font-weight:900;color:white;background:var(--red)}
+hr{border:0;border-top:1px solid #303030;margin:20px 0}
+#cameraVideo,#reelCameraPreview{width:100%;max-height:480px;border-radius:10px;background:#000}
+.creator-layout{display:grid;grid-template-columns:minmax(0,1fr) 235px;gap:14px;align-items:start}
+.edit-tools{border:1px solid #303030;border-radius:12px;padding:14px;background:#161616}
+.edit-tools label{display:block;margin:12px 0 5px;color:#ddd}
+.edit-tools input[type=range]{padding:0;margin:5px 0}
+.reel-controls{display:flex;gap:8px;flex-wrap:wrap}
+.reel-controls button{flex:1;min-width:135px}
+.videos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.videos video{width:100%;min-height:140px;max-height:320px;background:#000;border-radius:10px}
+.chatbox{height:300px;overflow:auto;background:#090909;border:1px solid #292929;border-radius:12px;padding:12px;margin:12px 0}
+.bubble{max-width:86%;padding:11px 14px;margin:8px 0;border-radius:12px;background:#292929;color:#fff;overflow-wrap:anywhere;white-space:pre-wrap}
+.bubble.mine{margin-left:auto;background:#4a1120;border:1px solid var(--red);color:#fff}
+.newsitem{padding:16px 0;border-bottom:1px solid #2b2b2b}
+.newsitem:last-child{border-bottom:0}
+a{color:var(--cyan);font-weight:750}
+details{padding:13px 0;border-bottom:1px solid #303030}
+summary{cursor:pointer;font-weight:750;color:#fff}
+footer{text-align:center;color:#888;background:#000;padding:24px 10px 100px;font-size:12px;font-weight:750;letter-spacing:1px}
+.profile-tabs{display:flex;gap:7px;overflow:auto;margin:18px 0 10px;padding-bottom:6px}
+.profile-tabs button{flex:1;min-width:100px;background:#202020;color:#bbb;border:0;border-radius:7px;padding:12px 10px;font-weight:800;white-space:nowrap}
+.profile-tabs button.active{background:var(--red);color:#fff}
+.profile-panel{display:none}
+.profile-panel.active{display:block}
+.profile-head{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+.profile-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:10px}
+.profile-tile{min-width:0;background:#171717;border-radius:5px;overflow:hidden}
+.profile-tile video,.profile-tile img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#050505}
+.profile-tile .tile-label{font-size:11px;color:#eee;padding:7px;overflow-wrap:anywhere}
+.profile-tile .tile-actions{display:flex;gap:4px;flex-wrap:wrap;padding:6px}
+.profile-tile .tile-actions button{flex:1;min-width:50px;padding:7px 4px;background:#2a2a2a;color:white;border:0;border-radius:5px;font-size:11px}
+.profile-tile .tile-actions button.lock-action{color:var(--cyan)}
+.page label{font-weight:750;color:#ddd;font-size:13px}
+.country-note{font-size:12px;margin-top:8px}
+@media(max-width:600px){
+ header{padding:12px 4%}
+ .brand{font-size:23px}
+ main{width:100%;margin:8px auto 100px}
+ .card{padding:15px;border-radius:12px;margin:8px}
+ .hero{margin:8px;border-radius:14px}
+ .creator-layout{grid-template-columns:1fr}
+ .edit-tools{order:2}
+ .videos{grid-template-columns:1fr}
+ .bottomnav{gap:2px;padding:5px 8px calc(5px + env(safe-area-inset-bottom))}
+ .bottomnav button{font-size:10px;min-height:55px}
+ .bottomnav .ico{font-size:22px}
+ .profile-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .profile-head .btn{flex:1}
 }
 </style>
 </head>
-
 <body>
 
-<!-- LOGIN AND SIGNUP -->
-<section id="authPage" class="auth">
-  <div class="authbox">
-    <div class="mark">▶</div>
-    <h1>ZENOVA</h1>
-    <p><b>SOCIAL WORLD</b></p>
-    <p>MADE IN MIAN ABDULLAH GULZAR</p>
-    <hr>
-
-    <h2>Create Account</h2>
-    <form id="signupForm">
-      <input id="signupName" placeholder="Your name" maxlength="40">
-      <input id="signupEmail" type="email" placeholder="Email address" required>
-      <input id="signupPassword" type="password" placeholder="Password (6+ characters)" minlength="6" required>
-      <button class="btn primary full">Sign Up</button>
-    </form>
-
-    <hr>
-    <h2>Log In</h2>
-    <form id="loginForm">
-      <input id="loginEmail" type="email" placeholder="Email address" required>
-      <input id="loginPassword" type="password" placeholder="Password" required>
-      <button class="btn secondary full">Log In</button>
-    </form>
-
-    <button id="googleBtn" class="btn secondary full">🌐 Continue with Google</button>
-    <p id="authStatus" class="status"></p>
-  </div>
+<section id="authPage">
+ <div class="authbox">
+  <div class="mark">✦</div>
+  <h1 style="color:#fff">ZENOVA</h1>
+  <p>CONNECT • SHARE • EXPLORE</p>
+  <p class="muted">MADE IN MIAN ABDULLAH GULZAR</p>
+  <hr>
+  <h2>Create Account</h2>
+  <form id="signupForm">
+   <input id="signupName" placeholder="Your name" maxlength="40">
+   <input id="signupEmail" type="email" placeholder="Email address" required>
+   <input id="signupPassword" type="password" minlength="6" placeholder="Password (6+ characters)" required>
+   <button class="btn primary">Sign Up</button>
+  </form>
+  <hr>
+  <h2>Already have an account?</h2>
+  <form id="loginForm">
+   <input id="loginEmail" type="email" placeholder="Email address" required>
+   <input id="loginPassword" type="password" placeholder="Password" required>
+   <button class="btn secondary">Log In</button>
+  </form>
+  <button id="googleBtn" class="btn secondary">Continue with Google</button>
+  <p id="authStatus" class="status"></p>
+ </div>
 </section>
 
 <header>
-  <div>
-    <div class="brand">▶ ZENOVA</div>
-    <div class="brand-sub">SOCIAL WORLD</div>
-  </div>
-  <button class="btn secondary" data-go="settings">⚙ Settings</button>
+ <div><div class="brand">ZENOVA</div><small>Social World</small></div>
 </header>
 
 <main>
-  <!-- HOME -->
-  <section id="home" class="page active">
-    <div class="hero">
-      <p>WELCOME TO ZENOVA SOCIAL WORLD</p>
-      <h1>Watch. Share. Connect.</h1>
-      <p>Discover videos, share moments and connect with people.</p>
-      <button class="btn primary" data-go="create">＋ Create Post</button>
+ <section id="home" class="page active">
+  <div class="hero">
+   <small>WELCOME TO ZENOVA SOCIAL WORLD</small>
+   <h1>Share your world. <span>Be yourself.</span></h1>
+   <p>Post photos, share videos, publish stories and explore news.</p>
+  </div>
+  <div class="card">
+   <div class="row"><h2>Stories</h2><button class="btn primary" data-go="create">＋ Add Story</button></div>
+   <div id="homeStories" class="stories"></div>
+  </div>
+  <div class="card">
+   <div class="row"><h2>For You</h2><button class="btn primary" data-go="create">＋ Create Post</button></div>
+   <p id="feedStatus" class="status">Loading posts…</p>
+   <div id="feed"></div>
+  </div>
+ </section>
+
+ <section id="reels" class="page">
+  <div class="card">
+   <h2>🎬 Video Studio</h2>
+   <p class="muted">Camera se video record karein ya gallery se photo/video select karein.</p>
+   <div class="reel-controls">
+    <button id="openReelCamera" type="button" class="btn primary">📷 Open Camera</button>
+    <button id="openReelGallery" type="button" class="btn secondary">🖼️ Gallery</button>
+   </div>
+   <input id="reelFile" type="file" accept="image/*,video/*" class="hidden">
+   <input id="reelCameraFile" type="file" accept="video/*" capture="environment" class="hidden">
+   <video id="reelCameraPreview" class="hidden" autoplay muted playsinline></video>
+   <div class="reel-controls">
+    <button id="recordReel" type="button" class="btn primary">⏺ Record Video</button>
+    <button id="stopReelCamera" type="button" class="btn secondary">Stop Camera</button>
+   </div>
+   <p class="country-note">Mobile par camera permission allow karein. Desktop par camera access HTTPS par chalta hai.</p>
+   <div class="creator-layout">
+    <div>
+     <h3>Preview</h3>
+     <video id="reelPreview" class="media hidden" controls playsinline></video>
+     <img id="reelImagePreview" class="media hidden" alt="Selected image preview">
+     <p id="reelStatus" class="status"></p>
+     <button class="btn primary" id="shareReel" type="button">Use in Create Post</button>
     </div>
+    <aside class="edit-tools">
+     <h3>Quick Editing</h3>
+     <label for="reelBrightness">Brightness</label><input id="reelBrightness" type="range" min="50" max="150" value="100">
+     <label for="reelContrast">Contrast</label><input id="reelContrast" type="range" min="50" max="180" value="100">
+     <label for="reelSaturation">Saturation</label><input id="reelSaturation" type="range" min="0" max="200" value="100">
+     <button id="resetReelEdit" type="button" class="btn secondary">Reset Effects</button>
+     <p class="country-note">Effects preview ke liye hain; original file permanently edit nahi hoti.</p>
+    </aside>
+   </div>
+  </div>
+ </section>
 
-    <div class="card">
-      <div class="row">
-        <h2>⭕ Stories</h2>
-        <button class="btn primary" data-go="create">＋ Add Story</button>
-      </div>
-      <div id="stories" class="stories"></div>
+ <section id="live" class="page">
+  <div class="card">
+   <h2>🔴 Live Studio</h2>
+   <p class="muted">Yeh camera preview hai. Public livestreaming ke liye separate streaming service/backend chahiye.</p>
+   <button id="startCamera" class="btn primary">Start Camera</button>
+   <button id="stopCamera" class="btn secondary">Stop Camera</button>
+   <video id="cameraVideo" class="hidden" autoplay muted playsinline></video>
+   <p id="liveStatus" class="status"></p>
+   <hr>
+   <h3>Live News Streams</h3>
+   <a href="https://www.youtube.com/results?search_query=Pakistan+live+news" target="_blank" rel="noopener">▶ Pakistan Live News</a><br><br>
+   <a href="https://www.youtube.com/results?search_query=world+live+news" target="_blank" rel="noopener">▶ World Live News</a>
+  </div>
+ </section>
+
+ <section id="create" class="page">
+  <div class="card">
+   <h2>＋ Create Post / Video</h2>
+   <form id="postForm">
+    <textarea id="postText" maxlength="1000" rows="4" placeholder="Write a caption..."></textarea>
+    <label>Choose photo or video (up to 500 MB; Firebase limits also apply)</label>
+    <input id="mediaFile" type="file" accept="image/*,video/*">
+    <div id="mediaPreview"></div>
+    <button id="publishBtn" class="btn primary">Upload & Publish</button>
+   </form>
+   <p id="postStatus" class="status"></p>
+   <hr>
+   <h2>＋ Create Story</h2>
+   <input id="storyFile" type="file" accept="image/*,video/*">
+   <button id="uploadStory" class="btn primary">Upload Story</button>
+   <p id="storyStatus" class="status"></p>
+  </div>
+ </section>
+
+ <section id="profile" class="page">
+  <div class="card">
+   <div class="profile-head">
+    <img id="profilePhoto" class="avatar" alt="Profile picture" title="Tap to change your DP">
+    <div style="flex:1;min-width:150px">
+     <h2 id="profileName">Your Name</h2>
+     <p id="profileEmail" class="muted"></p>
+     <p id="profileBioView" class="muted">Your Zenova profile</p>
+     <p id="myPostCount" class="muted">Videos: 0 · Locked: 0 · Saved: 0</p>
     </div>
+   </div>
+   <div class="row" style="margin-top:14px">
+    <button class="btn secondary" data-go="account">Edit Your Profile</button>
+    <button class="btn primary" data-go="create">＋ Upload Video</button>
+   </div>
+   <div class="profile-tabs">
+    <button class="active" data-profile-tab="videos">▦ Videos</button>
+    <button data-profile-tab="locked">🔒 Private</button>
+    <button data-profile-tab="saved">▣ Saved</button>
+   </div>
+   <div id="profileVideosPanel" class="profile-panel active"><div id="myPosts" class="profile-grid"></div></div>
+   <div id="profileLockedPanel" class="profile-panel"><p class="muted">Your private posts appear here.</p><div id="lockedPosts" class="profile-grid"></div></div>
+   <div id="profileSavedPanel" class="profile-panel"><p class="muted">Posts and videos you saved.</p><div id="savedPosts" class="profile-grid"></div></div>
+  </div>
+ </section>
 
-    <div class="card">
-      <div class="row">
-        <h2>Community Feed</h2>
-        <button class="btn primary" data-go="create">＋ Upload</button>
-      </div>
-      <p id="feedStatus" class="status">Sign in to load posts.</p>
-      <div id="feed"></div>
-    </div>
-  </section>
+ <section id="account" class="page">
+  <div class="card">
+   <h2>Edit Your Profile</h2>
+   <label>Profile picture (tap to choose a photo)</label>
+   <img id="dpPreview" class="avatar" alt="DP preview">
+   <input id="dpFile" type="file" accept="image/*">
+   <input id="displayName" maxlength="40" placeholder="Your display name">
+   <textarea id="profileBio" rows="3" maxlength="160" placeholder="Write a short bio (160 characters)"></textarea>
+   <button id="saveProfile" class="btn primary">Save Profile & DP</button>
+   <p id="profileStatus" class="status"></p>
 
-  <!-- REELS -->
-  <section id="reels" class="page">
-    <div class="card">
-      <h2>🎬 Reels Studio</h2>
-      <p class="muted">Gallery se photo/video select karein ya camera use karein.</p>
+   <hr>
+   <h3>App Setup / Error Help</h3>
+   <p class="muted">Firebase ki permissions ya configuration theek honi chahiye. App security rules ko bypass nahi kar sakti.</p>
+   <p><b>Last detected error</b></p>
+   <p id="settingsLastError" class="status">Abhi tak koi error record nahi hua.</p>
+   <p id="settingsErrorCode" class="status"></p>
+   <button id="clearErrorBtn" type="button" class="btn secondary">Clear Error Message</button>
+   <button id="checkSetupBtn" type="button" class="btn primary">Check App Setup</button>
+   <p id="setupCheckStatus" class="status">Setup check karne ke liye button dabayein.</p>
 
-      <div class="row">
-        <button id="openCamera" type="button" class="btn primary">📷 Open Camera</button>
-        <button id="openGallery" type="button" class="btn secondary">🖼 Gallery</button>
-      </div>
+   <details><summary>Login / Google sign-in issue</summary><p class="muted">Firebase Console → Authentication mein Email/Password aur Google enable karein. Authorized domains mein apni website ka domain add karein.</p></details>
+   <details><summary>Video, photo or DP upload issue</summary><p class="muted">Firebase Storage enable karein, bucket name check karein aur secure Storage Rules publish karein. User logged in hona chahiye.</p></details>
+   <details><summary>Posts, saved videos or private posts</summary><p class="muted">Firestore Database aur rules mein apni posts ko update karne aur apne user document ko update karne ki permission honi chahiye.</p></details>
+   <details><summary>Camera issue</summary><p class="muted">Camera ke liye HTTPS aur browser camera/microphone permission zaroori hai.</p></details>
+   <hr>
+   <button id="logoutBtn2" type="button" class="btn danger full">Log Out</button>
+  </div>
+ </section>
 
-      <input id="reelFile" type="file" accept="image/*,video/*" class="hidden">
-      <input id="cameraFile" type="file" accept="video/*" capture="environment" class="hidden">
-      <video id="cameraPreview" class="camera hidden" autoplay muted playsinline></video>
+ <section id="chat" class="page">
+  <div class="card">
+   <h2>Inbox</h2>
+   <p class="muted">Friend ka registered email enter karein. Dono users ka Zenova account hona chahiye.</p>
+   <input id="friendEmail" type="email" placeholder="Friend's registered email">
+   <button id="openChat" class="btn primary">Open Conversation</button>
+   <p id="chatStatus" class="status"></p>
+  </div>
+  <div id="chatRoom" class="card hidden">
+   <h3 id="chatHeading">Conversation</h3>
+   <div id="chatMessages" class="chatbox"></div>
+   <form id="chatForm">
+    <textarea id="chatText" maxlength="2000" rows="2" placeholder="Write a message..." required></textarea>
+    <button class="btn primary full">Send Message</button>
+   </form>
+   <hr>
+   <h3>One-to-one Video Call</h3>
+   <p class="muted">Friend ko bhi isi chat ko open karke Answer Call dabana hoga.</p>
+   <div class="videos">
+    <div><small>Your camera</small><video id="localCallVideo" autoplay muted playsinline></video></div>
+    <div><small>Friend's camera</small><video id="remoteCallVideo" autoplay playsinline></video></div>
+   </div>
+   <div class="row">
+    <button id="startCall" class="btn primary">Start Call</button>
+    <button id="answerCall" class="btn secondary">Answer Call</button>
+    <button id="endCall" class="btn danger">Hang Up</button>
+   </div>
+   <p id="callStatus" class="status"></p>
+  </div>
+ </section>
 
-      <div class="row">
-        <button id="recordBtn" type="button" class="btn primary">⏺ Record Video</button>
-        <button id="stopCameraBtn" type="button" class="btn secondary">Stop Camera</button>
-      </div>
-
-      <p id="reelStatus" class="status"></p>
-
-      <div class="creator">
-        <div>
-          <h3>Preview</h3>
-          <video id="reelVideo" class="media hidden" controls playsinline></video>
-          <img id="reelImage" class="media hidden" alt="Reel preview">
-          <button id="useReel" type="button" class="btn primary full">Use in Create Post</button>
-        </div>
-
-        <aside class="editbox">
-          <h3>🎨 Editing</h3>
-          <label for="brightness">Brightness</label>
-          <input id="brightness" type="range" min="50" max="150" value="100">
-          <label for="contrast">Contrast</label>
-          <input id="contrast" type="range" min="50" max="180" value="100">
-          <label for="saturation">Saturation</label>
-          <input id="saturation" type="range" min="0" max="200" value="100">
-          <button id="resetFilters" type="button" class="btn secondary full">Reset Effects</button>
-          <p class="muted">These are preview effects; they do not permanently change the original file.</p>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- CREATE -->
-  <section id="create" class="page">
-    <div class="card">
-      <h2>＋ Create Post</h2>
-      <form id="postForm">
-        <textarea id="postText" maxlength="1000" rows="4" placeholder="What's on your mind?"></textarea>
-        <label for="postFile">Select a photo or video</label>
-        <input id="postFile" type="file" accept="image/*,video/*">
-        <div id="postPreview"></div>
-        <button id="publishBtn" class="btn primary full">Upload & Publish</button>
-      </form>
-      <p id="postStatus" class="status"></p>
-
-      <hr>
-      <h2>⭕ Create Story</h2>
-      <input id="storyFile" type="file" accept="image/*,video/*">
-      <button id="storyBtn" class="btn primary full">Upload Story</button>
-      <p id="storyStatus" class="status"></p>
-    </div>
-  </section>
-
-  <!-- LIVE -->
-  <section id="live" class="page">
-    <div class="card">
-      <h2>🔴 Live Studio</h2>
-      <p class="muted">This section opens your local camera preview. Worldwide public livestreaming requires a streaming provider and backend.</p>
-      <button id="startLive" class="btn primary">Start Camera</button>
-      <button id="stopLive" class="btn secondary">Stop Camera</button>
-      <video id="liveVideo" class="camera hidden" autoplay muted playsinline></video>
-      <p id="liveStatus" class="status"></p>
-
-      <hr>
-      <h3>World Live News</h3>
-      <p><a href="https://www.youtube.com/results?search_query=Pakistan+live+news" target="_blank" rel="noopener">▶ Pakistan Live News</a></p>
-      <p><a href="https://www.youtube.com/results?search_query=world+live+news" target="_blank" rel="noopener">▶ World Live News</a></p>
-    </div>
-  </section>
-
-  <!-- CHAT -->
-  <section id="chat" class="page">
-    <div class="card">
-      <h2>💬 Chat</h2>
-      <input id="friendEmail" type="email" placeholder="Friend's registered email">
-      <button id="openChat" class="btn primary full">Open Conversation</button>
-      <p id="chatStatus" class="status"></p>
-    </div>
-
-    <div id="chatRoom" class="card hidden">
-      <h3 id="chatHeading">Conversation</h3>
-      <div id="messages" class="chatbox"></div>
-      <form id="chatForm">
-        <textarea id="chatText" rows="2" maxlength="2000" placeholder="Write a message..." required></textarea>
-        <button class="btn primary full">Send Message</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- NEWS -->
-  <section id="news" class="page">
-    <div class="card">
-      <h2>🌍 World News</h2>
-      <label for="country">Choose Country</label>
-      <select id="country"></select>
-
-      <label for="newsType">News Type</label>
-      <select id="newsType">
-        <option value="latest news">Latest Headlines</option>
-        <option value="live news">Live News Updates</option>
-        <option value="video news">Video News</option>
-      </select>
-
-      <button id="loadNews" class="btn primary full">Load News</button>
-      <button id="readNews" class="btn secondary full">🔊 Read Headlines</button>
-      <button id="stopNews" class="btn secondary full">Stop Voice</button>
-      <p id="newsStatus" class="status"></p>
-      <div id="newsResults"></div>
-    </div>
-  </section>
-
-  <!-- PROFILE -->
-  <section id="profile" class="page">
-    <div class="card">
-      <h2>👤 My Profile</h2>
-      <img id="profilePhoto" class="avatar" alt="Profile picture" title="Change profile picture">
-      <h3 id="profileName">Zenova User</h3>
-      <p id="profileEmail" class="muted"></p>
-      <button class="btn primary" data-go="settings">Edit Profile / DP</button>
-      <h3>My Posts</h3>
-      <div id="myPosts"></div>
-    </div>
-  </section>
-
-  <!-- SETTINGS -->
-  <section id="settings" class="page">
-    <div class="card">
-      <h2>⚙ Settings</h2>
-      <h3>Profile Picture</h3>
-      <img id="dpPreview" class="avatar" alt="DP preview">
-      <input id="dpFile" type="file" accept="image/*">
-      <input id="displayName" maxlength="40" placeholder="Display name">
-      <button id="saveProfile" class="btn primary full">Save Profile & DP</button>
-      <p id="profileStatus" class="status"></p>
-
-      <hr>
-      <h3>App Information</h3>
-      <p>ZENOVA SOCIAL WORLD</p>
-      <p>MADE IN MIAN ABDULLAH GULZAR</p>
-
-      <details>
-        <summary>Login / Google sign-in setup</summary>
-        <p class="muted">Firebase Console → Authentication mein Email/Password aur Google enable karein. Authorized domains mein apni website ka domain add karein.</p>
-      </details>
-      <details>
-        <summary>Video / DP upload setup</summary>
-        <p class="muted">Firebase Storage enable karein aur Storage Rules publish karein. Storage bucket ka naam code ke firebaseConfig se match karna chahiye.</p>
-      </details>
-      <details>
-        <summary>Video call and public livestream</summary>
-        <p class="muted">Public livestreaming ke liye streaming backend/provider chahiye. HTML-only camera preview doosre users tak live broadcast nahi karta.</p>
-      </details>
-
-      <hr>
-      <button id="logoutBtn" class="btn danger full">Log Out</button>
-      <p id="settingsStatus" class="status"></p>
-    </div>
-  </section>
+ <section id="news" class="page">
+  <div class="card">
+   <h2>🌍 World News</h2>
+   <label>Choose country</label>
+   <select id="country">
+    <option value="Pakistan">Pakistan</option>
+    <option value="United States">United States</option>
+    <option value="United Kingdom">United Kingdom</option>
+    <option value="Saudi Arabia">Saudi Arabia</option>
+    <option value="India">India</option>
+   </select>
+   <p class="country-note">The app will add available country options automatically.</p>
+   <label>News type</label>
+   <select id="newsMode">
+    <option value="headlines">Latest Headlines</option>
+    <option value="video">Video News Reports</option>
+    <option value="live">Live News Updates</option>
+   </select>
+   <button id="loadNews" class="btn primary">Load News</button>
+   <button id="listenNews" class="btn secondary">🔊 Read Headlines</button>
+   <button id="stopNews" class="btn secondary">Stop Voice</button>
+   <p id="newsStatus" class="status"></p>
+   <div id="newsResults"></div>
+  </div>
+ </section>
 </main>
 
 <nav class="bottomnav">
-  <button class="active" data-go="home"><span class="ico">⌂</span>Home</button>
-  <button data-go="reels"><span class="ico">▶</span>Reels</button>
-  <button data-go="live"><span class="ico">🔴</span>Live</button>
-  <button data-go="create"><span class="ico">＋</span>Create</button>
-  <button data-go="chat"><span class="ico">✉</span>Chat</button>
-  <button data-go="news"><span class="ico">🌍</span>News</button>
-  <button data-go="profile"><span class="ico">●</span>Profile</button>
-  <button data-go="settings"><span class="ico">⚙</span>Settings</button>
+ <button class="active" data-go="home"><span class="ico">⌂</span>Home</button>
+ <button data-go="news"><span class="ico">◉</span>News</button>
+ <button data-go="chat"><span class="ico">✉</span>Inbox</button>
+ <button data-go="profile"><span class="ico">●</span>Profile</button>
 </nav>
-
-<footer>
-  ZENOVA SOCIAL WORLD<br>
-  MADE IN MIAN ABDULLAH GULZAR
-</footer>
+<footer>ZENOVA SOCIAL WORLD<br>MADE IN MIAN ABDULLAH GULZAR</footer>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
 
 import {
-  getAuth, onAuthStateChanged, createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup,
-  signOut, updateProfile
+ getAuth,onAuthStateChanged,createUserWithEmailAndPassword,
+ signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,
+ signOut,updateProfile
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
 
 import {
-  getFirestore, collection, addDoc, query, orderBy, limit,
-  onSnapshot, serverTimestamp, doc, setDoc, getDocs, where
+ getFirestore,collection,addDoc,query,orderBy,limit,
+ onSnapshot,serverTimestamp,doc,setDoc,getDoc,getDocs,where,updateDoc,
+ arrayUnion,arrayRemove
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
 import {
-  getStorage, ref, uploadBytesResumable, getDownloadURL
+ getStorage,ref,uploadBytesResumable,getDownloadURL
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-storage.js";
 
-/* Firebase project configuration */
-const firebaseConfig = {
-  apiKey: "AIzaSyDmwJMYmfhOUclZF5drJUC8nsQN_OQdWWY",
-  authDomain: "zenotik-8fe5b.firebaseapp.com",
-  projectId: "zenotik-8fe5b",
-  storageBucket: "zenotik-8fe5b.firebasestorage.app",
-  messagingSenderId: "196726457517",
-  appId: "1:196726457517:web:20b604b7a44e6cb8bf3224",
-  measurementId: "G-G8QB24W3Y8"
+const firebaseConfig={
+ apiKey:"AIzaSyDmwJMYmfhOUclZF5drJUC8nsQN_OQdWWY",
+ authDomain:"zenotik-8fe5b.firebaseapp.com",
+ projectId:"zenotik-8fe5b",
+ storageBucket:"zenotik-8fe5b.firebasestorage.app",
+ messagingSenderId:"196726457517",
+ appId:"1:196726457517:web:20b604b7a44e6cb8bf3224",
+ measurementId:"G-G8QB24W3Y8"
 };
 
-const $ = id => document.getElementById(id);
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
+const $=id=>document.getElementById(id);
+let auth,db,storage,currentUser=null,stopPosts=null,stopStories=null,cameraStream=null;
+let chatFriend=null,chatId=null,stopMessages=null,stopCallRoom=null,rtc=null,callStream=null;
+let candidateListeners=[],queuedCandidates=[];
+let latestPostDocs=[];
+let savedPostIds=new Set();
 
-let currentUser = null;
-let stopPosts = null;
-let stopStories = null;
-let stopMessages = null;
-let chatId = null;
-let selectedReel = null;
-let reelObjectURL = null;
-let cameraStream = null;
-let liveStream = null;
-let recorder = null;
-let recordedChunks = [];
+function msg(id,text){$(id).textContent=text}
 
-function msg(id, text) {
-  const el = $(id);
-  if (el) el.textContent = text;
+function friendlyError(e){
+ const code=e?.code||"NO_ERROR_CODE";
+ let friendly;
+ if(code==="storage/unauthorized")friendly="Upload permission denied. Firebase Storage Rules check karein.";
+ else if(code==="storage/bucket-not-found")friendly="Firebase Storage bucket nahi mila. Bucket name check karein.";
+ else if(code==="storage/unknown")friendly="Storage error. Internet aur Storage setup check karein.";
+ else if(code==="storage/canceled")friendly="Upload cancel ho gaya.";
+ else if(code==="permission-denied"||code==="firestore/permission-denied")friendly="Firestore Rules ne request block ki.";
+ else if(code==="auth/unauthorized-domain")friendly="Firebase Authorized domains mein apni website ka domain add karein.";
+ else if(code==="auth/operation-not-allowed")friendly="Firebase Authentication mein Email/Password aur Google sign-in enable karein.";
+ else if(code==="auth/email-already-in-use")friendly="Is email ka account pehle se hai. Log In karein.";
+ else if(code==="auth/invalid-credential")friendly="Email ya password ghalat hai.";
+ else if(code==="auth/popup-blocked")friendly="Browser ne Google login popup block kiya.";
+ else friendly=(e?.message||String(e)||"Unknown error")+" ("+code+")";
+
+ try{
+  $("settingsLastError").textContent=friendly;
+  $("settingsErrorCode").textContent="Code: "+code+" | Details: "+(e?.message||String(e));
+ }catch(_){}
+ return friendly;
 }
 
-function showError(error) {
-  console.error(error);
-  const code = error?.code || "";
-  if (code === "storage/unauthorized") {
-    return "Upload denied by Firebase Storage Rules. Settings aur Storage Rules check karein.";
-  }
-  if (code === "storage/bucket-not-found") {
-    return "Storage bucket nahi mila. Firebase Console mein bucket name check karein.";
-  }
-  if (code === "permission-denied") {
-    return "Firestore Rules ne request block ki. Firestore Rules check karein.";
-  }
-  if (code === "auth/unauthorized-domain") {
-    return "Firebase Authentication ke Authorized domains mein website ka domain add karein.";
-  }
-  if (code === "auth/operation-not-allowed") {
-    return "Firebase Console mein Email/Password aur Google sign-in enable karein.";
-  }
-  if (code === "auth/email-already-in-use") {
-    return "Is email ka account pehle se hai. Log In karein.";
-  }
-  if (code === "auth/invalid-credential") {
-    return "Email ya password ghalat hai.";
-  }
-  if (code === "storage/canceled") {
-    return "Upload cancel ho gaya.";
-  }
-  return (error?.message || "Unknown error") + (code ? " (" + code + ")" : "");
+/* Navigation */
+function go(page){
+ document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));
+ document.querySelectorAll("[data-go]").forEach(b=>b.classList.toggle("active",b.dataset.go===page));
+ window.scrollTo({top:0,behavior:"smooth"});
 }
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
 
-/* Page navigation */
-function go(page) {
-  document.querySelectorAll(".page").forEach(el => {
-    el.classList.toggle("active", el.id === page);
-  });
-  document.querySelectorAll("[data-go]").forEach(el => {
-    el.classList.toggle("active", el.dataset.go === page);
-  });
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-document.querySelectorAll("[data-go]").forEach(button => {
-  button.addEventListener("click", () => go(button.dataset.go));
+document.querySelectorAll("[data-profile-tab]").forEach(button=>{
+ button.addEventListener("click",()=>{
+  document.querySelectorAll("[data-profile-tab]").forEach(b=>b.classList.toggle("active",b===button));
+  const target=button.dataset.profileTab;
+  $("profileVideosPanel").classList.toggle("active",target==="videos");
+  $("profileLockedPanel").classList.toggle("active",target==="locked");
+  $("profileSavedPanel").classList.toggle("active",target==="saved");
+ });
 });
 
-/* Country options */
-(function fillCountries() {
-  const codes = (
-    "AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BM BN BO BR BS BT BW BY BZ " +
-    "CA CD CF CG CH CI CL CM CN CO CR CU CV CY CZ DE DJ DK DM DO DZ EC EE EG ER ES ET FI FJ FM FO FR GA GB GD GE GH " +
-    "GM GN GQ GR GT GU GW GY HK HN HR HT HU ID IE IL IN IQ IR IS IT JM JO JP KE KG KH KI KM KN KR KW KZ LA LB LC LK " +
-    "LR LS LT LU LV LY MA MC MD ME MG MH MK ML MM MN MO MR MT MU MV MW MX MY MZ NA NE NG NI NL NO NP NR NZ OM PA PE " +
-    "PG PH PK PL PR PT PY QA RO RS RU RW SA SB SC SD SE SG SI SK SL SM SN SO SR SV SY TH TJ TM TN TO TR TT TW TZ UA " +
-    "UG US UY UZ VA VC VE VN WS YE ZA ZM ZW"
-  ).split(/\s+/);
-
-  const labels = new Intl.DisplayNames(["en"], { type: "region" });
-  const country = $("country");
-
-  codes.map(code => ({ code, name: labels.of(code) }))
-    .filter(item => item.name && item.name !== item.code)
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .forEach(item => {
-      const option = document.createElement("option");
-      option.value = item.name;
-      option.textContent = item.name;
-      country.appendChild(option);
-    });
-
-  country.value = "Pakistan";
+/* Automatically add countries supported by the browser */
+(function fillCountryList(){
+ const select=$("country");
+ const codes="AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BM BN BO BR BS BT BW BY BZ CA CD CF CG CH CI CK CL CM CN CO CR CU CV CY CZ DE DJ DK DM DO DZ EC EE EG ES ET FI FJ FM FO FR GA GB GD GE GH GM GN GQ GR GT GU GW GY HK HN HR HT HU ID IE IL IN IQ IR IS IT JM JO JP KE KG KH KI KM KN KR KW KZ LA LB LC LK LR LS LT LU LV LY MA MC MD ME MG MH MK ML MM MN MO MR MT MU MV MW MX MY MZ NA NE NG NI NL NO NP NR NZ OM PA PE PG PH PK PL PR PT PY QA RO RS RU RW SA SB SC SD SE SG SI SK SL SN SO SR SV SY TH TJ TM TN TO TR TT TW TZ UA UG US UY UZ VA VE VN WS YE ZA ZM ZW".split(" ");
+ const labels=new Intl.DisplayNames(["en"],{type:"region"});
+ const prior=select.value;
+ const existing=new Set([...select.options].map(o=>o.value));
+ codes.map(code=>({code,name:labels.of(code)}))
+ .filter(x=>x.name&&x.name!==x.code)
+ .sort((a,b)=>a.name.localeCompare(b.name))
+ .forEach(x=>{
+  if(!existing.has(x.name)){
+   const option=document.createElement("option");
+   option.value=x.name;option.textContent=x.name;select.append(option);
+  }
+ });
+ select.value=[...select.options].some(o=>o.value===prior)?prior:"Pakistan";
 })();
 
-/* Authentication */
-$("signupForm").addEventListener("submit", async event => {
-  event.preventDefault();
-  try {
-    msg("authStatus", "Creating account...");
-    const credential = await createUserWithEmailAndPassword(
-      auth,
-      $("signupEmail").value.trim(),
-      $("signupPassword").value
-    );
+/* Reels camera and editing controls */
+let reelCameraStream=null,reelRecorder=null,reelChunks=[],reelObjectUrl=null;
 
-    const name = $("signupName").value.trim();
-    if (name) await updateProfile(credential.user, { displayName: name });
-    msg("authStatus", "Account created successfully.");
-  } catch (error) {
-    msg("authStatus", showError(error));
-  }
+function applyReelFilters(){
+ const filter=`brightness(${$("reelBrightness")?.value||100}%) contrast(${$("reelContrast")?.value||100}%) saturate(${$("reelSaturation")?.value||100}%)`;
+ ["reelPreview","reelImagePreview"].forEach(id=>{const el=$(id);if(el)el.style.filter=filter;});
+}
+
+["reelBrightness","reelContrast","reelSaturation"].forEach(id=>$(id)?.addEventListener("input",applyReelFilters));
+
+$("resetReelEdit").addEventListener("click",()=>{
+ $("reelBrightness").value=100;
+ $("reelContrast").value=100;
+ $("reelSaturation").value=100;
+ applyReelFilters();
 });
 
-$("loginForm").addEventListener("submit", async event => {
-  event.preventDefault();
-  try {
-    msg("authStatus", "Signing in...");
-    await signInWithEmailAndPassword(
-      auth,
-      $("loginEmail").value.trim(),
-      $("loginPassword").value
-    );
-    msg("authStatus", "Login successful.");
-  } catch (error) {
-    msg("authStatus", showError(error));
-  }
+$("openReelGallery").addEventListener("click",()=>$("reelFile").click());
+
+$("openReelCamera").addEventListener("click",async()=>{
+ if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)){
+  $("reelCameraFile").click();
+  return;
+ }
+ try{
+  if(!navigator.mediaDevices?.getUserMedia)throw Error("Camera ko HTTPS website par kholein.");
+  if(reelCameraStream)reelCameraStream.getTracks().forEach(t=>t.stop());
+  reelCameraStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:true});
+  const v=$("reelCameraPreview");
+  v.srcObject=reelCameraStream;
+  v.classList.remove("hidden");
+  msg("reelStatus","Camera open hai. Record Video dabayein.");
+ }catch(e){msg("reelStatus","Camera nahi khula: "+friendlyError(e));}
 });
 
-$("googleBtn").addEventListener("click", async () => {
-  try {
-    msg("authStatus", "Opening Google login...");
-    await signInWithPopup(auth, new GoogleAuthProvider());
-  } catch (error) {
-    msg("authStatus", showError(error));
-  }
+$("stopReelCamera").addEventListener("click",()=>{
+ if(reelRecorder&&reelRecorder.state!=="inactive")reelRecorder.stop();
+ if(reelCameraStream)reelCameraStream.getTracks().forEach(t=>t.stop());
+ reelCameraStream=null;
+ $("reelCameraPreview").srcObject=null;
+ $("reelCameraPreview").classList.add("hidden");
+ msg("reelStatus","Camera band kar diya gaya.");
 });
 
-/* User state */
-onAuthStateChanged(auth, async user => {
-  currentUser = user;
-  $("authPage").classList.toggle("hidden", !!user);
+$("recordReel").addEventListener("click",()=>{
+ try{
+  if(!reelCameraStream){msg("reelStatus","Pehle Open Camera dabayein.");return;}
+  if(!window.MediaRecorder)throw Error("Is browser mein recording supported nahi.");
+  if(reelRecorder&&reelRecorder.state==="recording"){reelRecorder.stop();return;}
+  reelChunks=[];
+  reelRecorder=new MediaRecorder(reelCameraStream);
+  reelRecorder.ondataavailable=e=>{if(e.data&&e.data.size)reelChunks.push(e.data);};
+  reelRecorder.onstop=()=>{
+   const blob=new Blob(reelChunks,{type:reelRecorder.mimeType||"video/webm"});
+   const file=new File([blob],"zenova-reel-"+Date.now()+".webm",{type:blob.type});
+   const transfer=new DataTransfer();
+   transfer.items.add(file);
+   $("reelFile").files=transfer.files;
+   showSelectedReel(file);
+   msg("reelStatus","Recording ready. Create Post mein share kar sakte hain.");
+  };
+  reelRecorder.start();
+  msg("reelStatus","Recording chal rahi hai. Dobara Record Video dabayein to stop hogi.");
+ }catch(e){msg("reelStatus",friendlyError(e));}
+});
 
-  if (stopPosts) { stopPosts(); stopPosts = null; }
-  if (stopStories) { stopStories(); stopStories = null; }
-  if (stopMessages) { stopMessages(); stopMessages = null; }
+function showSelectedReel(file){
+ if(reelObjectUrl)URL.revokeObjectURL(reelObjectUrl);
+ reelObjectUrl=URL.createObjectURL(file);
+ $("reelPreview").classList.add("hidden");
+ $("reelImagePreview").classList.add("hidden");
+ if(normalizedMediaType(file).startsWith("video/")){
+  $("reelPreview").src=reelObjectUrl;
+  $("reelPreview").classList.remove("hidden");
+ }else if(normalizedMediaType(file).startsWith("image/")){
+  $("reelImagePreview").src=reelObjectUrl;
+  $("reelImagePreview").classList.remove("hidden");
+ }
+ applyReelFilters();
+}
 
-  if (!user) {
-    $("feed").replaceChildren();
-    $("stories").replaceChildren();
-    msg("feedStatus", "Please log in to view posts.");
-    return;
+$("reelFile").addEventListener("change",()=>{
+ const f=$("reelFile").files?.[0];
+ if(!f)return;
+ if(!isImageOrVideo(f)){msg("reelStatus","Photo ya video select karein.");return;}
+ if(f.size>500*1024*1024){msg("reelStatus","File 500 MB se chhoti honi chahiye.");$("reelFile").value="";return;}
+ showSelectedReel(f);
+ msg("reelStatus","Selected: "+f.name);
+});
+
+$("reelCameraFile").addEventListener("change",()=>{
+ const f=$("reelCameraFile").files?.[0];
+ if(!f)return;
+ if(f.size>500*1024*1024){msg("reelStatus","Video 500 MB se chhoti honi chahiye.");return;}
+ const transfer=new DataTransfer();
+ transfer.items.add(f);
+ $("reelFile").files=transfer.files;
+ showSelectedReel(f);
+ msg("reelStatus","Camera video ready: "+f.name);
+});
+
+$("shareReel").addEventListener("click",()=>{
+ const f=$("reelFile").files?.[0];
+ if(!f){msg("reelStatus","Pehle camera ya gallery se media choose karein.");return;}
+ $("mediaFile").files=$("reelFile").files;
+ $("mediaPreview").replaceChildren(makeMedia(URL.createObjectURL(f),normalizedMediaType(f)));
+ $("postText").value=$("postText").value||"🎬 Shared from Zenova Reels";
+ go("create");
+ msg("postStatus","Media ready. Publish karne ke liye Upload & Publish dabayein.");
+});
+
+$("profilePhoto").addEventListener("click",()=>{go("account");$("dpFile").click();});
+$("dpPreview").addEventListener("click",()=>$("dpFile").click());
+
+function normalizedMediaType(file){
+ const type=(file?.type||"").toLowerCase();
+ if(type.startsWith("image/")||type.startsWith("video/"))return type;
+ const name=(file?.name||"").toLowerCase();
+ if(/\.(mp4|m4v)$/i.test(name))return "video/mp4";
+ if(/\.webm$/i.test(name))return "video/webm";
+ if(/\.mov$/i.test(name))return "video/quicktime";
+ if(/\.(ogv|ogg)$/i.test(name))return "video/ogg";
+ if(/\.3gp$/i.test(name))return "video/3gpp";
+ if(/\.mkv$/i.test(name))return "video/x-matroska";
+ if(/\.(jpe?g)$/i.test(name))return "image/jpeg";
+ if(/\.png$/i.test(name))return "image/png";
+ if(/\.gif$/i.test(name))return "image/gif";
+ if(/\.webp$/i.test(name))return "image/webp";
+ if(/\.avif$/i.test(name))return "image/avif";
+ if(/\.heic$/i.test(name))return "image/heic";
+ if(/\.bmp$/i.test(name))return "image/bmp";
+ return type||"application/octet-stream";
+}
+
+function isImageOrVideo(file){
+ const type=normalizedMediaType(file);
+ return type.startsWith("image/")||type.startsWith("video/");
+}
+
+function makeMedia(url,type){
+ let el;
+ if((type||"").startsWith("video/")){
+  el=document.createElement("video");
+  el.controls=true;el.playsInline=true;
+ }else{
+  el=document.createElement("img");el.alt="Uploaded media";
+ }
+ el.src=url;el.className="media";
+ return el;
+}
+
+function uploadFile(path,file,statusId){
+ return new Promise((resolve,reject)=>{
+  const contentType=normalizedMediaType(file);
+  const task=uploadBytesResumable(ref(storage,path),file,{contentType});
+  task.on("state_changed",
+   snap=>{
+    const percent=Math.round(snap.bytesTransferred/snap.totalBytes*100);
+    msg(statusId,"Uploading… "+percent+"%");
+   },
+   reject,
+   async()=>{
+    try{resolve(await getDownloadURL(task.snapshot.ref));}
+    catch(e){reject(e);}
+   }
+  );
+ });
+}
+
+function renderStories(docs){
+ const box=$("homeStories");
+ box.replaceChildren();
+ if(!docs.length){box.textContent="No stories yet. Add the first story!";return;}
+ docs.forEach(d=>{
+  const story=d.data(),item=document.createElement("div");
+  item.className="story";
+  const a=document.createElement("a");
+  a.href=story.mediaUrl;a.target="_blank";a.rel="noopener";
+  const ring=document.createElement("div");ring.className="storyring";
+  if((story.mediaType||"").startsWith("video/")){
+   const t=document.createElement("div");t.textContent="▶";t.style.padding="18px";ring.append(t);
+  }else{
+   const img=document.createElement("img");img.src=story.mediaUrl;img.alt="Story";ring.append(img);
+  }
+  const label=document.createElement("div");
+  label.textContent=(story.authorName||story.authorEmail||"Story").split("@")[0];
+  a.append(ring,label);item.append(a);box.append(item);
+ });
+}
+
+/* TikTok-style feed, profile video tabs, save and privacy state */
+function renderPosts(docs){
+ latestPostDocs=docs.map(d=>({id:d.id,...d.data()}));
+ const feed=$("feed"),mine=$("myPosts"),locked=$("lockedPosts"),saved=$("savedPosts");
+ [feed,mine,locked,saved].forEach(el=>el.replaceChildren());
+
+ const visiblePosts=latestPostDocs.filter(p=>!p.isPrivate||p.uid===currentUser?.uid);
+ const own=latestPostDocs.filter(p=>p.uid===currentUser?.uid);
+ const privateOwn=own.filter(p=>!!p.isPrivate);
+ const savedOwn=latestPostDocs.filter(p=>savedPostIds.has(p.id)&&(!p.isPrivate||p.uid===currentUser?.uid));
+
+ msg("myPostCount","Videos: "+own.filter(p=>(p.mediaType||"").startsWith("video/")).length+" · Locked: "+privateOwn.length+" · Saved: "+savedPostIds.size);
+
+ if(!visiblePosts.length)msg("feedStatus","No public posts yet. Upload your first video!");
+ else msg("feedStatus",visiblePosts.length+" recent posts");
+
+ if(!own.length)mine.textContent="You haven't uploaded any videos or posts yet.";
+ if(!privateOwn.length)locked.textContent="No private posts yet. Use Lock on one of your own posts.";
+ if(!savedOwn.length)saved.textContent="No saved posts yet. Press Save on a post to keep it here.";
+
+ visiblePosts.forEach(p=>feed.append(buildPostCard(p)));
+ own.forEach(p=>mine.append(buildProfileTile(p,"videos")));
+ privateOwn.forEach(p=>locked.append(buildProfileTile(p,"locked")));
+ savedOwn.forEach(p=>saved.append(buildProfileTile(p,"saved")));
+}
+
+function buildPostCard(p){
+ const article=document.createElement("article");article.className="post";
+ const head=document.createElement("div");head.className="posthead";
+
+ if(p.photoURL){
+  const img=document.createElement("img");
+  img.src=p.photoURL;img.className="smallavatar";img.alt="Profile photo";
+  head.append(img);
+ }
+
+ const name=document.createElement("b");
+ name.textContent=p.authorName||p.authorEmail||"Zenova User";
+ head.append(name);
+
+ if(p.isPrivate){
+  const badge=document.createElement("span");
+  badge.textContent="🔒 Private";badge.className="lock-note";head.append(badge);
+ }
+
+ const text=document.createElement("div");
+ text.className="posttext";text.textContent=p.text||"";
+ article.append(head,text);
+
+ if(p.mediaUrl){
+  const media=makeMedia(p.mediaUrl,p.mediaType);
+  if((p.mediaType||"").startsWith("video/"))media.classList.add("feed-video");
+  article.append(media);
+ }
+
+ const actions=document.createElement("div");
+ actions.className="postactions";
+
+ const likes=Array.isArray(p.likes)?p.likes:[];
+ const like=document.createElement("button");
+ like.type="button";
+ like.textContent=(likes.includes(currentUser?.uid)?"♥ Liked":"♡ Like")+" · "+likes.length;
+
+ like.onclick=async()=>{
+  if(!currentUser){msg("feedStatus","Please log in first.");return;}
+  like.disabled=true;
+  try{
+   if(likes.includes(currentUser.uid)){
+    await updateDoc(doc(db,"posts",p.id),{likes:arrayRemove(currentUser.uid)});
+   }else{
+    await updateDoc(doc(db,"posts",p.id),{likes:arrayUnion(currentUser.uid)});
+   }
+  }catch(e){msg("feedStatus",friendlyError(e));}
+  finally{like.disabled=false;}
+ };
+ actions.append(like);
+
+ const save=document.createElement("button");
+ save.type="button";
+ save.textContent=savedPostIds.has(p.id)?"✓ Saved":"▣ Save";
+
+ save.onclick=async()=>{
+  if(!currentUser){msg("feedStatus","Please log in first.");return;}
+  save.disabled=true;
+  try{
+   if(savedPostIds.has(p.id)){
+    await updateDoc(doc(db,"users",currentUser.uid),{savedPostIds:arrayRemove(p.id)});
+    savedPostIds.delete(p.id);
+   }else{
+    await updateDoc(doc(db,"users",currentUser.uid),{savedPostIds:arrayUnion(p.id)});
+    savedPostIds.add(p.id);
+   }
+   renderPosts(latestPostDocs.map(item=>({id:item.id,data:()=>item})));
+  }catch(e){msg("feedStatus",friendlyError(e));}
+  finally{save.disabled=false;}
+ };
+ actions.append(save);
+
+ const share=document.createElement("button");
+ share.type="button";share.textContent="↗ Share";
+ share.onclick=async()=>{
+  const shareUrl=p.mediaUrl||location.href;
+  try{
+   if(navigator.share){
+    await navigator.share({title:"ZENOVA Social World",text:p.text||"Watch this on Zenova",url:shareUrl});
+   }else if(navigator.clipboard){
+    await navigator.clipboard.writeText(shareUrl);
+    msg("feedStatus","Link copied to clipboard.");
+   }else{
+    window.prompt("Copy this link",shareUrl);
+   }
+  }catch(e){if(e?.name!=="AbortError")msg("feedStatus","Unable to share this item.");}
+ };
+ actions.append(share);
+
+ if(p.uid===currentUser?.uid){
+  const lock=document.createElement("button");
+  lock.type="button";lock.className="lock-action";
+  lock.textContent=p.isPrivate?"🔓 Unlock":"🔒 Lock";
+  lock.onclick=async()=>{
+   lock.disabled=true;
+   try{
+    await updateDoc(doc(db,"posts",p.id),{isPrivate:!p.isPrivate,updatedAt:serverTimestamp()});
+   }catch(e){msg("feedStatus",friendlyError(e));}
+   finally{lock.disabled=false;}
+  };
+  actions.append(lock);
+ }
+
+ article.append(actions);
+ return article;
+}
+
+function buildProfileTile(p,mode){
+ const tile=document.createElement("article");tile.className="profile-tile";
+
+ if(p.mediaUrl){
+  let media;
+  if((p.mediaType||"").startsWith("video/")){
+   media=document.createElement("video");
+   media.controls=true;media.playsInline=true;media.preload="metadata";media.src=p.mediaUrl;
+  }else{
+   media=document.createElement("img");media.alt="Post photo";media.src=p.mediaUrl;
+  }
+  tile.append(media);
+ }else{
+  const preview=document.createElement("div");
+  preview.style.cssText="padding:18px;min-height:100px;overflow-wrap:anywhere;color:#fff";
+  preview.textContent=p.text||"Text post";
+  tile.append(preview);
+ }
+
+ if(p.isPrivate){
+  const lock=document.createElement("div");
+  lock.className="tile-label";lock.textContent="🔒 Private post";tile.append(lock);
+ }
+
+ const caption=document.createElement("div");
+ caption.className="tile-label";
+ caption.textContent=p.text||((p.mediaType||"").startsWith("video/")?"Video":"Photo");
+ tile.append(caption);
+
+ const actions=document.createElement("div");
+ actions.className="tile-actions";
+
+ const save=document.createElement("button");
+ save.type="button";
+ save.textContent=savedPostIds.has(p.id)?"✓ Saved":"Save";
+
+ save.onclick=async()=>{
+  if(!currentUser)return;
+  save.disabled=true;
+  try{
+   if(savedPostIds.has(p.id)){
+    await updateDoc(doc(db,"users",currentUser.uid),{savedPostIds:arrayRemove(p.id)});
+    savedPostIds.delete(p.id);
+   }else{
+    await updateDoc(doc(db,"users",currentUser.uid),{savedPostIds:arrayUnion(p.id)});
+    savedPostIds.add(p.id);
+   }
+   renderPosts(latestPostDocs.map(item=>({id:item.id,data:()=>item})));
+  }catch(e){msg("profileStatus",friendlyError(e));}
+  finally{save.disabled=false;}
+ };
+ actions.append(save);
+
+ if(p.uid===currentUser?.uid){
+  const lock=document.createElement("button");
+  lock.className="lock-action";lock.type="button";
+  lock.textContent=p.isPrivate?"Unlock":"Lock";
+  lock.onclick=async()=>{
+   try{
+    await updateDoc(doc(db,"posts",p.id),{isPrivate:!p.isPrivate,updatedAt:serverTimestamp()});
+   }catch(e){msg("profileStatus",friendlyError(e));}
+  };
+  actions.append(lock);
+ }
+
+ if(mode==="saved"){
+  const remove=document.createElement("button");
+  remove.type="button";remove.textContent="Remove";
+  remove.onclick=async()=>{
+   try{
+    await updateDoc(doc(db,"users",currentUser.uid),{savedPostIds:arrayRemove(p.id)});
+    savedPostIds.delete(p.id);
+    renderPosts(latestPostDocs.map(item=>({id:item.id,data:()=>item})));
+   }catch(e){msg("profileStatus",friendlyError(e));}
+  };
+  actions.append(remove);
+ }
+ tile.append(actions);
+ return tile;
+}
+
+try{
+ const app=initializeApp(firebaseConfig);
+ auth=getAuth(app);db=getFirestore(app);storage=getStorage(app);
+
+ $("signupForm").onsubmit=async e=>{
+  e.preventDefault();
+  try{
+   msg("authStatus","Creating account…");
+   const cred=await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);
+   const name=$("signupName").value.trim();
+   if(name)await updateProfile(cred.user,{displayName:name});
+   msg("authStatus","Account created successfully!");
+  }catch(x){msg("authStatus",friendlyError(x));}
+ };
+
+ $("loginForm").onsubmit=async e=>{
+  e.preventDefault();
+  try{
+   msg("authStatus","Signing in…");
+   await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);
+   msg("authStatus","Signed in.");
+  }catch(x){msg("authStatus",friendlyError(x));}
+ };
+
+ $("googleBtn").onclick=async()=>{
+  try{
+   msg("authStatus","Opening Google sign-in…");
+   await signInWithPopup(auth,new GoogleAuthProvider());
+  }catch(x){msg("authStatus",friendlyError(x));}
+ };
+
+ async function logout(){
+  if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());
+  if(reelCameraStream)reelCameraStream.getTracks().forEach(t=>t.stop());
+  cameraStream=null;reelCameraStream=null;
+  try{await signOut(auth);}catch(e){alert(friendlyError(e));}
+ }
+
+ $("logoutBtn2").onclick=async()=>{
+  if(!confirm("Kya aap logout karna chahte hain?"))return;
+  await logout();
+ };
+
+ $("clearErrorBtn").onclick=()=>{
+  msg("settingsLastError","Abhi tak koi error record nahi hua.");
+  msg("settingsErrorCode","");
+ };
+
+ $("checkSetupBtn").onclick=()=>{
+  const checks=[];
+  checks.push("Internet: "+(navigator.onLine?"browser online":"offline — internet check karein"));
+  checks.push("HTTPS: "+(location.protocol==="https:"?"secure connection":"not HTTPS — camera ke liye HTTPS zaroori hai"));
+  checks.push("Firebase project: "+(firebaseConfig.projectId||"missing"));
+  checks.push("Authentication: "+(auth.currentUser?"signed in as "+(auth.currentUser.email||"Google user"):"not signed in"));
+  checks.push("Storage bucket configured: "+(firebaseConfig.storageBucket?"yes — bucket/permissions Firebase Console mein verify karein":"NO — storageBucket config missing"));
+  msg("setupCheckStatus",checks.join(" | "));
+ };
+
+ onAuthStateChanged(auth,async user=>{
+  currentUser=user;
+  $("authPage").classList.toggle("hidden",!!user);
+
+  if(stopPosts){stopPosts();stopPosts=null;}
+  if(stopStories){stopStories();stopStories=null;}
+
+  if(!user){
+   savedPostIds=new Set();latestPostDocs=[];
+   msg("feedStatus","Please sign in to view posts.");
+   $("feed").replaceChildren();
+   $("myPosts").replaceChildren();
+   $("lockedPosts").replaceChildren();
+   $("savedPosts").replaceChildren();
+   $("homeStories").replaceChildren();
+   return;
   }
 
-  msg("profileName", user.displayName || "Zenova User");
-  msg("profileEmail", user.email || "");
-  $("displayName").value = user.displayName || "";
+  msg("profileName",user.displayName||"Zenova User");
+  msg("profileEmail",user.email||"");
+  $("displayName").value=user.displayName||"";
 
-  const fallback =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100%25' height='100%25' fill='%23eeeeee'/%3E%3Ctext x='50%25' y='60%25' font-size='42' text-anchor='middle' fill='%23ff0033'%3EZ%3C/text%3E%3C/svg%3E";
+  try{
+   const userDoc=await getDoc(doc(db,"users",user.uid));
+   const userData=userDoc.exists()?userDoc.data():{};
+   savedPostIds=new Set(Array.isArray(userData.savedPostIds)?userData.savedPostIds:[]);
+   $("profileBio").value=userData.bio||"";
+   msg("profileBioView",userData.bio||"No bio added yet.");
 
-  $("profilePhoto").src = user.photoURL || fallback;
-  $("dpPreview").src = user.photoURL || fallback;
+   await setDoc(doc(db,"users",user.uid),{
+    uid:user.uid,
+    email:(user.email||"").toLowerCase(),
+    displayName:user.displayName||user.email?.split("@")[0]||"Zenova User",
+    photoURL:user.photoURL||"",
+    updatedAt:serverTimestamp()
+   },{merge:true});
+  }catch(err){console.warn("User profile sync:",err);}
 
-  try {
-    await setDoc(doc(db, "users", user.uid), {
-      uid: user.uid,
-      email: (user.email || "").toLowerCase(),
-      displayName: user.displayName || user.email?.split("@")[0] || "Zenova User",
-      photoURL: user.photoURL || "",
-      updatedAt: serverTimestamp()
-    }, { merge: true });
-  } catch (error) {
-    console.warn("Profile sync failed:", error);
-  }
+  const fallback="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100%25' height='100%25' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='60%25' font-size='48' text-anchor='middle' fill='%23fe2c55'%3EZ%3C/text%3E%3C/svg%3E";
+  $("profilePhoto").src=user.photoURL||fallback;
+  $("dpPreview").src=user.photoURL||fallback;
 
-  stopPosts = onSnapshot(
-    query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(60)),
-    snapshot => renderPosts(snapshot.docs),
-    error => msg("feedStatus", showError(error))
+  stopPosts=onSnapshot(
+   query(collection(db,"posts"),orderBy("createdAt","desc"),limit(60)),
+   snap=>renderPosts(snap.docs),
+   err=>msg("feedStatus",friendlyError(err))
   );
 
-  stopStories = onSnapshot(
-    query(collection(db, "stories"), orderBy("createdAt", "desc"), limit(30)),
-    snapshot => renderStories(snapshot.docs),
-    error => msg("storyStatus", showError(error))
+  stopStories=onSnapshot(
+   query(collection(db,"stories"),orderBy("createdAt","desc"),limit(30)),
+   snap=>renderStories(snap.docs),
+   err=>msg("storyStatus",friendlyError(err))
   );
-});
+ });
 
-/* File helpers */
-function normalizedMediaType(file) {
-  const type = (file?.type || "").toLowerCase();
-  if (type.startsWith("image/") || type.startsWith("video/")) return type;
-
-  const name = (file?.name || "").toLowerCase();
-  if (/\.(mp4|m4v)$/i.test(name)) return "video/mp4";
-  if (/\.webm$/i.test(name)) return "video/webm";
-  if (/\.mov$/i.test(name)) return "video/quicktime";
-  if (/\.(ogv|ogg)$/i.test(name)) return "video/ogg";
-  if (/\.(jpg|jpeg)$/i.test(name)) return "image/jpeg";
-  if (/\.png$/i.test(name)) return "image/png";
-  if (/\.gif$/i.test(name)) return "image/gif";
-  if (/\.webp$/i.test(name)) return "image/webp";
-  return type || "application/octet-stream";
-}
-
-function isImageOrVideo(file) {
-  const type = normalizedMediaType(file);
-  return type.startsWith("image/") || type.startsWith("video/");
-}
-
-function makeMedia(url, type) {
-  const isVideo = (type || "").startsWith("video/");
-  const element = document.createElement(isVideo ? "video" : "img");
-  element.src = url;
-  element.className = "media";
-
-  if (isVideo) {
-    element.controls = true;
-    element.playsInline = true;
-    element.preload = "metadata";
-  } else {
-    element.alt = "Post media";
-  }
-  return element;
-}
-
-function uploadFile(path, file, statusID) {
-  return new Promise((resolve, reject) => {
-    const contentType = normalizedMediaType(file);
-    const task = uploadBytesResumable(
-      ref(storage, path),
-      file,
-      { contentType: contentType }
-    );
-
-    task.on("state_changed",
-      snapshot => {
-        const percent = Math.round(
-          snapshot.bytesTransferred / snapshot.totalBytes * 100
-        );
-        msg(statusID, "Uploading... " + percent + "%");
-      },
-      error => reject(error),
-      async () => {
-        try {
-          resolve(await getDownloadURL(task.snapshot.ref));
-        } catch (error) {
-          reject(error);
-        }
-      }
-    );
-  });
-}
-
-/* Feed and story rendering */
-function renderPosts(documents) {
-  const feed = $("feed");
-  const myPosts = $("myPosts");
-  feed.replaceChildren();
-  myPosts.replaceChildren();
-
-  const posts = documents.map(d => ({ id: d.id, ...d.data() }));
-  const ownPosts = posts.filter(post => post.uid === currentUser?.uid);
-
-  if (!posts.length) {
-    msg("feedStatus", "No posts yet. Be the first to upload!");
-    myPosts.textContent = "You haven't uploaded a post yet.";
-    return;
-  }
-
-  posts.forEach(post => {
-    const article = document.createElement("article");
-    article.className = "post";
-
-    const head = document.createElement("div");
-    head.className = "posthead";
-
-    if (post.photoURL) {
-      const avatar = document.createElement("img");
-      avatar.src = post.photoURL;
-      avatar.className = "smallavatar";
-      avatar.alt = "User DP";
-      head.appendChild(avatar);
-    }
-
-    const author = document.createElement("b");
-    author.textContent = post.authorName || post.authorEmail || "Zenova User";
-    head.appendChild(author);
-
-    const text = document.createElement("p");
-    text.className = "posttext";
-    text.textContent = post.text || "";
-    article.append(head, text);
-
-    if (post.mediaUrl) {
-      article.appendChild(makeMedia(post.mediaUrl, post.mediaType));
-    }
-
-    feed.appendChild(article);
-
-    if (post.uid === currentUser?.uid) {
-      myPosts.appendChild(article.cloneNode(true));
-    }
-  });
-
-  msg("feedStatus", posts.length + " recent posts");
-  msg("myPostCount", "Your posts: " + ownPosts.length);
-}
-
-function renderStories(documents) {
-  const box = $("stories");
+ $("mediaFile").onchange=()=>{
+  const f=$("mediaFile").files[0],box=$("mediaPreview");
   box.replaceChildren();
+  if(!f)return;
+  if(!isImageOrVideo(f)){
+   msg("postStatus","Select an image or video.");
+   $("mediaFile").value="";
+   return;
+  }
+  if(f.size>500*1024*1024){
+   msg("postStatus","File 500 MB se chhoti honi chahiye.");
+   $("mediaFile").value="";
+   return;
+  }
+  box.append(makeMedia(URL.createObjectURL(f),normalizedMediaType(f)));
+  msg("postStatus","File selected: "+f.name);
+ };
 
-  if (!documents.length) {
-    box.textContent = "No stories yet.";
-    return;
+ $("postForm").onsubmit=async e=>{
+  e.preventDefault();
+  const user=auth.currentUser,file=$("mediaFile").files[0],text=$("postText").value.trim();
+
+  if(!user){msg("postStatus","Pehle sign in karein.");return;}
+  if(!text&&!file){msg("postStatus","Caption likhein ya video/photo select karein.");return;}
+  if(file&&(!isImageOrVideo(file)||file.size>500*1024*1024)){
+   msg("postStatus","Supported photo/video 500 MB se chhoti honi chahiye.");
+   return;
   }
 
-  documents.forEach(document => {
-    const story = document.data();
-    const item = document.createElement("div");
-    item.className = "story";
+  const btn=$("publishBtn");
+  btn.disabled=true;
 
-    const link = document.createElement("a");
-    link.href = story.mediaUrl;
-    link.target = "_blank";
-    link.rel = "noopener";
+  try{
+   let mediaUrl="",mediaType="";
 
-    let media;
-    if ((story.mediaType || "").startsWith("video/")) {
-      media = document.createElement("video");
-      media.muted = true;
-    } else {
-      media = document.createElement("img");
-      media.alt = "Story";
-    }
-    media.src = story.mediaUrl;
+   if(file){
+    const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+    mediaUrl=await uploadFile("posts/"+user.uid+"/"+Date.now()+"_"+safe,file,"postStatus");
+    mediaType=normalizedMediaType(file);
+   }
 
-    const label = document.createElement("p");
-    label.textContent = story.authorName || "Zenova User";
+   msg("postStatus","Saving post…");
 
-    link.append(media, label);
-    item.appendChild(link);
-    box.appendChild(item);
-  });
-}
+   await addDoc(collection(db,"posts"),{
+    uid:user.uid,
+    authorName:user.displayName||"",
+    authorEmail:user.email||"",
+    photoURL:user.photoURL||"",
+    text,mediaUrl,mediaType,
+    isPrivate:false,
+    likes:[],
+    createdAt:serverTimestamp()
+   });
 
-/* Photo/video selection preview */
-$("postFile").addEventListener("change", () => {
-  const file = $("postFile").files[0];
-  $("postPreview").replaceChildren();
-  if (!file) return;
+   $("postText").value="";
+   $("mediaFile").value="";
+   $("mediaPreview").replaceChildren();
+   msg("postStatus","Published successfully!");
+   go("home");
+  }catch(x){msg("postStatus",friendlyError(x));}
+  finally{btn.disabled=false;}
+ };
 
-  if (!isImageOrVideo(file)) {
-    msg("postStatus", "Please select a supported photo or video.");
-    $("postFile").value = "";
-    return;
+ $("uploadStory").onclick=async()=>{
+  const user=auth.currentUser,file=$("storyFile").files[0];
+
+  if(!user){msg("storyStatus","Pehle sign in karein.");return;}
+  if(!file){msg("storyStatus","Photo ya video select karein.");return;}
+  if(!isImageOrVideo(file)){msg("storyStatus","Sirf photo ya video select karein.");return;}
+  if(file.size>500*1024*1024){msg("storyStatus","File 500 MB se chhoti honi chahiye.");return;}
+
+  const btn=$("uploadStory");
+  btn.disabled=true;
+
+  try{
+   const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+   const mediaUrl=await uploadFile("stories/"+user.uid+"/"+Date.now()+"_"+safe,file,"storyStatus");
+
+   await addDoc(collection(db,"stories"),{
+    uid:user.uid,
+    authorName:user.displayName||"",
+    authorEmail:user.email||"",
+    mediaUrl,
+    mediaType:normalizedMediaType(file),
+    createdAt:serverTimestamp()
+   });
+
+   $("storyFile").value="";
+   msg("storyStatus","Story published successfully!");
+   go("home");
+  }catch(x){msg("storyStatus",friendlyError(x));}
+  finally{btn.disabled=false;}
+ };
+
+ $("dpFile").onchange=()=>{
+  const f=$("dpFile").files[0];
+  if(!f)return;
+
+  if(!normalizedMediaType(f).startsWith("image/")){
+   msg("profileStatus","DP ke liye image select karein.");
+   $("dpFile").value="";
+   return;
   }
-  if (file.size > 500 * 1024 * 1024) {
-    msg("postStatus", "File must be smaller than 500 MB.");
-    $("postFile").value = "";
-    return;
+  if(f.size>5*1024*1024){
+   msg("profileStatus","DP 5 MB se chhoti honi chahiye.");
+   return;
   }
-
-  $("postPreview").appendChild(
-    makeMedia(URL.createObjectURL(file), normalizedMediaType(file))
-  );
-  msg("postStatus", "Selected: " + file.name);
-});
-
-/* Publish post */
-$("postForm").addEventListener("submit", async event => {
-  event.preventDefault();
-
-  if (!currentUser) {
-    msg("postStatus", "Please log in first.");
-    return;
-  }
-
-  const text = $("postText").value.trim();
-  const file = $("postFile").files[0];
-
-  if (!text && !file) {
-    msg("postStatus", "Write something or select a photo/video.");
-    return;
-  }
-
-  if (file && (!isImageOrVideo(file) || file.size > 500 * 1024 * 1024)) {
-    msg("postStatus", "Please select a supported media file smaller than 500 MB.");
-    return;
-  }
-
-  $("publishBtn").disabled = true;
-
-  try {
-    let mediaUrl = "";
-    let mediaType = "";
-
-    if (file) {
-      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      mediaUrl = await uploadFile(
-        "posts/" + currentUser.uid + "/" + Date.now() + "_" + safeName,
-        file,
-        "postStatus"
-      );
-      mediaType = normalizedMediaType(file);
-    }
-
-    await addDoc(collection(db, "posts"), {
-      uid: currentUser.uid,
-      authorName: currentUser.displayName || "",
-      authorEmail: currentUser.email || "",
-      photoURL: currentUser.photoURL || "",
-      text: text,
-      mediaUrl: mediaUrl,
-      mediaType: mediaType,
-      createdAt: serverTimestamp()
-    });
-
-    $("postText").value = "";
-    $("postFile").value = "";
-    $("postPreview").replaceChildren();
-
-    msg("postStatus", "Post published successfully.");
-    go("home");
-  } catch (error) {
-    msg("postStatus", showError(error));
-  } finally {
-    $("publishBtn").disabled = false;
-  }
-});
-
-/* Story upload */
-$("storyBtn").addEventListener("click", async () => {
-  const file = $("storyFile").files[0];
-
-  if (!currentUser) {
-    msg("storyStatus", "Please log in first.");
-    return;
-  }
-  if (!file || !isImageOrVideo(file)) {
-    msg("storyStatus", "Please choose a photo or video.");
-    return;
-  }
-  if (file.size > 500 * 1024 * 1024) {
-    msg("storyStatus", "File must be smaller than 500 MB.");
-    return;
-  }
-
-  $("storyBtn").disabled = true;
-
-  try {
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const mediaUrl = await uploadFile(
-      "stories/" + currentUser.uid + "/" + Date.now() + "_" + safeName,
-      file,
-      "storyStatus"
-    );
-
-    await addDoc(collection(db, "stories"), {
-      uid: currentUser.uid,
-      authorName: currentUser.displayName || "",
-      mediaUrl: mediaUrl,
-      mediaType: normalizedMediaType(file),
-      createdAt: serverTimestamp()
-    });
-
-    $("storyFile").value = "";
-    msg("storyStatus", "Story uploaded successfully.");
-    go("home");
-  } catch (error) {
-    msg("storyStatus", showError(error));
-  } finally {
-    $("storyBtn").disabled = false;
-  }
-});
-
-/* Reels gallery, camera and effects */
-function applyFilters() {
-  const filter =
-    "brightness(" + $("brightness").value + "%) " +
-    "contrast(" + $("contrast").value + "%) " +
-    "saturate(" + $("saturation").value + "%)";
-
-  $("reelVideo").style.filter = filter;
-  $("reelImage").style.filter = filter;
-}
-
-["brightness", "contrast", "saturation"].forEach(id => {
-  $(id).addEventListener("input", applyFilters);
-});
-
-$("resetFilters").addEventListener("click", () => {
-  $("brightness").value = 100;
-  $("contrast").value = 100;
-  $("saturation").value = 100;
-  applyFilters();
-});
-
-function showSelectedReel(file) {
-  selectedReel = file;
-
-  if (reelObjectURL) URL.revokeObjectURL(reelObjectURL);
-  reelObjectURL = URL.createObjectURL(file);
-
-  $("reelVideo").classList.add("hidden");
-  $("reelImage").classList.add("hidden");
-
-  const type = normalizedMediaType(file);
-  if (type.startsWith("video/")) {
-    $("reelVideo").src = reelObjectURL;
-    $("reelVideo").classList.remove("hidden");
-  } else if (type.startsWith("image/")) {
-    $("reelImage").src = reelObjectURL;
-    $("reelImage").classList.remove("hidden");
-  }
-  applyFilters();
-  msg("reelStatus", "Selected: " + file.name);
-}
-
-$("openGallery").addEventListener("click", () => $("reelFile").click());
-
-$("reelFile").addEventListener("change", () => {
-  const file = $("reelFile").files[0];
-  if (!file) return;
-
-  if (!isImageOrVideo(file) || file.size > 500 * 1024 * 1024) {
-    msg("reelStatus", "Choose an image/video smaller than 500 MB.");
-    $("reelFile").value = "";
-    return;
-  }
-  showSelectedReel(file);
-});
-
-$("openCamera").addEventListener("click", async () => {
-  if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-    $("cameraFile").click();
-    return;
-  }
-
-  try {
-    if (!navigator.mediaDevices?.getUserMedia) {
-      throw new Error("Open this page through HTTPS to use the camera.");
-    }
-
-    cameraStream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "user" },
-      audio: true
-    });
-
-    $("cameraPreview").srcObject = cameraStream;
-    $("cameraPreview").classList.remove("hidden");
-    msg("reelStatus", "Camera ready. Press Record Video to start.");
-  } catch (error) {
-    msg("reelStatus", showError(error));
-  }
-});
-
-$("cameraFile").addEventListener("change", () => {
-  const file = $("cameraFile").files[0];
-  if (file) showSelectedReel(file);
-});
-
-$("recordBtn").addEventListener("click", () => {
-  try {
-    if (!cameraStream) {
-      msg("reelStatus", "Please open the camera first.");
-      return;
-    }
-    if (!window.MediaRecorder) {
-      throw new Error("Video recording is not supported in this browser.");
-    }
-
-    if (recorder && recorder.state === "recording") {
-      recorder.stop();
-      return;
-    }
-
-    recordedChunks = [];
-    recorder = new MediaRecorder(cameraStream);
-
-    recorder.ondataavailable = event => {
-      if (event.data?.size) recordedChunks.push(event.data);
-    };
-
-    recorder.onstop = () => {
-      const type = recorder.mimeType || "video/webm";
-      const blob = new Blob(recordedChunks, { type });
-      const file = new File([blob], "zenova-reel.webm", { type });
-      const transfer = new DataTransfer();
-      transfer.items.add(file);
-      $("reelFile").files = transfer.files;
-      showSelectedReel(file);
-    };
-
-    recorder.start();
-    msg("reelStatus", "Recording... press Record Video again to stop.");
-  } catch (error) {
-    msg("reelStatus", showError(error));
-  }
-});
-
-$("stopCameraBtn").addEventListener("click", () => {
-  if (recorder && recorder.state === "recording") recorder.stop();
-
-  if (cameraStream) cameraStream.getTracks().forEach(track => track.stop());
-  cameraStream = null;
-  $("cameraPreview").srcObject = null;
-  $("cameraPreview").classList.add("hidden");
-  msg("reelStatus", "Camera stopped.");
-});
-
-$("useReel").addEventListener("click", () => {
-  if (!selectedReel) {
-    msg("reelStatus", "Please select a gallery photo/video or record a video.");
-    return;
-  }
-
-  const transfer = new DataTransfer();
-  transfer.items.add(selectedReel);
-  $("postFile").files = transfer.files;
-  $("postPreview").replaceChildren(
-    makeMedia(URL.createObjectURL(selectedReel), normalizedMediaType(selectedReel))
-  );
-
-  if (!$("postText").value.trim()) {
-    $("postText").value = "Shared from Zenova Reels";
-  }
-
-  go("create");
-  msg("postStatus", "Media ready. Press Upload & Publish.");
-});
-
-/* Profile photo picker */
-$("profilePhoto").addEventListener("click", () => {
-  go("settings");
-  $("dpFile").click();
-});
-$("dpPreview").addEventListener("click", () => $("dpFile").click());
-
-$("dpFile").addEventListener("change", () => {
-  const file = $("dpFile").files[0];
-  if (!file) return;
-
-  if (!normalizedMediaType(file).startsWith("image/")) {
-    msg("profileStatus", "Please choose an image for your DP.");
-    $("dpFile").value = "";
-    return;
-  }
-
-  if (file.size > 5 * 1024 * 1024) {
-    msg("profileStatus", "Profile picture must be smaller than 5 MB.");
-    $("dpFile").value = "";
-    return;
-  }
-
-  $("dpPreview").src = URL.createObjectURL(file);
-});
-
-/* Save DP in Firebase Authentication and Firestore */
-$("saveProfile").addEventListener("click", async () => {
-  if (!currentUser) {
-    msg("profileStatus", "Please log in first.");
-    return;
-  }
-
-  const name = $("displayName").value.trim();
-  const file = $("dpFile").files[0];
-  $("saveProfile").disabled = true;
-
-  try {
-    let photoURL = currentUser.photoURL || "";
-
-    if (file) {
-      if (!normalizedMediaType(file).startsWith("image/")) {
-        throw new Error("Please choose an image for your profile picture.");
-      }
-      if (file.size > 5 * 1024 * 1024) {
-        throw new Error("Profile picture must be smaller than 5 MB.");
-      }
-
-      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      photoURL = await uploadFile(
-        "profiles/" + currentUser.uid + "/" + Date.now() + "_" + safeName,
-        file,
-        "profileStatus"
-      );
-    }
-
-    const displayName =
-      name || currentUser.displayName || currentUser.email?.split("@")[0] || "Zenova User";
-
-    await updateProfile(currentUser, { displayName, photoURL });
-
-    await setDoc(doc(db, "users", currentUser.uid), {
-      uid: currentUser.uid,
-      email: (currentUser.email || "").toLowerCase(),
-      displayName: displayName,
-      photoURL: photoURL,
-      updatedAt: serverTimestamp()
-    }, { merge: true });
-
-    $("profilePhoto").src = photoURL || $("profilePhoto").src;
-    $("dpPreview").src = photoURL || $("dpPreview").src;
-    msg("profileName", displayName);
-    msg("profileEmail", currentUser.email || "");
-    msg("profileStatus", "Profile and DP saved successfully.");
-    $("dpFile").value = "";
-  } catch (error) {
-    msg("profileStatus", showError(error));
-  } finally {
-    $("saveProfile").disabled = false;
-  }
-});
-
-/* Local camera preview for Live Studio */
-$("startLive").addEventListener("click", async () => {
-  try {
-    if (!navigator.mediaDevices?.getUserMedia) {
-      throw new Error("Use HTTPS and a camera-supported browser.");
-    }
-    liveStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-    $("liveVideo").srcObject = liveStream;
-    $("liveVideo").classList.remove("hidden");
-    msg("liveStatus", "Local camera preview is running.");
-  } catch (error) {
-    msg("liveStatus", showError(error));
-  }
-});
-
-$("stopLive").addEventListener("click", () => {
-  if (liveStream) liveStream.getTracks().forEach(track => track.stop());
-  liveStream = null;
-  $("liveVideo").srcObject = null;
-  $("liveVideo").classList.add("hidden");
-  msg("liveStatus", "Camera stopped.");
-});
-
-/* Country-specific news search */
-$("loadNews").addEventListener("click", async () => {
-  const country = $("country").value;
-  const queryText = country + " " + $("newsType").value;
-
-  msg("newsStatus", "Loading headlines...");
+  $("dpPreview").src=URL.createObjectURL(f);
+ };
+
+ $("saveProfile").onclick=async()=>{
+  const user=auth.currentUser;
+  if(!user){msg("profileStatus","Pehle sign in karein.");return;}
+
+  const file=$("dpFile").files[0];
+  const name=$("displayName").value.trim();
+  const bio=$("profileBio").value.trim();
+  const btn=$("saveProfile");
+  btn.disabled=true;
+
+  try{
+   let photoURL=user.photoURL||"";
+
+   if(file){
+    if(!normalizedMediaType(file).startsWith("image/"))throw Error("DP ke liye image select karein.");
+    if(file.size>5*1024*1024)throw Error("DP 5 MB se chhoti honi chahiye.");
+
+    photoURL=await uploadFile("profiles/"+user.uid+"/"+Date.now()+"_"+file.name,"".concat(file),"profileStatus");
+   }
+
+   const savedName=name||user.displayName||user.email?.split("@")[0]||"Zenova User";
+   await updateProfile(user,{displayName:savedName,photoURL});
+
+   await setDoc(doc(db,"users",user.uid),{
+    uid:user.uid,
+    email:(user.email||"").toLowerCase(),
+    displayName:savedName,
+    photoURL,
+    bio,
+    updatedAt:serverTimestamp()
+   },{merge:true});
+
+   $("profilePhoto").src=photoURL||$("profilePhoto").src;
+   $("dpPreview").src=photoURL||$("dpPreview").src;
+   msg("profileName",savedName);
+   msg("profileEmail",user.email||"");
+   msg("profileBioView",bio||"No bio added yet.");
+   msg("profileStatus","Profile and DP saved!");
+  }catch(x){msg("profileStatus",friendlyError(x));}
+  finally{btn.disabled=false;}
+ };
+
+ $("startCamera").onclick=async()=>{
+  try{
+   if(!navigator.mediaDevices?.getUserMedia)throw Error("HTTPS website aur camera-supported browser chahiye.");
+   cameraStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+   $("cameraVideo").srcObject=cameraStream;
+   $("cameraVideo").classList.remove("hidden");
+   msg("liveStatus","Camera preview started. Other users cannot see this broadcast.");
+  }catch(e){msg("liveStatus","Camera start nahi hua: "+friendlyError(e));}
+ };
+
+ $("stopCamera").onclick=()=>{
+  if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());
+  cameraStream=null;
+  $("cameraVideo").srcObject=null;
+  $("cameraVideo").classList.add("hidden");
+  msg("liveStatus","Camera stopped.");
+ };
+
+ $("loadNews").onclick=async()=>{
+  const country=$("country").value,mode=$("newsMode").value;
+  const search=mode==="video"?country+" video news":mode==="live"?country+" live news broadcast":country+" latest news";
+  msg("newsStatus","Loading news…");
   $("newsResults").replaceChildren();
 
-  try {
-    const url =
-      "https://api.gdeltproject.org/api/v2/doc/doc?query=" +
-      encodeURIComponent(queryText) +
-      "&mode=ArtList&format=json&maxrecords=15&sort=HybridRel";
+  try{
+   const url="https://api.gdeltproject.org/api/v2/doc/doc?query="+encodeURIComponent(search)+"&mode=ArtList&format=json&maxrecords=15&sort=HybridRel";
+   const response=await fetch(url);
+   if(!response.ok)throw Error("News service unavailable");
 
-    const response = await fetch(url);
-    if (!response.ok) throw new Error("News provider is unavailable.");
+   const data=await response.json(),articles=data.articles||[];
+   if(!articles.length){msg("newsStatus","No results found. Try another country or news type.");return;}
 
-    const data = await response.json();
-    const articles = data.articles || [];
+   articles.forEach(article=>{
+    const box=document.createElement("div");box.className="newsitem";
+    const link=document.createElement("a");
+    link.href=article.url;link.target="_blank";link.rel="noopener";
+    link.textContent=article.title||"Open news";
 
-    if (!articles.length) {
-      msg("newsStatus", "No articles found. Try another country.");
-      return;
-    }
+    const meta=document.createElement("p");
+    meta.className="muted";meta.textContent=article.domain||"News publisher";
 
-    articles.forEach(article => {
-      const item = document.createElement("div");
-      item.className = "newsitem";
+    const listen=document.createElement("button");
+    listen.className="btn secondary";listen.textContent="🔊 Listen";
+    listen.onclick=()=>speak(article.title||"News headline");
 
-      const link = document.createElement("a");
-      link.href = article.url;
-      link.target = "_blank";
-      link.rel = "noopener";
-      link.textContent = article.title || "Open news";
+    box.append(link,meta,listen);
+    $("newsResults").append(box);
+   });
 
-      const publisher = document.createElement("p");
-      publisher.className = "muted";
-      publisher.textContent = article.domain || "News publisher";
+   msg("newsStatus",articles.length+" results loaded.");
+  }catch(e){msg("newsStatus","News load nahi hui: "+friendlyError(e));}
+ };
 
-      item.append(link, publisher);
-      $("newsResults").append(item);
-    });
-
-    msg("newsStatus", articles.length + " news results loaded.");
-  } catch (error) {
-    msg("newsStatus", "News error: " + showError(error));
-  }
-});
-
-$("readNews").addEventListener("click", () => {
-  const headlines = [...$("newsResults").querySelectorAll("a")]
-    .map(link => link.textContent);
-
-  if (!headlines.length) {
-    msg("newsStatus", "Load news first.");
-    return;
-  }
-
-  if (!("speechSynthesis" in window)) {
-    msg("newsStatus", "Voice reading is not supported in this browser.");
-    return;
-  }
-
+ function speak(text){
+  if(!("speechSynthesis" in window)){msg("newsStatus","Voice reading browser mein available nahi.");return;}
   speechSynthesis.cancel();
-  speechSynthesis.speak(new SpeechSynthesisUtterance(headlines.join(". ")));
-});
+  speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+ }
 
-$("stopNews").addEventListener("click", () => {
-  if ("speechSynthesis" in window) speechSynthesis.cancel();
-});
+ $("listenNews").onclick=()=>{
+  const titles=[...$("newsResults").querySelectorAll(".newsitem a")].map(a=>a.textContent);
+  if(!titles.length){msg("newsStatus","Pehle Load News dabayein.");return;}
+  speak(titles.slice(0,10).join(". "));
+ };
 
-/* Real-time one-to-one text chat */
-$("openChat").addEventListener("click", async () => {
-  if (!currentUser) {
-    msg("chatStatus", "Please log in first.");
-    return;
+ $("stopNews").onclick=()=>{if("speechSynthesis" in window)speechSynthesis.cancel();};
+
+ /* Inbox and chat signaling */
+ function callDocument(){return doc(db,"calls",chatId);}
+ function stopCandidateListeners(){candidateListeners.forEach(fn=>fn());candidateListeners=[];}
+
+ async function closeCall(writeEnded=false){
+  stopCandidateListeners();
+  if(callStream)callStream.getTracks().forEach(t=>t.stop());
+  callStream=null;
+  if(rtc){rtc.ontrack=null;rtc.onicecandidate=null;rtc.close();}
+  rtc=null;queuedCandidates=[];
+  $("localCallVideo").srcObject=null;
+  $("remoteCallVideo").srcObject=null;
+  if(writeEnded&&chatId){
+   try{
+    const snap=await getDoc(callDocument());
+    if(snap.exists())await updateDoc(callDocument(),{status:"ended",updatedAt:serverTimestamp()});
+   }catch(err){console.warn(err);}
   }
+ }
 
-  const email = $("friendEmail").value.trim().toLowerCase();
-
-  if (!email || email === (currentUser.email || "").toLowerCase()) {
-    msg("chatStatus", "Enter another registered user's email.");
-    return;
+ async function flushCandidates(){
+  if(!rtc?.remoteDescription)return;
+  for(const item of queuedCandidates.splice(0)){
+   try{await rtc.addIceCandidate(item);}catch(err){console.warn("ICE candidate:",err);}
   }
+ }
 
-  try {
-    msg("chatStatus", "Finding account...");
+ function listenForCandidates(collectionName){
+  const unsub=onSnapshot(collection(db,"calls",chatId,collectionName),snap=>{
+   snap.docChanges().forEach(change=>{
+    if(change.type!=="added"||!rtc)return;
+    const candidate=change.doc.data();
+    if(rtc.remoteDescription)rtc.addIceCandidate(candidate).catch(console.warn);
+    else queuedCandidates.push(candidate);
+   });
+  },err=>msg("callStatus",friendlyError(err)));
+  candidateListeners.push(unsub);
+ }
 
-    const result = await getDocs(
-      query(collection(db, "users"), where("email", "==", email), limit(1))
-    );
+ async function prepareCall(isCaller){
+  rtc=new RTCPeerConnection({iceServers:[
+   {urls:"stun:stun.l.google.com:19302"},
+   {urls:"stun:stun1.l.google.com:19302"}
+  ]});
 
-    if (result.empty) {
-      msg("chatStatus", "User not found. Ask them to create a Zenova account first.");
-      return;
-    }
+  callStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+  $("localCallVideo").srcObject=callStream;
+  callStream.getTracks().forEach(track=>rtc.addTrack(track,callStream));
+  rtc.ontrack=event=>{$("remoteCallVideo").srcObject=event.streams[0];};
+  rtc.onconnectionstatechange=()=>{
+   if(rtc)msg("callStatus","Call status: "+rtc.connectionState+(rtc.connectionState==="failed"?" — network may require a TURN server.":""));
+  };
 
-    const friend = result.docs[0].data();
-    if (!friend.uid || friend.uid === currentUser.uid) {
-      msg("chatStatus", "Invalid friend account.");
-      return;
-    }
+  const own=isCaller?"callerCandidates":"calleeCandidates";
+  const remote=isCaller?"calleeCandidates":"callerCandidates";
+  rtc.onicecandidate=event=>{
+   if(event.candidate&&chatId)addDoc(collection(db,"calls",chatId,own),event.candidate.toJSON()).catch(err=>msg("callStatus",friendlyError(err)));
+  };
 
-    chatId = [currentUser.uid, friend.uid].sort().join("_");
-    $("chatHeading").textContent = "Chat with " + (friend.displayName || email);
-    $("chatRoom").classList.remove("hidden");
+  listenForCandidates(remote);
+ }
 
-    if (stopMessages) stopMessages();
+ function watchCall(){
+  if(stopCallRoom)stopCallRoom();
+  stopCallRoom=onSnapshot(callDocument(),async snap=>{
+   if(!snap.exists())return;
+   const data=snap.data();
+   if(data.status==="ended")msg("callStatus","Call ended.");
+   else if(data.status==="ringing"&&data.calleeUid===currentUser.uid)msg("callStatus","Incoming call. Press Answer Call.");
+   if(data.callerUid===currentUser.uid&&data.answer&&rtc&&!rtc.currentRemoteDescription){
+    try{
+     await rtc.setRemoteDescription(new RTCSessionDescription(data.answer));
+     await flushCandidates();
+    }catch(err){msg("callStatus",friendlyError(err));}
+   }
+  },err=>msg("callStatus",friendlyError(err)));
+ }
 
-    stopMessages = onSnapshot(
-      query(collection(db, "chats", chatId, "messages"), orderBy("createdAt", "asc"), limit(200)),
-      snapshot => {
-        const box = $("messages");
-        box.replaceChildren();
+ $("openChat").onclick=async()=>{
+  try{
+   if(!currentUser){msg("chatStatus","Please sign in first.");return;}
+   const email=$("friendEmail").value.trim().toLowerCase();
+   if(!email||email===(currentUser.email||"").toLowerCase()){
+    msg("chatStatus","Friend ka different registered email enter karein.");return;
+   }
 
-        snapshot.docs.forEach(document => {
-          const message = document.data();
-          const bubble = document.createElement("div");
-          bubble.className = "bubble" + (message.senderUid === currentUser.uid ? " mine" : "");
-          bubble.textContent =
-            (message.senderUid === currentUser.uid ? "You: " : "Friend: ") +
-            (message.text || "");
-          box.appendChild(bubble);
-        });
+   msg("chatStatus","Account dhoond rahe hain…");
+   const result=await getDocs(query(collection(db,"users"),where("email","==",email),limit(1)));
+   if(result.empty){msg("chatStatus","Account nahi mila. Friend se pehle Zenova signup karwayein.");return;}
 
-        box.scrollTop = box.scrollHeight;
-      },
-      error => msg("chatStatus", showError(error))
-    );
+   chatFriend=result.docs[0].data();
+   if(!chatFriend.uid||chatFriend.uid===currentUser.uid){
+    msg("chatStatus","Friend account valid nahi hai.");return;
+   }
 
-    msg("chatStatus", "Conversation opened.");
-  } catch (error) {
-    msg("chatStatus", showError(error));
-  }
-});
+   chatId=[currentUser.uid,chatFriend.uid].sort().join("_");
+   $("chatHeading").textContent="Chat with "+(chatFriend.displayName||chatFriend.email||"Friend");
+   $("chatRoom").classList.remove("hidden");
 
-$("chatForm").addEventListener("submit", async event => {
-  event.preventDefault();
+   if(stopMessages)stopMessages();
+   stopMessages=onSnapshot(
+    query(collection(db,"chats",chatId,"messages"),orderBy("createdAt","asc"),limit(200)),
+    snap=>{
+     const box=$("chatMessages");box.replaceChildren();
+     snap.docs.forEach(d=>{
+      const m=d.data(),bubble=document.createElement("div");
+      bubble.className="bubble"+(m.senderUid===currentUser.uid?" mine":"");
+      bubble.textContent=(m.senderUid===currentUser.uid?"You":"Friend")+": "+(m.text||"");
+      box.append(bubble);
+     });
+     box.scrollTop=box.scrollHeight;
+    },
+    err=>msg("chatStatus",friendlyError(err))
+   );
 
-  if (!currentUser || !chatId) {
-    msg("chatStatus", "Open a conversation first.");
-    return;
-  }
+   watchCall();
+   msg("chatStatus","Conversation opened.");
+  }catch(err){msg("chatStatus",friendlyError(err));}
+ };
 
-  const text = $("chatText").value.trim();
-  if (!text) return;
+ $("chatForm").onsubmit=async e=>{
+  e.preventDefault();
+  if(!currentUser||!chatId)return;
+  const text=$("chatText").value.trim();
+  if(!text)return;
+  try{
+   await addDoc(collection(db,"chats",chatId,"messages"),{
+    text,senderUid:currentUser.uid,
+    senderName:currentUser.displayName||currentUser.email||"Zenova User",
+    createdAt:serverTimestamp()
+   });
+   $("chatText").value="";
+  }catch(err){msg("chatStatus",friendlyError(err));}
+ };
 
-  try {
-    await addDoc(collection(db, "chats", chatId, "messages"), {
-      text: text,
-      senderUid: currentUser.uid,
-      senderName: currentUser.displayName || currentUser.email || "Zenova User",
-      createdAt: serverTimestamp()
-    });
+ $("startCall").onclick=async()=>{
+  if(!chatId||!chatFriend){msg("callStatus","Pehle friend ke saath chat open karein.");return;}
+  try{
+   await closeCall(false);
+   await prepareCall(true);
+   const offer=await rtc.createOffer();
+   await rtc.setLocalDescription(offer);
+   await setDoc(callDocument(),{
+    callerUid:currentUser.uid,
+    calleeUid:chatFriend.uid,
+    offer:{type:offer.type,sdp:offer.sdp},
+    answer:null,
+    status:"ringing",
+    updatedAt:serverTimestamp()
+   });
+   msg("callStatus","Calling… friend ko isi chat ko open karke Answer Call dabana hoga.");
+  }catch(err){msg("callStatus",friendlyError(err));await closeCall(false);}
+ };
 
-    $("chatText").value = "";
-  } catch (error) {
-    msg("chatStatus", showError(error));
-  }
-});
+ $("answerCall").onclick=async()=>{
+  if(!chatId){msg("callStatus","Pehle conversation open karein.");return;}
+  try{
+   const snap=await getDoc(callDocument());
+   if(!snap.exists()||!snap.data().offer||snap.data().status==="ended"){
+    msg("callStatus","Koi incoming call nahi mili.");return;
+   }
 
-/* Log out */
-$("logoutBtn").addEventListener("click", async () => {
-  if (!confirm("Do you want to log out of Zenova?")) return;
+   const data=snap.data();
+   if(data.calleeUid!==currentUser.uid){msg("callStatus","Ye call aapke account ke liye nahi hai.");return;}
 
-  [cameraStream, liveStream].forEach(stream => {
-    if (stream) stream.getTracks().forEach(track => track.stop());
-  });
+   await closeCall(false);
+   await prepareCall(false);
+   await rtc.setRemoteDescription(new RTCSessionDescription(data.offer));
+   await flushCandidates();
 
-  cameraStream = null;
-  liveStream = null;
+   const answer=await rtc.createAnswer();
+   await rtc.setLocalDescription(answer);
+   await updateDoc(callDocument(),{
+    answer:{type:answer.type,sdp:answer.sdp},
+    status:"connected",
+    updatedAt:serverTimestamp()
+   });
 
-  try {
-    await signOut(auth);
-    go("home");
-    msg("settingsStatus", "Logged out successfully.");
-  } catch (error) {
-    msg("settingsStatus", showError(error));
-  }
-});
+   msg("callStatus","Connecting…");
+  }catch(err){msg("callStatus",friendlyError(err));await closeCall(false);}
+ };
+
+ $("endCall").onclick=async()=>{
+  await closeCall(true);
+  msg("callStatus","Call ended.");
+ };
+
+}catch(e){
+ msg("authStatus","Firebase setup error: "+friendlyError(e));
+}
 </script>
 </body>
 </html>
