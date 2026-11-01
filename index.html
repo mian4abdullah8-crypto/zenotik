@@ -4,310 +4,332 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#ffffff">
-<title>Zenova Social World</title>
+<title>ZENOVA Social World</title>
 
 <style>
 :root {
-  --bg: #ffffff;
-  --panel: #ffffff;
-  --text: #050505;
-  --muted: #596273;
-  --line: #e5e7eb;
-  --purple: #9333ea;
-  --blue: #2563eb;
+  --purple:#833ab4;
+  --pink:#e1306c;
+  --orange:#f77737;
+  --blue:#2563eb;
+  --white:#fff;
+  --black:#050505;
+  --muted:#64748b;
+  --line:#e5e7eb;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { box-sizing:border-box; }
 
 body {
-  margin: 0;
-  background: #fff;
-  color: #050505;
-  font-family: Arial, Helvetica, sans-serif;
+  margin:0;
+  background:#fff;
+  color:var(--black);
+  font-family:Arial,Helvetica,sans-serif;
 }
 
-button, input, textarea, select {
-  font: inherit;
-}
+button,input,textarea,select { font:inherit; }
+button { cursor:pointer; }
 
-button {
-  cursor: pointer;
-  transition: 0.2s ease;
-}
+.hidden { display:none!important; }
 
 header {
-  position: sticky;
-  top: 0;
-  z-index: 15;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 5%;
-  background: #fff;
-  border-bottom: 1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:13px 5%;
+  background:#ffffffed;
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
 }
 
-.brand {
-  font-size: 25px;
-  font-weight: 900;
-  letter-spacing: -1px;
-  background: linear-gradient(100deg, #833ab4, #fd1d1d, #fcb045);
-  color: transparent;
-  background-clip: text;
+.logo {
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:-1px;
+  background:linear-gradient(100deg,var(--purple),var(--pink),var(--orange));
+  color:transparent;
+  background-clip:text;
+}
+
+.brand-note {
+  color:#444;
+  font-size:11px;
+  letter-spacing:1px;
 }
 
 main {
-  width: min(1050px, 94%);
-  margin: 22px auto 130px;
+  width:min(1000px,94%);
+  margin:20px auto 120px;
 }
 
 .card {
-  padding: 20px;
-  margin: 15px 0;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  box-shadow: 0 10px 28px #0000000a;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:19px;
+  margin:14px 0;
+  box-shadow:0 8px 26px #00000008;
 }
 
-h1, h2, h3, p, label {
-  color: #050505;
+h1,h2,h3,p { color:#050505; }
+h2 { font-size:22px; }
+.muted,.status { color:var(--muted); line-height:1.6; }
+.status { font-size:13px; overflow-wrap:anywhere; }
+
+input,textarea,select {
+  display:block;
+  width:100%;
+  margin:10px 0;
+  padding:13px;
+  color:#050505;
+  background:white;
+  border:1px solid #d1d5db;
+  border-radius:12px;
+  outline:none;
 }
 
-h2 {
-  font-size: 22px;
-}
-
-input, textarea, select {
-  display: block;
-  width: 100%;
-  padding: 13px 14px;
-  margin: 10px 0;
-  color: #050505;
-  background: #fff;
-  border: 1px solid #d1d5db;
-  border-radius: 13px;
-  outline: none;
-}
-
-input:focus, textarea:focus, select:focus {
-  border-color: #9333ea;
-  box-shadow: 0 0 0 3px #9333ea20;
+input:focus,textarea:focus,select:focus {
+  border-color:var(--purple);
+  box-shadow:0 0 0 3px #833ab420;
 }
 
 .btn {
-  padding: 13px 20px;
-  border: 0;
-  border-radius: 14px;
-  font-weight: 800;
+  min-height:45px;
+  padding:12px 17px;
+  border:0;
+  border-radius:13px;
+  font-weight:800;
+  transition:.2s;
 }
 
+.btn:hover { transform:translateY(-2px); }
+
 .primary {
-  color: #fff;
-  background: linear-gradient(120deg, #833ab4, #fd1d1d, #fcb045);
+  color:white;
+  background:linear-gradient(120deg,var(--purple),var(--pink),var(--orange));
 }
 
 .secondary {
-  color: #111;
-  background: linear-gradient(120deg, #fce7f3, #ede9fe, #dbeafe);
-  border: 1px solid #ddd6fe;
+  color:#222;
+  background:linear-gradient(120deg,#fce7f3,#ede9fe,#dbeafe);
+  border:1px solid #ddd6fe;
 }
 
 .danger {
-  color: #fff;
-  background: linear-gradient(120deg, #ef4444, #db2777);
+  color:white;
+  background:linear-gradient(120deg,#ef4444,#db2777);
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px #00000018;
-}
+.full { width:100%; }
 
 .hero {
-  padding: 35px;
-  border-radius: 26px;
-  color: #fff;
-  background: linear-gradient(120deg, #833ab4, #fd1d1d, #fcb045);
+  padding:clamp(25px,5vw,44px);
+  border-radius:25px;
+  color:white;
+  background:linear-gradient(120deg,#312e81,#833ab4,#e1306c,#f77737);
 }
 
-.hero h1, .hero p {
-  color: #fff;
-}
+.hero h1,.hero p { color:white; }
+.hero h1 { font-size:clamp(30px,5vw,46px); }
 
-.page {
-  display: none;
-}
+.page { display:none; }
+.page.active { display:block; }
 
-.page.active {
-  display: block;
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* Instagram-style bottom navigation */
 .bottomnav {
-  position: fixed;
-  z-index: 30;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 5px calc(10px + env(safe-area-inset-bottom));
-  background: #fff;
-  border-top: 1px solid #e5e7eb;
-  box-shadow: 0 -6px 25px #0000000d;
+  position:fixed;
+  z-index:50;
+  bottom:0;
+  left:0;
+  right:0;
+  display:flex;
+  gap:6px;
+  justify-content:flex-start;
+  overflow-x:auto;
+  padding:9px 8px calc(9px + env(safe-area-inset-bottom));
+  background:#fffffffa;
+  border-top:1px solid var(--line);
+  box-shadow:0 -5px 20px #0000000d;
 }
 
 .bottomnav button {
-  flex: 1;
-  min-width: 58px;
-  min-height: 64px;
-  padding: 8px 4px;
-  border: 0;
-  border-radius: 16px;
-  background: #fff;
-  color: #333;
-  font-size: 11px;
-  font-weight: 800;
+  flex:0 0 76px;
+  min-height:67px;
+  padding:7px 4px;
+  border:1px solid #eee;
+  border-radius:15px;
+  background:white;
+  color:#333;
+  font-size:11px;
+  font-weight:800;
 }
 
 .bottomnav .ico {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 25px;
+  display:block;
+  font-size:25px;
+  margin-bottom:5px;
 }
 
 .bottomnav button.active {
-  color: #fff;
-  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-  box-shadow: 0 5px 14px #fd1d1d30;
+  color:white;
+  background:linear-gradient(135deg,var(--purple),var(--pink),var(--orange));
 }
 
 .avatar {
-  width: 85px;
-  height: 85px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #833ab4;
-}
-
-.stories {
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-  padding: 12px 0;
-}
-
-.story {
-  min-width: 68px;
-  text-align: center;
-  font-size: 12px;
-}
-
-.storyring {
-  width: 62px;
-  height: 62px;
-  padding: 3px;
-  margin: auto auto 6px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-}
-
-.storyring img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border: 2px solid white;
-  border-radius: 50%;
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  border:3px solid var(--purple);
+  object-fit:cover;
+  background:#f1f5f9;
+  cursor:pointer;
 }
 
 .post {
-  padding: 17px 0;
-  border-bottom: 1px solid var(--line);
-  overflow-wrap: anywhere;
+  padding:15px 0;
+  border-bottom:1px solid var(--line);
+  overflow-wrap:anywhere;
 }
 
-.media {
-  display: block;
-  width: 100%;
-  max-height: 560px;
-  object-fit: contain;
-  background: #111;
-  border-radius: 18px;
-  margin: 13px 0;
+.post img,.post video,.preview-media {
+  display:block;
+  width:100%;
+  max-height:520px;
+  object-fit:contain;
+  margin:12px 0;
+  background:#111;
+  border-radius:14px;
 }
 
-.postactions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 12px;
+.row {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
 }
 
-.postactions button {
-  padding: 12px 16px;
-  border: 0;
-  border-radius: 13px;
-  background: #f3e8ff;
-  color: #581c87;
-  font-weight: 800;
+.row > * { flex:1; }
+
+.auth-page {
+  position:fixed;
+  z-index:100;
+  inset:0;
+  overflow:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  background:
+    linear-gradient(135deg,#070b29bd,#5b21b6a1),
+    url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1800&q=85")
+    center/cover no-repeat;
 }
+
+.auth-box {
+  width:min(440px,100%);
+  padding:25px;
+  border:1px solid #ffffffa0;
+  border-radius:25px;
+  background:#fffffff2;
+  box-shadow:0 25px 80px #0004;
+  backdrop-filter:blur(12px);
+}
+
+.auth-box h1 { text-align:center; font-size:38px; }
+.auth-box p { text-align:center; }
+
+.mark {
+  display:grid;
+  place-items:center;
+  width:70px;
+  height:70px;
+  margin:auto;
+  border-radius:22px;
+  color:white;
+  background:linear-gradient(135deg,var(--purple),var(--pink),var(--orange));
+  font-size:38px;
+}
+
+.story-list {
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+}
+
+.story {
+  min-width:65px;
+  text-align:center;
+  font-size:12px;
+}
+
+.story img {
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid var(--pink);
+}
+
+.creator-layout {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 220px;
+  gap:15px;
+}
+
+.edit-tools {
+  padding:14px;
+  background:#fafafa;
+  border:1px solid var(--line);
+  border-radius:15px;
+}
+
+.edit-tools label {
+  display:block;
+  font-weight:bold;
+  font-size:13px;
+  margin-top:12px;
+}
+
+.edit-tools input[type=range] { padding:0; }
+
+.camera {
+  display:block;
+  width:100%;
+  max-height:480px;
+  background:#111;
+  border-radius:15px;
+}
+
+a { color:var(--purple); font-weight:bold; }
+.news-item { padding:15px 0; border-bottom:1px solid var(--line); }
 
 footer {
-  padding: 25px;
-  text-align: center;
-  color: #111;
-  font-weight: 800;
+  padding:20px 10px 130px;
+  text-align:center;
+  font-weight:bold;
+  font-size:12px;
 }
 
-@media (max-width: 540px) {
-  header {
-    padding: 12px 4%;
-  }
+@media(max-width:600px) {
+  header { padding:12px 4%; }
+  .logo { font-size:23px; }
+  .card { padding:15px; }
+  .creator-layout { grid-template-columns:1fr; }
+  .bottomnav button { flex-basis:72px; }
+}
 
-  .brand {
-    font-size: 21px;
-  }
-
-  main {
-    width: 94%;
-    margin-top: 13px;
-  }
-
-  .card {
-    padding: 15px;
-    border-radius: 18px;
-  }
-
+@media(min-width:800px) {
   .bottomnav {
-    gap: 2px;
-  }
-
-  .bottomnav button {
-    min-width: 0;
-    min-height: 62px;
-    padding: 7px 2px;
-    font-size: 10px;
-  }
-
-  .bottomnav .ico {
-    font-size: 23px;
-  }
-
-  .hero {
-    padding: 24px;
+    left:50%;
+    right:auto;
+    bottom:10px;
+    width:min(900px,96%);
+    transform:translateX(-50%);
+    justify-content:center;
+    border:1px solid var(--line);
+    border-radius:20px;
   }
 }
 </style>
@@ -315,157 +337,1181 @@ footer {
 
 <body>
 
+<!-- LOGIN / SIGNUP PAGE -->
+<section id="authPage" class="auth-page">
+  <div class="auth-box">
+    <div class="mark">✦</div>
+    <h1 style="background:linear-gradient(90deg,#833ab4,#e1306c,#f77737);color:transparent;background-clip:text">ZENOVA</h1>
+    <p><b>CONNECT • SHARE • EXPLORE</b></p>
+    <p>MADE IN MIAN ABDULLAH GULZAR</p>
+
+    <hr>
+    <h2>Create Account</h2>
+
+    <form id="signupForm">
+      <input id="signupName" placeholder="Your name" maxlength="40">
+      <input id="signupEmail" type="email" placeholder="Email address" required>
+      <input id="signupPassword" type="password" minlength="6"
+             placeholder="Password (6+ characters)" required>
+      <button class="btn primary full">Sign Up</button>
+    </form>
+
+    <hr>
+    <h2>Already have an account?</h2>
+
+    <form id="loginForm">
+      <input id="loginEmail" type="email" placeholder="Email address" required>
+      <input id="loginPassword" type="password" placeholder="Password" required>
+      <button class="btn secondary full">Log In</button>
+    </form>
+
+    <button id="googleBtn" class="btn full"
+            style="background:#fff;border:1px solid #ddd;margin-top:10px">
+      🌐 Continue with Google
+    </button>
+
+    <p id="authStatus" class="status"></p>
+  </div>
+</section>
+
 <header>
   <div>
-    <div class="brand">ZENOVA</div>
-    <small>Social World · Made in Mian Abdullah</small>
+    <div class="logo">✦ ZENOVA</div>
+    <div class="brand-note">SOCIAL WORLD</div>
   </div>
+  <button class="btn secondary" data-go="account">⚙ Settings</button>
 </header>
 
 <main>
-  <section class="hero">
-    <h1>Welcome to ZENOVA Social World</h1>
-    <p>Connect, create and share your world with friends.</p>
-    <button class="btn primary" onclick="showPage('home')">
-      Explore Now
-    </button>
-  </section>
 
+  <!-- HOME -->
   <section id="home" class="page active">
+    <div class="hero">
+      <p>WELCOME TO ZENOVA SOCIAL WORLD</p>
+      <h1>Share your world. Be yourself.</h1>
+      <p>Share photos, videos, stories and explore news from around the world.</p>
+      <button class="btn secondary" data-go="create">＋ Create Post</button>
+    </div>
+
+    <div class="card">
+      <h2>⭕ Stories</h2>
+      <div id="stories" class="story-list">
+        <p class="muted">Your stories will appear here.</p>
+      </div>
+      <button class="btn primary" data-go="create">＋ Add Story</button>
+    </div>
+
     <div class="card">
       <h2>🏠 Home Feed</h2>
-      <p>Welcome to your social world.</p>
+      <p id="feedStatus" class="status">Sign in to see posts.</p>
+      <div id="feed"></div>
     </div>
   </section>
 
+  <!-- REELS / CAMERA / GALLERY -->
   <section id="reels" class="page">
     <div class="card">
-      <h2>🎬 Reels</h2>
-      <p>Discover short videos.</p>
+      <h2>🎬 Reels Studio</h2>
+      <p class="muted">Open your camera or select photos/videos from your gallery.</p>
+
+      <div class="row">
+        <button id="openCamera" class="btn primary">📷 Open Camera</button>
+        <button id="openGallery" class="btn secondary">🖼 Gallery</button>
+      </div>
+
+      <input id="galleryFile" type="file" accept="image/*,video/*" class="hidden">
+      <input id="cameraFile" type="file" accept="video/*" capture="environment" class="hidden">
+
+      <video id="cameraPreview" class="camera hidden" autoplay muted playsinline></video>
+
+      <div class="row">
+        <button id="startRecording" class="btn primary">⏺ Record Video</button>
+        <button id="stopCamera" class="btn secondary">Stop Camera</button>
+      </div>
+
+      <p id="reelStatus" class="status"></p>
+
+      <div class="creator-layout">
+        <div>
+          <h3>Preview</h3>
+          <video id="videoPreview" class="preview-media hidden" controls playsinline></video>
+          <img id="imagePreview" class="preview-media hidden" alt="Selected image">
+
+          <button id="useMedia" class="btn primary full">Use in Create Post</button>
+        </div>
+
+        <aside class="edit-tools">
+          <h3>🎨 Editing Tools</h3>
+
+          <label for="brightness">Brightness</label>
+          <input id="brightness" type="range" min="50" max="150" value="100">
+
+          <label for="contrast">Contrast</label>
+          <input id="contrast" type="range" min="50" max="180" value="100">
+
+          <label for="saturation">Saturation</label>
+          <input id="saturation" type="range" min="0" max="200" value="100">
+
+          <button id="resetFilters" class="btn secondary full">Reset Editing</button>
+          <p class="muted">Filters preview par apply hote hain; original media file permanently edit nahi hoti.</p>
+        </aside>
+      </div>
     </div>
   </section>
 
+  <!-- CREATE POST -->
   <section id="create" class="page">
     <div class="card">
-      <h2>➕ Create Post</h2>
-      <textarea id="postText" placeholder="What's on your mind?"></textarea>
-      <input id="postFile" type="file" accept="image/*,video/*">
-      <button class="btn primary" onclick="createPost()">Share Post</button>
+      <h2>＋ Create Post</h2>
+
+      <form id="postForm">
+        <textarea id="postText" rows="4" maxlength="1000"
+                  placeholder="What's on your mind?"></textarea>
+
+        <label>Select photo/video from gallery</label>
+        <input id="postFile" type="file" accept="image/*,video/*">
+
+        <div id="postPreview"></div>
+        <button id="publishBtn" class="btn primary full">Upload & Publish</button>
+      </form>
+
+      <p id="postStatus" class="status"></p>
+      <hr>
+
+      <h2>⭕ Create Story</h2>
+      <input id="storyFile" type="file" accept="image/*,video/*">
+      <button id="uploadStory" class="btn primary full">Upload Story</button>
+      <p id="storyStatus" class="status"></p>
     </div>
-    <div class="card" id="postFeed"></div>
   </section>
 
+  <!-- LIVE -->
+  <section id="live" class="page">
+    <div class="card">
+      <h2>🔴 Live Studio</h2>
+
+      <p class="muted">
+        Camera preview is available here. Public live broadcasting to users worldwide
+        needs a streaming server/provider and server-side signaling.
+      </p>
+
+      <button id="startLiveCamera" class="btn primary">Start Camera</button>
+      <button id="stopLiveCamera" class="btn secondary">Stop Camera</button>
+
+      <video id="liveVideo" class="camera hidden" autoplay muted playsinline></video>
+      <p id="liveStatus" class="status"></p>
+
+      <hr>
+      <h3>🌍 Watch Live News</h3>
+      <a href="https://www.youtube.com/results?search_query=Pakistan+live+news"
+         target="_blank" rel="noopener">Pakistan Live News ↗</a>
+      <br><br>
+      <a href="https://www.youtube.com/results?search_query=world+live+news"
+         target="_blank" rel="noopener">World Live News ↗</a>
+    </div>
+  </section>
+
+  <!-- CHAT -->
   <section id="chat" class="page">
     <div class="card">
       <h2>💬 Chat</h2>
-      <p>Chat feature section.</p>
+      <p class="muted">Chat with another registered Zenova user using their email address.</p>
+
+      <input id="friendEmail" type="email" placeholder="Friend's registered email">
+      <button id="openChat" class="btn primary full">Open Conversation</button>
+      <p id="chatStatus" class="status"></p>
+    </div>
+
+    <div id="chatRoom" class="card hidden">
+      <h3 id="chatTitle">Conversation</h3>
+      <div id="messages"></div>
+
+      <form id="chatForm">
+        <textarea id="chatText" rows="2" maxlength="2000"
+                  placeholder="Write a message..." required></textarea>
+        <button class="btn primary full">Send Message</button>
+      </form>
     </div>
   </section>
 
-  <section id="live" class="page">
-    <div class="card">
-      <h2>🔴 Live</h2>
-      <p>Live section.</p>
-    </div>
-  </section>
-
+  <!-- WORLD NEWS -->
   <section id="news" class="page">
     <div class="card">
-      <h2>📰 News</h2>
-      <p>Latest news section.</p>
+      <h2>🌍 World News</h2>
+
+      <label for="country">Choose country</label>
+      <select id="country"></select>
+
+      <label for="newsType">News type</label>
+      <select id="newsType">
+        <option value="latest news">Latest Headlines</option>
+        <option value="live news">Live News Updates</option>
+        <option value="video news">Video News Reports</option>
+      </select>
+
+      <button id="loadNews" class="btn primary full">Load News</button>
+      <button id="readNews" class="btn secondary full">🔊 Read Headlines</button>
+      <button id="stopReading" class="btn secondary full">Stop Voice</button>
+
+      <p id="newsStatus" class="status"></p>
+      <div id="newsResults"></div>
     </div>
   </section>
 
+  <!-- PROFILE -->
   <section id="profile" class="page">
     <div class="card">
       <h2>👤 My Profile</h2>
-      <p>MADE IN MIAN ABDULLAH</p>
+
+      <img id="profilePhoto" class="avatar" alt="Your DP"
+           title="Click to change your profile picture">
+
+      <p class="muted">Tap your profile picture to choose a new DP from your gallery.</p>
+
+      <h3 id="profileName">Zenova User</h3>
+      <p id="profileEmail" class="muted"></p>
+
+      <button class="btn primary" data-go="account">Edit Profile / DP</button>
+      <h3>My Posts</h3>
+      <div id="myPosts"></div>
     </div>
   </section>
+
+  <!-- SETTINGS -->
+  <section id="account" class="page">
+    <div class="card">
+      <h2>⚙ Settings</h2>
+      <p class="muted">Manage your profile and account.</p>
+
+      <h3>Profile Picture</h3>
+      <img id="dpPreview" class="avatar" alt="DP preview">
+      <input id="dpFile" type="file" accept="image/*">
+      <input id="displayName" maxlength="40" placeholder="Your display name">
+
+      <button id="saveProfile" class="btn primary full">Save Profile & DP</button>
+      <p id="profileStatus" class="status"></p>
+
+      <hr>
+      <h3>App Information</h3>
+      <p>ZENOVA SOCIAL WORLD</p>
+      <p>MADE IN MIAN ABDULLAH GULZAR</p>
+
+      <details>
+        <summary>Login and Google sign-in help</summary>
+        <p class="muted">
+          Firebase Console → Authentication → Sign-in method mein Email/Password
+          aur Google enable karein. Apni website ka domain Authorized domains mein add karein.
+        </p>
+      </details>
+
+      <details>
+        <summary>Photo/video upload help</summary>
+        <p class="muted">
+          Firebase Storage enable karein aur Storage Rules set karein.
+          Firestore aur Storage dono ko secure rules ki zaroorat hai.
+        </p>
+      </details>
+
+      <details>
+        <summary>Camera permission help</summary>
+        <p class="muted">
+          Camera use karne ke liye HTTPS website aur browser camera permission zaroori hai.
+        </p>
+      </details>
+
+      <hr>
+      <button id="logoutBtn" class="btn danger full">Log Out</button>
+      <p id="settingsStatus" class="status"></p>
+    </div>
+  </section>
+
 </main>
 
 <nav class="bottomnav">
-  <button class="active" onclick="showPage('home',this)">
-    <span class="ico">⌂</span>Home
-  </button>
-  <button onclick="showPage('reels',this)">
-    <span class="ico">▶</span>Reels
-  </button>
-  <button onclick="showPage('create',this)">
-    <span class="ico">＋</span>Create
-  </button>
-  <button onclick="showPage('chat',this)">
-    <span class="ico">✉</span>Chat
-  </button>
-  <button onclick="showPage('live',this)">
-    <span class="ico">◉</span>Live
-  </button>
-  <button onclick="showPage('news',this)">
-    <span class="ico">▤</span>News
-  </button>
-  <button onclick="showPage('profile',this)">
-    <span class="ico">●</span>Profile
-  </button>
+  <button class="active" data-go="home"><span class="ico">⌂</span>Home</button>
+  <button data-go="reels"><span class="ico">▣</span>Reels</button>
+  <button data-go="live"><span class="ico">🔴</span>Live</button>
+  <button data-go="create"><span class="ico">＋</span>Create</button>
+  <button data-go="chat"><span class="ico">✉</span>Chat</button>
+  <button data-go="news"><span class="ico">🌍</span>News</button>
+  <button data-go="profile"><span class="ico">♙</span>Profile</button>
+  <button data-go="account"><span class="ico">⚙</span>Settings</button>
 </nav>
-
-<script>
-function showPage(pageId, button) {
-  document.querySelectorAll('.page').forEach(page => {
-    page.classList.remove('active');
-  });
-
-  const selected = document.getElementById(pageId);
-  if (selected) selected.classList.add('active');
-
-  document.querySelectorAll('.bottomnav button').forEach(btn => {
-    btn.classList.remove('active');
-  });
-
-  if (button) button.classList.add('active');
-}
-
-function createPost() {
-  const text = document.getElementById('postText').value.trim();
-  const fileInput = document.getElementById('postFile');
-  const feed = document.getElementById('postFeed');
-
-  if (!text && !fileInput.files.length) {
-    alert('Write something or select a photo/video first.');
-    return;
-  }
-
-  const post = document.createElement('article');
-  post.className = 'post';
-
-  if (text) {
-    const paragraph = document.createElement('p');
-    paragraph.textContent = text;
-    post.appendChild(paragraph);
-  }
-
-  if (fileInput.files.length) {
-    const file = fileInput.files[0];
-    const media = document.createElement(file.type.startsWith('video/') ? 'video' : 'img');
-    media.className = 'media';
-    media.src = URL.createObjectURL(file);
-
-    if (media.tagName === 'VIDEO') {
-      media.controls = true;
-    }
-
-    post.appendChild(media);
-  }
-
-  feed.prepend(post);
-  document.getElementById('postText').value = '';
-  fileInput.value = '';
-}
-</script>
 
 <footer>
   ZENOVA SOCIAL WORLD<br>
-  MADE IN MIAN ABDULLAH
+  MADE IN MIAN ABDULLAH GULZAR
 </footer>
 
+<script type="module">
+import {initializeApp}
+  from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+
+import {
+  getAuth,onAuthStateChanged,createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,
+  signOut,updateProfile
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+
+import {
+  getFirestore,collection,addDoc,query,orderBy,limit,onSnapshot,
+  serverTimestamp,doc,setDoc,getDocs,where
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+import {
+  getStorage,ref,uploadBytesResumable,getDownloadURL
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDmwJMYmfhOUclZF5drJUC8nsQN_OQdWWY",
+  authDomain: "zenotik-8fe5b.firebaseapp.com",
+  projectId: "zenotik-8fe5b",
+  storageBucket: "zenotik-8fe5b.firebasestorage.app",
+  messagingSenderId: "196726457517",
+  appId: "1:196726457517:web:20b604b7a44e6cb8bf3224",
+  measurementId: "G-G8QB24W3Y8"
+};
+
+const $ = id => document.getElementById(id);
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+let user = null;
+let selectedMedia = null;
+let cameraStream = null;
+let liveStream = null;
+let recorder = null;
+let recordedParts = [];
+let mediaUrl = null;
+let chatId = null;
+let stopFeed = null;
+let stopChat = null;
+
+function status(id,text) {
+  const element = $(id);
+  if(element) element.textContent = text;
+}
+
+function showError(error) {
+  console.error(error);
+  return error?.message || error?.code || "An unknown error occurred.";
+}
+
+/* Navigation */
+function go(page) {
+  document.querySelectorAll(".page").forEach(section => {
+    section.classList.toggle("active", section.id === page);
+  });
+
+  document.querySelectorAll("[data-go]").forEach(button => {
+    button.classList.toggle("active", button.dataset.go === page);
+  });
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll("[data-go]").forEach(button => {
+  button.addEventListener("click",() => go(button.dataset.go));
+});
+
+/* Generate a broad country list using the browser's international display names */
+(function populateCountries() {
+  const codes = (
+    "AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ " +
+    "CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR " +
+    "GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO " +
+    "JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR " +
+    "MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO " +
+    "RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV " +
+    "TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW"
+  ).trim().split(/\s+/);
+
+  const names = new Intl.DisplayNames(["en"],{type:"region"});
+  const countrySelect = $("country");
+
+  codes.map(code => ({code,name:names.of(code)}))
+    .filter(x => x.name && x.code !== x.name)
+    .sort((a,b) => a.name.localeCompare(b.name))
+    .forEach(item => {
+      const option = document.createElement("option");
+      option.value = item.name;
+      option.textContent = item.name;
+      countrySelect.appendChild(option);
+    });
+
+  countrySelect.value = "Pakistan";
+})();
+
+/* Authentication */
+$("signupForm").addEventListener("submit",async event => {
+  event.preventDefault();
+
+  try {
+    status("authStatus","Creating account...");
+
+    const credential = await createUserWithEmailAndPassword(
+      auth,
+      $("signupEmail").value.trim(),
+      $("signupPassword").value
+    );
+
+    const name = $("signupName").value.trim();
+
+    if(name) await updateProfile(credential.user,{displayName:name});
+
+    status("authStatus","Account created.");
+  } catch(error) {
+    status("authStatus",showError(error));
+  }
+});
+
+$("loginForm").addEventListener("submit",async event => {
+  event.preventDefault();
+
+  try {
+    status("authStatus","Signing in...");
+
+    await signInWithEmailAndPassword(
+      auth,
+      $("loginEmail").value.trim(),
+      $("loginPassword").value
+    );
+
+    status("authStatus","Signed in.");
+  } catch(error) {
+    status("authStatus",showError(error));
+  }
+});
+
+$("googleBtn").addEventListener("click",async () => {
+  try {
+    status("authStatus","Opening Google sign-in...");
+    await signInWithPopup(auth,new GoogleAuthProvider());
+  } catch(error) {
+    status("authStatus",showError(error));
+  }
+});
+
+/* Reusable Firebase upload */
+function uploadFile(path,file,statusId) {
+  return new Promise((resolve,reject) => {
+    const task = uploadBytesResumable(ref(storage,path),file);
+
+    task.on("state_changed",
+      snapshot => {
+        const percent = Math.round(
+          snapshot.bytesTransferred / snapshot.totalBytes * 100
+        );
+        status(statusId,"Uploading... "+percent+"%");
+      },
+      reject,
+      async () => {
+        try {
+          resolve(await getDownloadURL(task.snapshot.ref));
+        } catch(error) {
+          reject(error);
+        }
+      }
+    );
+  });
+}
+
+function mediaElement(url,type) {
+  const element = document.createElement(
+    (type || "").startsWith("video/") ? "video" : "img"
+  );
+
+  element.src = url;
+  element.className = "preview-media";
+
+  if(element.tagName === "VIDEO") {
+    element.controls = true;
+    element.playsInline = true;
+  } else {
+    element.alt = "Post image";
+  }
+
+  return element;
+}
+
+/* Sign-in state and profile */
+onAuthStateChanged(auth,async currentUser => {
+  user = currentUser;
+
+  $("authPage").classList.toggle("hidden",!!user);
+
+  if(stopFeed) {
+    stopFeed();
+    stopFeed = null;
+  }
+
+  if(!user) {
+    status("feedStatus","Please sign in to see posts.");
+    $("feed").replaceChildren();
+
+    if(stopChat) {
+      stopChat();
+      stopChat = null;
+    }
+
+    return;
+  }
+
+  status("profileName",user.displayName || "Zenova User");
+  status("profileEmail",user.email || "");
+
+  $("displayName").value = user.displayName || "";
+
+  const fallback =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100%25' height='100%25' fill='%23eee'/%3E%3Ctext x='50%25' y='60%25' font-size='40' text-anchor='middle' fill='%23833ab4'%3EZ%3C/text%3E%3C/svg%3E";
+
+  $("profilePhoto").src = user.photoURL || fallback;
+  $("dpPreview").src = user.photoURL || fallback;
+
+  try {
+    await setDoc(doc(db,"users",user.uid),{
+      uid:user.uid,
+      email:(user.email || "").toLowerCase(),
+      displayName:user.displayName || user.email?.split("@")[0] || "Zenova User",
+      photoURL:user.photoURL || "",
+      updatedAt:serverTimestamp()
+    },{merge:true});
+  } catch(error) {
+    console.warn("User profile sync failed:",error);
+  }
+
+  stopFeed = onSnapshot(
+    query(collection(db,"posts"),orderBy("createdAt","desc"),limit(60)),
+    snapshot => {
+      const feed = $("feed");
+      const mine = $("myPosts");
+
+      feed.replaceChildren();
+      mine.replaceChildren();
+
+      let count = 0;
+
+      snapshot.docs.forEach(document => {
+        const post = document.data();
+        const article = document.createElement("article");
+        article.className = "post";
+
+        const heading = document.createElement("b");
+        heading.textContent = post.authorName || post.authorEmail || "Zenova User";
+
+        const text = document.createElement("p");
+        text.textContent = post.text || "";
+
+        article.append(heading,text);
+
+        if(post.mediaUrl) {
+          article.append(mediaElement(post.mediaUrl,post.mediaType));
+        }
+
+        feed.append(article);
+
+        if(post.uid === user.uid) {
+          mine.append(article.cloneNode(true));
+          count++;
+        }
+      });
+
+      status("myPosts",count ? "Your posts: "+count : "You haven't published a post yet.");
+      status("feedStatus",snapshot.empty ? "No posts yet. Create the first post!" : "Latest community posts.");
+    },
+    error => status("feedStatus",showError(error))
+  );
+
+  onSnapshot(
+    query(collection(db,"stories"),orderBy("createdAt","desc"),limit(30)),
+    snapshot => {
+      const stories = $("stories");
+      stories.replaceChildren();
+
+      if(snapshot.empty) {
+        stories.textContent = "No stories yet.";
+        return;
+      }
+
+      snapshot.docs.forEach(document => {
+        const story = document.data();
+        const card = document.createElement("div");
+        card.className = "story";
+
+        const link = document.createElement("a");
+        link.href = story.mediaUrl;
+        link.target = "_blank";
+        link.rel = "noopener";
+
+        const image = document.createElement("img");
+        image.src = story.mediaUrl;
+        image.alt = "Story";
+
+        const title = document.createElement("p");
+        title.textContent = story.authorName || "Zenova User";
+
+        link.append(image,title);
+        card.append(link);
+        stories.append(card);
+      });
+    }
+  );
+});
+
+/* Post creation */
+$("postFile").addEventListener("change",() => {
+  const file = $("postFile").files[0];
+  const preview = $("postPreview");
+
+  preview.replaceChildren();
+
+  if(!file) return;
+
+  if(file.size > 500 * 1024 * 1024) {
+    status("postStatus","Please choose a file below 500 MB.");
+    $("postFile").value = "";
+    return;
+  }
+
+  preview.append(mediaElement(URL.createObjectURL(file),file.type));
+});
+
+$("postForm").addEventListener("submit",async event => {
+  event.preventDefault();
+
+  if(!user) {
+    status("postStatus","Please sign in first.");
+    return;
+  }
+
+  const text = $("postText").value.trim();
+  const file = $("postFile").files[0];
+
+  if(!text && !file) {
+    status("postStatus","Write something or choose a photo/video.");
+    return;
+  }
+
+  if(file && file.size > 500 * 1024 * 1024) {
+    status("postStatus","File must be below 500 MB.");
+    return;
+  }
+
+  $("publishBtn").disabled = true;
+
+  try {
+    let url = "";
+    let type = "";
+
+    if(file) {
+      url = await uploadFile(
+        "posts/"+user.uid+"/"+Date.now()+"_"+file.name.replace(/[^a-zA-Z0-9._-]/g,"_"),
+        file,
+        "postStatus"
+      );
+      type = file.type;
+    }
+
+    await addDoc(collection(db,"posts"),{
+      uid:user.uid,
+      authorName:user.displayName || "",
+      authorEmail:user.email || "",
+      text,
+      mediaUrl:url,
+      mediaType:type,
+      createdAt:serverTimestamp()
+    });
+
+    $("postText").value = "";
+    $("postFile").value = "";
+    $("postPreview").replaceChildren();
+
+    status("postStatus","Post published!");
+    go("home");
+  } catch(error) {
+    status("postStatus",showError(error));
+  } finally {
+    $("publishBtn").disabled = false;
+  }
+});
+
+/* Create a story */
+$("uploadStory").addEventListener("click",async () => {
+  const file = $("storyFile").files[0];
+
+  if(!user) {
+    status("storyStatus","Please sign in first.");
+    return;
+  }
+
+  if(!file) {
+    status("storyStatus","Choose a photo or video.");
+    return;
+  }
+
+  try {
+    const url = await uploadFile(
+      "stories/"+user.uid+"/"+Date.now()+"_"+file.name,
+      file,
+      "storyStatus"
+    );
+
+    await addDoc(collection(db,"stories"),{
+      uid:user.uid,
+      authorName:user.displayName || "",
+      mediaUrl:url,
+      mediaType:file.type,
+      createdAt:serverTimestamp()
+    });
+
+    $("storyFile").value = "";
+    status("storyStatus","Story published.");
+    go("home");
+  } catch(error) {
+    status("storyStatus",showError(error));
+  }
+});
+
+/* Reels: gallery and camera */
+function applyFilters() {
+  const filter =
+    "brightness("+$("brightness").value+"%) "+
+    "contrast("+$("contrast").value+"%) "+
+    "saturate("+$("saturation").value+"%)";
+
+  $("videoPreview").style.filter = filter;
+  $("imagePreview").style.filter = filter;
+}
+
+["brightness","contrast","saturation"].forEach(id => {
+  $(id).addEventListener("input",applyFilters);
+});
+
+$("resetFilters").addEventListener("click",() => {
+  $("brightness").value = 100;
+  $("contrast").value = 100;
+  $("saturation").value = 100;
+  applyFilters();
+});
+
+$("openGallery").addEventListener("click",() => {
+  $("galleryFile").click();
+});
+
+$("openCamera").addEventListener("click",async () => {
+  // On mobile, open the device's camera/video recording screen.
+  if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    $("cameraFile").click();
+    return;
+  }
+
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({
+      video:true,
+      audio:true
+    });
+
+    $("cameraPreview").srcObject = cameraStream;
+    $("cameraPreview").classList.remove("hidden");
+    status("reelStatus","Camera is ready. Press Record Video.");
+  } catch(error) {
+    status("reelStatus","Camera error: "+showError(error));
+  }
+});
+
+function displaySelectedMedia(file) {
+  if(mediaUrl) URL.revokeObjectURL(mediaUrl);
+  mediaUrl = URL.createObjectURL(file);
+
+  selectedMedia = file;
+
+  $("videoPreview").classList.add("hidden");
+  $("imagePreview").classList.add("hidden");
+
+  if(file.type.startsWith("video/")) {
+    $("videoPreview").src = mediaUrl;
+    $("videoPreview").classList.remove("hidden");
+  } else if(file.type.startsWith("image/")) {
+    $("imagePreview").src = mediaUrl;
+    $("imagePreview").classList.remove("hidden");
+  }
+
+  applyFilters();
+  status("reelStatus","Media selected: "+file.name);
+}
+
+$("galleryFile").addEventListener("change",() => {
+  const file = $("galleryFile").files[0];
+  if(!file) return;
+
+  if(file.size > 500 * 1024 * 1024) {
+    status("reelStatus","File must be below 500 MB.");
+    return;
+  }
+
+  displaySelectedMedia(file);
+});
+
+$("cameraFile").addEventListener("change",() => {
+  const file = $("cameraFile").files[0];
+  if(file) displaySelectedMedia(file);
+});
+
+/* Record a video on compatible desktop browsers */
+$("startRecording").addEventListener("click",() => {
+  try {
+    if(!cameraStream) {
+      status("reelStatus","Open Camera first.");
+      return;
+    }
+
+    if(!window.MediaRecorder) {
+      status("reelStatus","Video recording is not supported in this browser.");
+      return;
+    }
+
+    if(recorder && recorder.state === "recording") {
+      recorder.stop();
+      return;
+    }
+
+    recordedParts = [];
+    recorder = new MediaRecorder(cameraStream);
+
+    recorder.ondataavailable = event => {
+      if(event.data.size) recordedParts.push(event.data);
+    };
+
+    recorder.onstop = () => {
+      const blob = new Blob(recordedParts,{
+        type:recorder.mimeType || "video/webm"
+      });
+
+      const file = new File([blob],"zenova-video.webm",{type:blob.type});
+      displaySelectedMedia(file);
+      status("reelStatus","Recording finished. You can share it as a post.");
+    };
+
+    recorder.start();
+    status("reelStatus","Recording... Press Record Video again to stop.");
+  } catch(error) {
+    status("reelStatus",showError(error));
+  }
+});
+
+$("stopCamera").addEventListener("click",() => {
+  if(recorder && recorder.state === "recording") recorder.stop();
+
+  if(cameraStream) cameraStream.getTracks().forEach(track => track.stop());
+
+  cameraStream = null;
+  $("cameraPreview").srcObject = null;
+  $("cameraPreview").classList.add("hidden");
+  status("reelStatus","Camera stopped.");
+});
+
+$("useMedia").addEventListener("click",() => {
+  if(!selectedMedia) {
+    status("reelStatus","Choose a photo/video first.");
+    return;
+  }
+
+  const transfer = new DataTransfer();
+  transfer.items.add(selectedMedia);
+  $("postFile").files = transfer.files;
+  $("postPreview").replaceChildren(
+    mediaElement(URL.createObjectURL(selectedMedia),selectedMedia.type)
+  );
+
+  if(!$("postText").value.trim()) {
+    $("postText").value = "Shared from Zenova Reels";
+  }
+
+  go("create");
+  status("postStatus","Media ready. Press Upload & Publish.");
+});
+
+/* Profile picture picker */
+$("profilePhoto").addEventListener("click",() => {
+  go("account");
+  $("dpFile").click();
+});
+
+$("dpPreview").addEventListener("click",() => $("dpFile").click());
+
+$("dpFile").addEventListener("change",() => {
+  const file = $("dpFile").files[0];
+  if(!file) return;
+
+  if(!file.type.startsWith("image/")) {
+    status("profileStatus","Select an image.");
+    return;
+  }
+
+  if(file.size > 5 * 1024 * 1024) {
+    status("profileStatus","Profile picture must be below 5 MB.");
+    return;
+  }
+
+  $("dpPreview").src = URL.createObjectURL(file);
+});
+
+$("saveProfile").addEventListener("click",async () => {
+  if(!user) {
+    status("profileStatus","Please sign in first.");
+    return;
+  }
+
+  const name = $("displayName").value.trim();
+  const file = $("dpFile").files[0];
+
+  try {
+    let photoURL = user.photoURL || "";
+
+    if(file) {
+      photoURL = await uploadFile(
+        "profiles/"+user.uid+"/"+Date.now()+"_"+file.name,
+        file,
+        "profileStatus"
+      );
+    }
+
+    await updateProfile(user,{
+      displayName:name || user.displayName || "",
+      photoURL
+    });
+
+    await setDoc(doc(db,"users",user.uid),{
+      uid:user.uid,
+      email:(user.email || "").toLowerCase(),
+      displayName:name || user.displayName || "Zenova User",
+      photoURL,
+      updatedAt:serverTimestamp()
+    },{merge:true});
+
+    $("profilePhoto").src = photoURL;
+    $("dpPreview").src = photoURL;
+
+    status("profileName",name || user.displayName || "Zenova User");
+    status("profileStatus","Profile saved successfully.");
+  } catch(error) {
+    status("profileStatus",showError(error));
+  }
+});
+
+/* Local live camera preview */
+$("startLiveCamera").addEventListener("click",async () => {
+  try {
+    liveStream = await navigator.mediaDevices.getUserMedia({
+      video:true,
+      audio:true
+    });
+
+    $("liveVideo").srcObject = liveStream;
+    $("liveVideo").classList.remove("hidden");
+
+    status("liveStatus","Your local camera preview is running.");
+  } catch(error) {
+    status("liveStatus","Camera error: "+showError(error));
+  }
+});
+
+$("stopLiveCamera").addEventListener("click",() => {
+  if(liveStream) liveStream.getTracks().forEach(track => track.stop());
+
+  liveStream = null;
+  $("liveVideo").srcObject = null;
+  $("liveVideo").classList.add("hidden");
+
+  status("liveStatus","Camera stopped.");
+});
+
+/* Country-wise news */
+$("loadNews").addEventListener("click",async () => {
+  const country = $("country").value;
+  const type = $("newsType").value;
+  const queryText = country+" "+type;
+
+  status("newsStatus","Loading news...");
+  $("newsResults").replaceChildren();
+
+  try {
+    const url =
+      "https://api.gdeltproject.org/api/v2/doc/doc?query="+
+      encodeURIComponent(queryText)+
+      "&mode=ArtList&format=json&maxrecords=15&sort=HybridRel";
+
+    const response = await fetch(url);
+    if(!response.ok) throw Error("News service is unavailable.");
+
+    const data = await response.json();
+    const articles = data.articles || [];
+
+    if(!articles.length) {
+      status("newsStatus","No articles found. Try another country.");
+      return;
+    }
+
+    articles.forEach(article => {
+      const item = document.createElement("div");
+      item.className = "news-item";
+
+      const link = document.createElement("a");
+      link.href = article.url;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.textContent = article.title || "Open news";
+
+      const meta = document.createElement("p");
+      meta.className = "muted";
+      meta.textContent = article.domain || "News publisher";
+
+      item.append(link,meta);
+      $("newsResults").append(item);
+    });
+
+    status("newsStatus","Loaded "+articles.length+" results.");
+  } catch(error) {
+    status("newsStatus","News error: "+showError(error));
+  }
+});
+
+$("readNews").addEventListener("click",() => {
+  const headlines = [...$("newsResults").querySelectorAll("a")]
+    .map(link => link.textContent);
+
+  if(!headlines.length) {
+    status("newsStatus","Load news first.");
+    return;
+  }
+
+  if(!("speechSynthesis" in window)) {
+    status("newsStatus","Voice reading is not supported in this browser.");
+    return;
+  }
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(
+    new SpeechSynthesisUtterance(headlines.join(". "))
+  );
+});
+
+$("stopReading").addEventListener("click",() => {
+  if("speechSynthesis" in window) speechSynthesis.cancel();
+});
+
+/* One-to-one text chat using Firestore */
+$("openChat").addEventListener("click",async () => {
+  if(!user) {
+    status("chatStatus","Please sign in first.");
+    return;
+  }
+
+  const email = $("friendEmail").value.trim().toLowerCase();
+
+  if(!email || email === (user.email || "").toLowerCase()) {
+    status("chatStatus","Enter another user's registered email.");
+    return;
+  }
+
+  try {
+    const result = await getDocs(
+      query(collection(db,"users"),where("email","==",email),limit(1))
+    );
+
+    if(result.empty) {
+      status("chatStatus","User not found. Ask them to register first.");
+      return;
+    }
+
+    const friend = result.docs[0].data();
+
+    if(!friend.uid || friend.uid === user.uid) {
+      status("chatStatus","Invalid friend account.");
+      return;
+    }
+
+    chatId = [user.uid,friend.uid].sort().join("_");
+
+    $("chatTitle").textContent = "Chat with "+(friend.displayName || email);
+    $("chatRoom").classList.remove("hidden");
+
+    if(stopChat) stopChat();
+
+    stopChat = onSnapshot(
+      query(collection(db,"chats",chatId,"messages"),orderBy("createdAt","asc"),limit(200)),
+      snapshot => {
+        const box = $("messages");
+        box.replaceChildren();
+
+        snapshot.docs.forEach(document => {
+          const message = document.data();
+          const bubble = document.createElement("p");
+
+          bubble.textContent =
+            (message.senderUid === user.uid ? "You: " : "Friend: ")+
+            (message.text || "");
+
+          box.append(bubble);
+        });
+      },
+      error => status("chatStatus",showError(error))
+    );
+
+    status("chatStatus","Conversation opened.");
+  } catch(error) {
+    status("chatStatus",showError(error));
+  }
+});
+
+$("chatForm").addEventListener("submit",async event => {
+  event.preventDefault();
+
+  if(!user || !chatId) return;
+
+  const text = $("chatText").value.trim();
+  if(!text) return;
+
+  try {
+    await addDoc(collection(db,"chats",chatId,"messages"),{
+      text,
+      senderUid:user.uid,
+      senderName:user.displayName || user.email || "Zenova User",
+      createdAt:serverTimestamp()
+    });
+
+    $("chatText").value = "";
+  } catch(error) {
+    status("chatStatus",showError(error));
+  }
+});
+
+/* Logout and clean up cameras */
+$("logoutBtn").addEventListener("click",async () => {
+  if(!confirm("Do you want to log out of Zenova?")) return;
+
+  [cameraStream,liveStream].forEach(stream => {
+    if(stream) stream.getTracks().forEach(track => track.stop());
+  });
+
+  cameraStream = null;
+  liveStream = null;
+
+  if(stopFeed) stopFeed();
+  if(stopChat) stopChat();
+
+  try {
+    await signOut(auth);
+    go("home");
+    status("authStatus","You have logged out.");
+  } catch(error) {
+    status("settingsStatus",showError(error));
+  }
+});
+
+</script>
 </body>
 </html>
