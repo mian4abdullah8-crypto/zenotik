@@ -4,163 +4,433 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080817">
+<meta name="theme-color" content="#10091f">
 <title>Zenova Social World</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#291044,#080817 60%);color:#f7f4ff;font:15px Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer;color:white}.top{position:sticky;top:0;z-index:5;background:#090916ed;padding:12px 4%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff25}.logo{font-size:27px;font-weight:900;background:linear-gradient(90deg,#f2a8ff,#9254ff,#35d5ff);color:transparent;background-clip:text}.muted,.hint,.status{color:#aaa5c8;line-height:1.5}.hint,.status{font-size:12px}.wrap{width:min(950px,96%);margin:16px auto 100px}.card,.hero{padding:17px;margin-bottom:14px;border-radius:17px;border:1px solid #ffffff20;background:#141428ed}.hero{background:linear-gradient(110deg,#321050aa,#11152dcc)}.grad{background:linear-gradient(90deg,#f2a8ff,#9b83ff,#32d6ff);color:transparent;background-clip:text}.page{display:none}.page.active{display:block}.btn{padding:11px 15px;border:0;border-radius:11px;background:linear-gradient(100deg,#9c3eff,#386dff);font-weight:bold}.secondary{background:#25213d;border:1px solid #ffffff25}.input{width:100%;padding:12px;border:1px solid #393456;border-radius:11px;background:#090914;color:white;margin:7px 0}.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.hidden{display:none!important}.stories{display:flex;gap:12px;overflow:auto}.story{text-align:center;min-width:65px;font-size:12px;color:#aaa5c8}.ring{width:56px;height:56px;border-radius:50%;padding:3px;margin:0 auto 5px;background:linear-gradient(135deg,#ff4cff,#28d6ff)}.ring span{height:100%;display:grid;place-items:center;border-radius:50%;background:#25203d;overflow:hidden}.ring img{width:100%;height:100%;object-fit:cover;border-radius:50%}.post{padding:14px 0;border-top:1px solid #ffffff20}.dp{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #b76bff;background:#27203d}.dp-small{width:38px;height:38px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px}.avatar{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#ad47ff,#23c9ff);color:#090914;font-weight:bold;margin-right:8px}.posttext{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;margin:10px 0}.feedmedia{width:100%;max-height:420px;object-fit:contain;border-radius:12px;background:#070710}.actions,.news-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.actions button,.news-tools button{background:#25213d;border:1px solid #ffffff30;border-radius:9px;padding:8px}.reelstage{position:relative;width:min(420px,100%);height:60vh;min-height:350px;margin:auto;border-radius:18px;overflow:hidden;border:1px solid #a34dff77;background:#111126;display:grid;place-items:center}.reelstage video{width:100%;height:100%;object-fit:contain;background:#05050d}.reelactions{position:absolute;right:10px;bottom:65px;display:grid;gap:8px}.reelactions button{width:42px;height:42px;border-radius:50%;background:#080817dd;border:1px solid #ffffff55}.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:10;display:flex;justify-content:space-around;gap:2px;padding:7px 3px calc(7px + env(safe-area-inset-bottom));background:#090916f5;border-top:1px solid #ffffff25}.bottomnav button{flex:1;min-width:0;padding:7px 1px;border:1px solid transparent;border-radius:10px;background:transparent;color:#bdb4da;font-size:10px}.bottomnav .ico{display:block;font-size:20px;margin-bottom:3px}.bottomnav button.active{background:#8f3fff30;border-color:#9f5cff88;color:white}.mapframe{width:100%;height:380px;border:0;border-radius:13px}.newsitem{padding:12px 0;border-top:1px solid #ffffff20}footer{text-align:center;color:#8c83ab;padding:20px;font-size:12px}#splash{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:radial-gradient(circle at 50% 35%,#522080,#100d26 48%,#05050d)}.splash-logo{width:105px;height:105px;border-radius:30px;display:grid;place-items:center;margin:0 auto 18px;font-size:58px;background:linear-gradient(135deg,#c54dff,#6157ff,#28d7ff);box-shadow:0 0 55px #a34dff66}.splash-title{font-size:clamp(42px,10vw,68px);font-weight:900;background:linear-gradient(90deg,#f4b4ff,#a88aff,#45e1ff);color:transparent;background-clip:text;margin:0}.news-tools button{color:white}@media(min-width:760px){.bottomnav{left:50%;right:auto;transform:translateX(-50%);bottom:14px;width:min(720px,94%);border:1px solid #ffffff25;border-radius:18px}.wrap{margin-bottom:35px}}
+*{box-sizing:border-box}
+body{margin:0;background:#0b0918;color:#f8f5ff;font-family:Arial,sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;border:0;border-radius:10px;padding:12px;background:linear-gradient(100deg,#a13cff,#4265ff);color:white;font-weight:bold}
+input,textarea,select{display:block;width:100%;padding:12px;margin:9px 0;background:#100e20;color:white;border:1px solid #51416c;border-radius:10px}
+a{color:#d8b4ff}.hidden{display:none!important}
+header{padding:15px;display:flex;justify-content:space-between;align-items:center;background:#100d20;border-bottom:1px solid #ffffff22;position:sticky;top:0;z-index:5}
+.brand{font-size:26px;font-weight:900;background:linear-gradient(90deg,#f3a8ff,#54d9ff);color:transparent;background-clip:text}
+main{width:min(760px,95%);margin:18px auto 90px}
+.card{background:#171329;border:1px solid #ffffff1c;border-radius:16px;padding:17px;margin:14px 0}
+h1,h2,h3{margin-top:5px}.muted,small{color:#bcb2d2;line-height:1.5}
+#authPage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;background:radial-gradient(ellipse at top,#48206a,#0b0918 70%)}
+.authbox{width:min(440px,100%);background:#171329;border:1px solid #ffffff25;border-radius:22px;padding:25px;text-align:center}
+.logo{width:75px;height:75px;margin:auto;border-radius:23px;display:grid;place-items:center;background:linear-gradient(135deg,#be43ff,#377bff);font-size:42px}
+footer{text-align:center;color:#a79bbc;padding:25px;font-size:12px}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;gap:4px;background:#100d20;padding:8px 2px;z-index:5;border-top:1px solid #ffffff22}
+nav button{padding:10px 5px;background:#211a36;font-size:11px;flex:1}
+.page{display:none}.page.active{display:block}
+.status{font-size:13px;color:#c7b7ed;overflow-wrap:anywhere}
+.media{max-width:100%;max-height:450px;display:block;margin:12px auto;border-radius:12px}
+.avatar{width:60px;height:60px;object-fit:cover;border-radius:50%;border:2px solid #bd6aff}
+.post{padding:14px 0;border-bottom:1px solid #ffffff20;overflow-wrap:anywhere}
+.storyrow{display:flex;gap:12px;overflow:auto}.storyitem{min-width:70px;text-align:center;font-size:12px}
+.storyitem img{width:55px;height:55px;border-radius:50%;object-fit:cover;border:3px solid #c45cff}
+@media(min-width:700px){nav{left:50%;transform:translateX(-50%);width:min(700px,95%);bottom:12px;border-radius:14px}main{margin-bottom:100px}}
 </style>
 </head>
 <body>
-<div id="splash"><div><div class="splash-logo">✦</div><h1 class="splash-title">ZENOVA</h1><p>CONNECT • SHARE • EXPLORE</p><p>MADE IN MIAN ABDULLAH GULZAR</p><button class="btn" id="enterApp">Enter Zenova →</button></div></div>
-<header class="top"><div><div class="logo">✦ Zenova</div><small class="muted">Connect • Share • Explore</small></div><span id="connection" class="hint">Starting…</span></header>
-<main class="wrap">
-<div class="hero"><span class="hint">YOUR SOCIAL WORLD</span><h1>One world. <span class="grad">Your stories.</span></h1><p class="muted">Share videos, explore news and connect with people around the world.</p></div>
 
-<section id="home" class="page active">
-<div class="card"><div class="row"><h2>Stories</h2><button class="btn secondary" data-go="create">＋ Add Story</button></div><div id="homeStories" class="stories"></div></div>
-<div class="card"><div class="row"><h2>Community Feed</h2><button class="btn" data-go="create">＋ Create</button></div><p id="feedMessage" class="muted">Sign in to view posts.</p><div id="feed"></div></div>
+<!-- FIRST PAGE: SIGN UP / LOGIN -->
+<section id="authPage">
+ <div class="authbox">
+  <div class="logo">✦</div>
+  <h1 style="font-size:40px;margin-bottom:5px">ZENOVA</h1>
+  <p>CONNECT · SHARE · EXPLORE</p>
+  <p class="muted">MADE IN MIAN ABDULLAH GULZAR</p>
+  <h2>Create account / Sign in</h2>
+  <form id="signupForm">
+   <input id="signupName" placeholder="Your name" maxlength="40">
+   <input id="signupEmail" type="email" placeholder="Email address" required>
+   <input id="signupPassword" type="password" minlength="6" placeholder="Password (minimum 6 characters)" required>
+   <button style="width:100%">Create Account / Sign Up</button>
+  </form>
+  <hr style="border-color:#ffffff22;margin:18px 0">
+  <form id="loginForm">
+   <input id="loginEmail" type="email" placeholder="Email address" required>
+   <input id="loginPassword" type="password" placeholder="Password" required>
+   <button style="width:100%">Log In</button>
+  </form>
+  <button id="googleBtn" style="width:100%;margin-top:10px;background:#fff;color:#222">Continue with Google</button>
+  <p id="authStatus" class="status"></p>
+  <p class="muted">Sign in to access posts, videos, stories and your profile.</p>
+ </div>
 </section>
 
-<section id="reels" class="page"><div class="card"><div class="row"><h2>Reels & Videos</h2><span class="hint">Short videos</span></div><p class="muted">Select a video to preview it. To share it with others, use Create → Upload & Publish.</p><input class="input" id="reelFile" type="file" accept="video/*"><div class="reelstage"><div id="reelPlaceholder"><h1 class="grad">▶ Your Reel</h1><p class="muted">Select a video above</p></div><video id="reelVideo" class="hidden" controls playsinline loop></video><div class="reelactions"><button id="likeReel">♥</button><button id="commentReel">☏</button><button id="shareReel">↗</button></div></div><p id="reelStatus" class="status"></p></div></section>
+<!-- MAIN APP -->
+<div id="app" class="hidden">
+<header>
+ <div><div class="brand">✦ Zenova</div><small>Social World</small></div>
+ <button id="logoutBtn">Log Out</button>
+</header>
+<main>
+ <section id="home" class="page active">
+  <div class="card">
+   <h2>Stories</h2>
+   <p class="muted">Upload and view community stories.</p>
+   <div id="storiesFeed" class="storyrow"></div>
+   <button data-page="create">＋ Add Story</button>
+  </div>
+  <div class="card">
+   <h2>Community Feed</h2>
+   <div id="feed">Loading posts…</div>
+  </div>
+ </section>
 
-<section id="live" class="page"><div class="card"><h2>Live Studio</h2><p class="muted">Start a camera preview.</p><button class="btn" id="cameraBtn">Enable Camera</button> <button class="btn secondary" id="stopCamera">Stop</button><video id="cameraVideo" class="hidden feedmedia" autoplay muted playsinline></video><p id="liveStatus" class="status"></p><p class="hint">This is only a local camera preview, not a public livestream. Public broadcasting requires a streaming server.</p></div></section>
+ <section id="create" class="page">
+  <div class="card">
+   <h2>Create Post / Upload Video</h2>
+   <form id="postForm">
+    <textarea id="postText" maxlength="1000" rows="4" placeholder="Write something…"></textarea>
+    <label>Select photo or video (up to 100 MB)</label>
+    <input id="mediaFile" type="file" accept="image/*,video/*">
+    <div id="mediaPreview"></div>
+    <button type="submit">Upload & Publish Post</button>
+   </form>
+   <p id="postStatus" class="status"></p>
+  </div>
+  <div class="card">
+   <h2>Upload a Story</h2>
+   <input id="storyFile" type="file" accept="image/*,video/*">
+   <button id="uploadStory">Upload Story</button>
+   <p id="storyStatus" class="status"></p>
+  </div>
+ </section>
 
-<section id="create" class="page"><div class="card"><h2>Create Post / Upload Video</h2><form id="postForm"><textarea class="input" id="postText" maxlength="1000" rows="4" placeholder="What's on your mind?"></textarea><label class="hint">Choose a photo or video (max 100 MB)</label><input class="input" id="mediaFile" type="file" accept="image/*,video/*"><div id="mediaPreview"></div><div class="row"><span id="charCount" class="hint">0 / 1000</span><button class="btn">Upload & Publish</button></div></form><p id="postStatus" class="status"></p><hr style="border-color:#ffffff20"><h3>Upload a Story</h3><p class="muted">Select a photo or video for your story.</p><input class="input" id="storyFile" type="file" accept="image/*,video/*"><button class="btn" id="uploadStory">Upload Story</button><p id="storyStatus" class="status"></p><div id="storiesFeed" class="stories"></div></div></section>
+ <section id="profile" class="page">
+  <div class="card">
+   <h2>Your Profile</h2>
+   <img id="profileDP" class="avatar" alt="Profile picture">
+   <p id="profileName"></p>
+   <p id="profileEmail" class="muted"></p>
+   <h3>Change profile picture</h3>
+   <input id="dpFile" type="file" accept="image/*">
+   <input id="nameInput" maxlength="40" placeholder="Your display name">
+   <button id="saveProfile">Save Profile & DP</button>
+   <p id="profileStatus" class="status"></p>
+  </div>
+ </section>
 
-<section id="profile" class="page"><div class="card"><div class="row"><div><h2 id="profileName">Your Profile</h2><p id="profileEmail" class="muted">Sign in to load profile</p></div><span class="hint">✦ Zenova</span></div><h3>Your posts</h3><div id="postCount">0 posts</div><div id="myPosts"></div><button class="btn secondary" data-go="account">Edit Profile / DP</button></div></section>
+ <section id="news" class="page">
+  <div class="card">
+   <h2>World News</h2>
+   <p class="muted">Choose a country and read or listen to news headlines.</p>
+   <select id="country">
+    <option value="Pakistan">Pakistan</option>
+    <option value="United States">United States</option>
+    <option value="United Kingdom">United Kingdom</option>
+    <option value="Saudi Arabia">Saudi Arabia</option>
+    <option value="India">India</option>
+    <option value="Canada">Canada</option>
+    <option value="Australia">Australia</option>
+    <option value="United Arab Emirates">United Arab Emirates</option>
+    <option value="Turkey">Turkey</option>
+    <option value="Germany">Germany</option>
+    <option value="France">France</option>
+    <option value="China">China</option>
+    <option value="Japan">Japan</option>
+   </select>
+   <select id="newsMode">
+    <option value="headlines">Latest Headlines</option>
+    <option value="video">Video News Reports</option>
+    <option value="live">Live News Search</option>
+   </select>
+   <button id="loadNews">Load News</button>
+   <button id="listenNews">🔊 Read Headlines</button>
+   <button id="stopNews" style="background:#342743">Stop Voice</button>
+   <p id="newsStatus" class="status"></p>
+   <div id="newsResults"></div>
+   <hr style="border-color:#ffffff22">
+   <h3>Watch Live News</h3>
+   <p class="muted">Live streams depend on the broadcaster and may not be available in every country.</p>
+   <a href="https://www.youtube.com/results?search_query=Pakistan+live+news" target="_blank" rel="noopener">▶ Find Pakistan Live News on YouTube</a><br><br>
+   <a href="https://www.youtube.com/results?search_query=world+live+news" target="_blank" rel="noopener">▶ Find World Live News on YouTube</a>
+  </div>
+ </section>
 
-<section id="account" class="page"><div class="card"><h2>Account & Settings</h2><h3>Language / زبان</h3><select class="input" id="languageSelect"><option value="en">English</option><option value="ur">اردو</option><option value="es">Español</option><option value="ar">العربية</option><option value="fr">Français</option><option value="hi">हिन्दी</option></select><p id="languageStatus" class="hint">Language changes navigation labels; some content may remain in its original language.</p><hr style="border-color:#ffffff20"><h3>Profile picture (DP)</h3><img id="profilePhotoPreview" class="dp" alt="DP preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100%25' height='100%25' fill='%2327203d'/%3E%3Ctext x='50%25' y='58%25' font-size='46' text-anchor='middle' fill='white'%3E%E2%97%89%3C/text%3E%3C/svg%3E"><input class="input" id="dpFile" type="file" accept="image/*"><input class="input" id="displayNameInput" maxlength="40" placeholder="Your display name"><button class="btn" id="saveSettings">Save Profile & DP</button><p id="settingsStatus" class="status"></p><hr style="border-color:#ffffff20"><h3>Create Account</h3><form id="signupForm"><input class="input" id="signupEmail" type="email" placeholder="Email address" required><input class="input" id="signupPassword" type="password" minlength="6" placeholder="Password (min 6 characters)" required><button class="btn">Create Account</button></form><h3>Log In</h3><form id="loginForm"><input class="input" id="loginEmail" type="email" placeholder="Email address" required><input class="input" id="loginPassword" type="password" placeholder="Password" required><button class="btn secondary">Log In</button></form><button class="btn secondary" id="googleBtn">Continue with Google</button> <button class="btn secondary hidden" id="logoutBtn">Log Out</button><p id="authStatus" class="status"></p></div></section>
-
-<section id="news" class="page"><div class="card"><h2>International News</h2><p class="muted">Choose a country and news type. Press Listen to hear headlines read aloud.</p><label>Select country</label><select class="input" id="countrySelect"></select><label>News type</label><select class="input" id="newsMode"><option value="headlines">Latest headlines</option><option value="video">Video news reports</option><option value="live">Live news updates</option></select><div class="news-tools"><button class="btn" id="loadNews">Load News</button><button id="listenNews">🔊 Listen to Headlines</button><button id="stopSpeech">⏹ Stop Voice</button></div><p id="newsStatus" class="status"></p><div id="newsResults"></div><p class="hint">News is supplied by GDELT and third-party publishers. Video news results may sometimes be regular articles.</p></div></section>
-
-<section id="maps" class="page"><div class="card"><h2>World Map</h2><iframe class="mapframe" title="OpenStreetMap" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-180%2C-85%2C180%2C85&layer=mapnik"></iframe><p><a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">Open full map ↗</a></p></div></section>
+ <section id="live" class="page">
+  <div class="card">
+   <h2>Live Studio</h2>
+   <p class="muted">Camera preview on this device only. This does not broadcast to other users.</p>
+   <button id="startCamera">Enable Camera</button>
+   <button id="stopCamera" style="background:#342743">Stop Camera</button>
+   <video id="camera" class="media" autoplay muted playsinline></video>
+   <p id="cameraStatus" class="status"></p>
+  </div>
+ </section>
 </main>
-<nav class="bottomnav">
-<button class="active" data-go="home"><span class="ico">⌂</span>Home</button>
-<button data-go="reels"><span class="ico">▶</span>Reels</button>
-<button data-go="live"><span class="ico">◉</span>Live</button>
-<button data-go="create"><span class="ico">＋</span>Create</button>
-<button data-go="news"><span class="ico">🌍</span>News</button>
-<button data-go="maps"><span class="ico">🗺</span>Maps</button>
-<button data-go="profile"><span class="ico">◎</span>Profile</button>
-<button data-go="account"><span class="ico">♙</span>Account</button>
+<nav>
+ <button data-page="home">⌂ Home</button>
+ <button data-page="create">＋ Create</button>
+ <button data-page="news">🌍 News</button>
+ <button data-page="live">🔴 Live</button>
+ <button data-page="profile">◎ Profile</button>
 </nav>
-<footer>Zenova · Connect • Share • Explore<br><br>MADE IN MIAN ABDULLAH GULZAR</footer>
+<footer>ZENOVA · MADE IN MIAN ABDULLAH GULZAR</footer>
+</div>
 
 <script type="module">
-import{initializeApp}from"https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
-import{getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,signOut,updateProfile}from"https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
-import{getFirestore,collection,addDoc,query,orderBy,limit,onSnapshot,serverTimestamp}from"https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
-import{getStorage,ref as storageRef,uploadBytes,getDownloadURL}from"https://www.gstatic.com/firebasejs/13.1.0/firebase-storage.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+import {
+ getAuth,onAuthStateChanged,createUserWithEmailAndPassword,
+ signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,
+ signOut,updateProfile
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+import {
+ getFirestore,collection,addDoc,query,orderBy,limit,
+ onSnapshot,serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+import {
+ getStorage,ref,uploadBytes,getDownloadURL
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-storage.js";
 
 const firebaseConfig={
-apiKey:"AIzaSyDmwJMYmfhOUclZF5drJUC8nsQN_OQdWWY",
-authDomain:"zenotik-8fe5b.firebaseapp.com",
-projectId:"zenotik-8fe5b",
-storageBucket:"zenotik-8fe5b.firebasestorage.app",
-messagingSenderId:"196726457517",
-appId:"1:196726457517:web:20b604b7a44e6cb8bf3224",
-measurementId:"G-G8QB24W3Y8"
+ apiKey:"AIzaSyDmwJMYmfhOUclZF5drJUC8nsQN_OQdWWY",
+ authDomain:"zenotik-8fe5b.firebaseapp.com",
+ projectId:"zenotik-8fe5b",
+ storageBucket:"zenotik-8fe5b.firebasestorage.app",
+ messagingSenderId:"196726457517",
+ appId:"1:196726457517:web:20b604b7a44e6cb8bf3224",
+ measurementId:"G-G8QB24W3Y8"
 };
+
 const $=id=>document.getElementById(id);
-let auth,db,storage,postStop=null,camera=null;
-const say=(id,t)=>$(id).textContent=t;
-function errorText(e){return({"auth/unauthorized-domain":"Add your GitHub Pages domain in Firebase Authentication > Settings > Authorized domains.","auth/operation-not-allowed":"Enable this sign-in method in Firebase Authentication.","auth/invalid-credential":"Email or password is incorrect.","auth/email-already-in-use":"This email already has an account.","permission-denied":"Firestore rules blocked this action."})[e.code]||e.message||"Something went wrong.";}
-function go(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll("[data-go]").forEach(b=>b.classList.toggle("active",b.dataset.go===id));window.scrollTo({top:0,behavior:"smooth"});}
-document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
-$("enterApp").onclick=()=>$("splash").classList.add("hidden");
+let auth,db,storage,postUnsub=null,storyUnsub=null,cameraStream=null;
 
-$("reelFile").onchange=()=>{const f=$("reelFile").files[0];if(!f)return;if(!f.type.startsWith("video/"))return say("reelStatus","Choose a video file.");$("reelVideo").src=URL.createObjectURL(f);$("reelVideo").classList.remove("hidden");$("reelPlaceholder").classList.add("hidden");say("reelStatus","Preview ready. Publish from Create to share it.");};
-$("likeReel").onclick=()=>say("reelStatus","Likes are not saved yet.");
-$("commentReel").onclick=()=>say("reelStatus","Comments feature needs a comments database.");
-$("shareReel").onclick=async()=>{try{await navigator.clipboard.writeText(location.href);say("reelStatus","Page link copied.");}catch{say("reelStatus","Copy the website link from your browser.");}};
-
-$("cameraBtn").onclick=async()=>{try{camera=await navigator.mediaDevices.getUserMedia({video:true,audio:true});$("cameraVideo").srcObject=camera;$("cameraVideo").classList.remove("hidden");say("liveStatus","Camera preview started; not public livestream.");}catch(e){say("liveStatus","Camera permission failed: "+e.message);}};
-$("stopCamera").onclick=()=>{if(camera)camera.getTracks().forEach(t=>t.stop());camera=null;$("cameraVideo").srcObject=null;$("cameraVideo").classList.add("hidden");say("liveStatus","Camera stopped.");};
-
-$("postText").oninput=()=>say("charCount",$("postText").value.length+" / 1000");
-$("mediaFile").onchange=()=>{const f=$("mediaFile").files[0],box=$("mediaPreview");box.replaceChildren();if(!f)return;let el;if(f.type.startsWith("video/")){el=document.createElement("video");el.controls=true;}else if(f.type.startsWith("image/"))el=document.createElement("img");else return;el.src=URL.createObjectURL(f);el.className="feedmedia";box.append(el);};
-
-function render(posts){
-$("feed").replaceChildren();$("myPosts").replaceChildren();const u=auth.currentUser;const mine=posts.filter(p=>p.uid===u?.uid);say("postCount",mine.length+" posts");
-if(!posts.length){$("feed").textContent="No posts yet. Create the first post!";$("myPosts").textContent="No posts yet.";return;}
-for(const p of posts){
-const article=document.createElement("article");article.className="post";const head=document.createElement("div");
-if(p.photoURL){const img=document.createElement("img");img.src=p.photoURL;img.className="dp-small";img.alt="DP";head.append(img);}else{const av=document.createElement("span");av.className="avatar";av.textContent=(p.authorName||p.authorEmail||"Z")[0].toUpperCase();head.append(av);}
-const name=document.createElement("b");name.textContent=p.authorName||p.authorEmail||"Zenova user";head.append(name);
-const body=document.createElement("div");body.className="posttext";body.textContent=p.text||"";
-article.append(head,body);
-if(p.mediaUrl){let media;if((p.mediaType||"").startsWith("video/")){media=document.createElement("video");media.controls=true;media.playsInline=true;}else{media=document.createElement("img");media.alt="Post media";}media.src=p.mediaUrl;media.className="feedmedia";article.append(media);}
-const actions=document.createElement("div");actions.className="actions";["♥ Like","☏ Comment","↗ Share"].forEach(label=>{const b=document.createElement("button");b.textContent=label;b.onclick=()=>alert(label+" is not saved yet.");actions.append(b);});article.append(actions);$("feed").append(article);if(p.uid===u?.uid)$("myPosts").append(article.cloneNode(true));
+function status(id,msg){$(id).textContent=msg}
+function errorText(e){
+ const code=e.code||"";
+ if(code==="auth/unauthorized-domain")return "Firebase Console → Authentication → Settings → Authorized domains mein apna GitHub Pages domain add karein.";
+ if(code==="auth/operation-not-allowed")return "Firebase Authentication mein Email/Password aur Google sign-in enable karein.";
+ if(code==="auth/email-already-in-use")return "Ye email pehle se registered hai. Log In karein.";
+ if(code==="auth/invalid-credential"||code==="auth/wrong-password")return "Email ya password sahi nahi hai.";
+ if(code==="storage/unauthorized")return "Firebase Storage Rules upload ko block kar rahe hain. Neeche diye gaye Storage Rules publish karein.";
+ if(code==="permission-denied"||code==="firestore/permission-denied")return "Firestore Rules ne request block ki. Neeche diye gaye Firestore Rules publish karein.";
+ return (e.message||"Unknown error")+" ["+code+"]";
 }
+
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+
+function mediaElement(url,type){
+ let el;
+ if((type||"").startsWith("video/")){
+  el=document.createElement("video");el.controls=true;el.playsInline=true;
+ }else{
+  el=document.createElement("img");el.alt="Uploaded media";
+ }
+ el.src=url;el.className="media";return el;
+}
+
+function renderPosts(docs){
+ const feed=$("feed");feed.replaceChildren();
+ if(!docs.length){feed.textContent="Abhi koi post nahi hai. Pehli post aap karein!";return;}
+ docs.forEach(doc=>{
+  const p=doc.data(),box=document.createElement("div");box.className="post";
+  const title=document.createElement("b");title.textContent=p.authorName||p.authorEmail||"Zenova user";
+  box.append(title);
+  const text=document.createElement("p");text.textContent=p.text||"";box.append(text);
+  if(p.mediaUrl)box.append(mediaElement(p.mediaUrl,p.mediaType));
+  feed.append(box);
+ });
 }
 
 try{
-const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);storage=getStorage(app);say("connection","Firebase ready");
+ const app=initializeApp(firebaseConfig);
+ auth=getAuth(app);db=getFirestore(app);storage=getStorage(app);
 
-$("signupForm").onsubmit=async e=>{e.preventDefault();try{await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);say("authStatus","Account created.");}catch(x){say("authStatus",errorText(x));}};
-$("loginForm").onsubmit=async e=>{e.preventDefault();try{await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);}catch(x){say("authStatus",errorText(x));}};
-$("googleBtn").onclick=async()=>{try{await signInWithPopup(auth,new GoogleAuthProvider());}catch(x){say("authStatus",errorText(x));}};
-$("logoutBtn").onclick=async()=>{try{await signOut(auth);}catch(x){say("authStatus",errorText(x));}};
+ $("signupForm").onsubmit=async e=>{
+  e.preventDefault();
+  try{
+   status("authStatus","Creating account…");
+   const credential=await createUserWithEmailAndPassword(auth,$("signupEmail").value.trim(),$("signupPassword").value);
+   const name=$("signupName").value.trim();
+   if(name)await updateProfile(credential.user,{displayName:name});
+   status("authStatus","Account created!");
+  }catch(err){status("authStatus",errorText(err));}
+ };
 
-$("postForm").onsubmit=async e=>{
-e.preventDefault();const u=auth.currentUser,text=$("postText").value.trim(),file=$("mediaFile").files[0];
-if(!u){say("postStatus","Please sign in first.");go("account");return;}
-if(!text&&!file){say("postStatus","Write a post or select a photo/video.");return;}
-if(file&&file.size>100*1024*1024){say("postStatus","Choose a file smaller than 100 MB.");return;}
-try{let mediaUrl="",mediaType="";if(file){say("postStatus","Uploading media…");const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");const r=await uploadBytes(storageRef(storage,`posts/${u.uid}/${Date.now()}_${safe}`),file);mediaUrl=await getDownloadURL(r.ref);mediaType=file.type;}
-await addDoc(collection(db,"posts"),{uid:u.uid,authorEmail:u.email||"",authorName:u.displayName||"",photoURL:u.photoURL||"",text,mediaUrl,mediaType,createdAt:serverTimestamp()});
-$("postText").value="";$("mediaFile").value="";$("mediaPreview").replaceChildren();say("charCount","0 / 1000");say("postStatus","Post published!");}catch(x){say("postStatus",errorText(x)+" Check Firebase Storage and Firestore rules.");}
-};
+ $("loginForm").onsubmit=async e=>{
+  e.preventDefault();
+  try{
+   status("authStatus","Signing in…");
+   await signInWithEmailAndPassword(auth,$("loginEmail").value.trim(),$("loginPassword").value);
+   status("authStatus","Signed in!");
+  }catch(err){status("authStatus",errorText(err));}
+ };
 
-$("dpFile").onchange=()=>{const f=$("dpFile").files[0];if(f&&f.type.startsWith("image/"))$("profilePhotoPreview").src=URL.createObjectURL(f);};
-$("saveSettings").onclick=async()=>{
-const u=auth.currentUser;if(!u){say("settingsStatus","Sign in first.");go("account");return;}
-const name=$("displayNameInput").value.trim(),file=$("dpFile").files[0];
-try{let photoURL=u.photoURL||"";if(file){if(!file.type.startsWith("image/"))return say("settingsStatus","Choose an image for your DP.");if(file.size>5*1024*1024)return say("settingsStatus","DP must be smaller than 5 MB.");say("settingsStatus","Uploading DP…");const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");const r=await uploadBytes(storageRef(storage,`profiles/${u.uid}/${Date.now()}_${safe}`),file);photoURL=await getDownloadURL(r.ref);}
-await updateProfile(u,{displayName:name||u.displayName||"",photoURL});$("profileName").textContent=name||u.displayName||"Your Profile";if(photoURL)$("profilePhotoPreview").src=photoURL;say("settingsStatus","Profile and DP saved.");}catch(x){say("settingsStatus",errorText(x)+" Check Storage rules.");}
-};
+ $("googleBtn").onclick=async()=>{
+  try{
+   status("authStatus","Opening Google sign-in…");
+   await signInWithPopup(auth,new GoogleAuthProvider());
+  }catch(err){status("authStatus",errorText(err));}
+ };
 
-$("uploadStory").onclick=async()=>{
-const u=auth.currentUser,f=$("storyFile").files[0];if(!u){say("storyStatus","Sign in first.");go("account");return;}if(!f)return say("storyStatus","Select a photo or video first.");if(f.size>100*1024*1024)return say("storyStatus","File must be under 100 MB.");
-try{say("storyStatus","Uploading story…");const safe=f.name.replace(/[^a-zA-Z0-9._-]/g,"_");const r=await uploadBytes(storageRef(storage,`stories/${u.uid}/${Date.now()}_${safe}`),f);const mediaUrl=await getDownloadURL(r.ref);await addDoc(collection(db,"stories"),{uid:u.uid,authorEmail:u.email||"",mediaUrl,mediaType:f.type,createdAt:serverTimestamp()});say("storyStatus","Story uploaded successfully.");$("storyFile").value="";}catch(x){say("storyStatus",errorText(x)+" Check Storage rules.");}
-};
+ $("logoutBtn").onclick=()=>signOut(auth);
 
-const countries=[["PK","Pakistan"],["US","United States"],["GB","United Kingdom"],["IN","India"],["CA","Canada"],["AU","Australia"],["NZ","New Zealand"],["BD","Bangladesh"],["AF","Afghanistan"],["SA","Saudi Arabia"],["AE","United Arab Emirates"],["TR","Türkiye"],["FR","France"],["DE","Germany"],["ES","Spain"],["IT","Italy"],["NL","Netherlands"],["BR","Brazil"],["MX","Mexico"],["JP","Japan"],["KR","South Korea"],["CN","China"],["ID","Indonesia"],["MY","Malaysia"],["SG","Singapore"],["TH","Thailand"],["PH","Philippines"],["LK","Sri Lanka"],["IR","Iran"],["IQ","Iraq"],["EG","Egypt"],["ZA","South Africa"],["NG","Nigeria"],["KE","Kenya"],["GH","Ghana"],["MA","Morocco"],["RU","Russia"],["UA","Ukraine"],["PL","Poland"],["SE","Sweden"],["NO","Norway"],["CH","Switzerland"],["BE","Belgium"],["AT","Austria"],["GR","Greece"],["PT","Portugal"],["IE","Ireland"],["NP","Nepal"],["VN","Vietnam"],["QA","Qatar"],["KW","Kuwait"],["OM","Oman"],["JO","Jordan"],["PS","Palestine"],["AR","Argentina"],["CL","Chile"],["CO","Colombia"],["PE","Peru"],["VE","Venezuela"],["ET","Ethiopia"],["TZ","Tanzania"],["UG","Uganda"],["ZW","Zimbabwe"],["RO","Romania"],["CZ","Czechia"],["HU","Hungary"],["FI","Finland"],["DK","Denmark"],["HR","Croatia"],["RS","Serbia"],["MU","Mauritius"],["SN","Senegal"],["ZM","Zambia"],["AO","Angola"],["MZ","Mozambique"]];
-countries.sort((a,b)=>a[1].localeCompare(b[1])).forEach(([code,name])=>{const o=document.createElement("option");o.value=code;o.textContent=name;$("countrySelect").append(o);});$("countrySelect").value="PK";
+ onAuthStateChanged(auth,user=>{
+  $("authPage").classList.toggle("hidden",!!user);
+  $("app").classList.toggle("hidden",!user);
+  if(postUnsub){postUnsub();postUnsub=null;}
+  if(storyUnsub){storyUnsub();storyUnsub=null;}
+  if(!user)return;
 
-async function loadNews(){
-const code=$("countrySelect").value,country=countries.find(c=>c[0]===code)?.[1]||code,mode=$("newsMode").value;
-const q=mode==="video"?`sourcecountry:${code} (video OR watch OR footage)`:mode==="live"?`sourcecountry:${code} (live OR breaking OR update)`:`sourcecountry:${code}`;
-say("newsStatus","Loading news for "+country+"…");$("newsResults").replaceChildren();
-try{const r=await fetch(`https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(q)}&mode=ArtList&format=json&maxrecords=25&sort=HybridRel`);if(!r.ok)throw Error("News service returned "+r.status);const data=await r.json(),articles=data.articles||[];
-if(!articles.length){say("newsStatus","No results. Try Latest headlines or another country.");return;}
-for(const item of articles){const box=document.createElement("div");box.className="newsitem";const a=document.createElement("a");a.href=item.url;a.target="_blank";a.rel="noopener noreferrer";a.textContent=item.title||"Open news";a.style.fontWeight="bold";a.style.color="#d9b6ff";
-const meta=document.createElement("p");meta.className="hint";meta.textContent=[item.domain,item.seendate?new Date(item.seendate).toLocaleString():""].filter(Boolean).join(" · ");
-const tools=document.createElement("div");tools.className="news-tools";const listen=document.createElement("button");listen.textContent="🔊 Listen";listen.onclick=()=>speak(item.title||"News headline");const open=document.createElement("button");open.textContent=mode==="video"?"▶ Open video/report":"↗ Open story";open.onclick=()=>window.open(item.url,"_blank","noopener,noreferrer");tools.append(listen,open);box.append(a,meta,tools);$("newsResults").append(box);}
-say("newsStatus",articles.length+" results for "+country+". Video news search may also return ordinary articles.");
-}catch(e){say("newsStatus","News unavailable right now. "+e.message);}
+  $("profileName").textContent=user.displayName||"Zenova user";
+  $("profileEmail").textContent=user.email||"";
+  $("nameInput").value=user.displayName||"";
+  $("profileDP").src=user.photoURL||"https://placehold.co/100x100/24143b/ffffff?text=DP";
+
+  postUnsub=onSnapshot(
+   query(collection(db,"posts"),orderBy("createdAt","desc"),limit(50)),
+   snap=>renderPosts(snap.docs),
+   err=>status("postStatus",errorText(err))
+  );
+
+  storyUnsub=onSnapshot(
+   query(collection(db,"stories"),orderBy("createdAt","desc"),limit(30)),
+   snap=>{
+    const box=$("storiesFeed");box.replaceChildren();
+    snap.docs.forEach(d=>{
+     const s=d.data(),item=document.createElement("div");item.className="storyitem";
+     const link=document.createElement("a");link.href=s.mediaUrl;link.target="_blank";link.rel="noopener";
+     const im=document.createElement("img");im.src=s.mediaUrl;im.alt="Story";
+     const label=document.createElement("div");label.textContent=(s.authorName||s.authorEmail||"Story").split("@")[0];
+     link.append(im,label);item.append(link);box.append(item);
+    });
+   },
+   err=>status("storyStatus",errorText(err))
+  );
+ });
+
+ $("mediaFile").onchange=()=>{
+  const f=$("mediaFile").files[0];$("mediaPreview").replaceChildren();
+  if(!f)return;
+  if(f.size>100*1024*1024){status("postStatus","File 100 MB se chhoti honi chahiye.");$("mediaFile").value="";return;}
+  $("mediaPreview").append(mediaElement(URL.createObjectURL(f),f.type));
+ };
+
+ $("postForm").onsubmit=async e=>{
+  e.preventDefault();
+  const user=auth.currentUser,file=$("mediaFile").files[0],text=$("postText").value.trim();
+  if(!user){status("postStatus","Pehle sign in karein.");return;}
+  if(!text&&!file){status("postStatus","Text likhein ya photo/video select karein.");return;}
+  if(file&&file.size>100*1024*1024){status("postStatus","File 100 MB se chhoti honi chahiye.");return;}
+  const btn=$("postForm").querySelector("button[type=submit]");btn.disabled=true;
+  try{
+   let mediaUrl="",mediaType="";
+   if(file){
+    status("postStatus","Uploading file… internet connection na kaatein.");
+    const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+    const uploaded=await uploadBytes(ref(storage,`posts/${user.uid}/${Date.now()}_${safe}`),file);
+    mediaUrl=await getDownloadURL(uploaded.ref);mediaType=file.type;
+   }
+   status("postStatus","Saving post…");
+   await addDoc(collection(db,"posts"),{
+    uid:user.uid,authorName:user.displayName||"",
+    authorEmail:user.email||"",text,mediaUrl,mediaType,
+    createdAt:serverTimestamp()
+   });
+   $("postText").value="";$("mediaFile").value="";$("mediaPreview").replaceChildren();
+   status("postStatus","Post published successfully!");
+  }catch(err){status("postStatus",errorText(err));}
+  finally{btn.disabled=false;}
+ };
+
+ $("uploadStory").onclick=async()=>{
+  const user=auth.currentUser,file=$("storyFile").files[0];
+  if(!user){status("storyStatus","Pehle sign in karein.");return;}
+  if(!file){status("storyStatus","Pehle photo ya video select karein.");return;}
+  if(!file.type.startsWith("image/")&&!file.type.startsWith("video/")){status("storyStatus","Sirf image ya video upload karein.");return;}
+  if(file.size>100*1024*1024){status("storyStatus","File 100 MB se chhoti honi chahiye.");return;}
+  const btn=$("uploadStory");btn.disabled=true;
+  try{
+   status("storyStatus","Story upload ho rahi hai…");
+   const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+   const uploaded=await uploadBytes(ref(storage,`stories/${user.uid}/${Date.now()}_${safe}`),file);
+   const mediaUrl=await getDownloadURL(uploaded.ref);
+   await addDoc(collection(db,"stories"),{
+    uid:user.uid,authorName:user.displayName||"",
+    authorEmail:user.email||"",mediaUrl,mediaType:file.type,
+    createdAt:serverTimestamp()
+   });
+   $("storyFile").value="";status("storyStatus","Story upload ho gayi!");
+  }catch(err){status("storyStatus",errorText(err));}
+  finally{btn.disabled=false;}
+ };
+
+ $("saveProfile").onclick=async()=>{
+  const user=auth.currentUser;if(!user)return;
+  const file=$("dpFile").files[0],name=$("nameInput").value.trim();
+  try{
+   status("profileStatus","Saving profile…");
+   let photoURL=user.photoURL||"";
+   if(file){
+    if(!file.type.startsWith("image/"))throw new Error("DP ke liye image select karein.");
+    if(file.size>5*1024*1024)throw new Error("DP 5 MB se chhoti honi chahiye.");
+    const uploaded=await uploadBytes(ref(storage,`profiles/${user.uid}/${Date.now()}_${file.name}`),file);
+    photoURL=await getDownloadURL(uploaded.ref);
+   }
+   await updateProfile(user,{displayName:name||user.displayName||"",photoURL});
+   $("profileName").textContent=user.displayName||"Zenova user";
+   $("profileDP").src=photoURL||"https://placehold.co/100x100/24143b/ffffff?text=DP";
+   status("profileStatus","Profile saved successfully!");
+  }catch(err){status("profileStatus",errorText(err));}
+ };
+
+ $("startCamera").onclick=async()=>{
+  try{
+   cameraStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+   $("camera").srcObject=cameraStream;status("cameraStatus","Camera preview chal raha hai. Ye public livestream nahi hai.");
+  }catch(err){status("cameraStatus","Camera permission ya HTTPS required hai: "+err.message);}
+ };
+ $("stopCamera").onclick=()=>{
+  if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());
+  cameraStream=null;$("camera").srcObject=null;status("cameraStatus","Camera band hai.");
+ };
+
+ $("loadNews").onclick=async()=>{
+  const country=$("country").value,mode=$("newsMode").value;
+  const queryText=mode==="video"?`${country} video news`:
+    mode==="live"?`${country} live news broadcast`:`${country} latest news`;
+  status("newsStatus","News loading…");
+  $("newsResults").replaceChildren();
+  try{
+   const url="https://api.gdeltproject.org/api/v2/doc/doc?query="+encodeURIComponent(queryText)+"&mode=ArtList&format=json&maxrecords=15&sort=HybridRel";
+   const response=await fetch(url);
+   if(!response.ok)throw new Error("News service unavailable");
+   const data=await response.json(),articles=data.articles||[];
+   if(!articles.length){status("newsStatus","News nahi mili. Dobara try karein.");return;}
+   articles.forEach(article=>{
+    const box=document.createElement("div");box.className="post";
+    const link=document.createElement("a");link.href=article.url;link.target="_blank";link.rel="noopener";link.textContent=article.title||"Open news";
+    const meta=document.createElement("p");meta.className="muted";meta.textContent=article.domain||"News publisher";
+    const speak=document.createElement("button");speak.textContent="🔊 Listen";speak.onclick=()=>{
+     if(!("speechSynthesis" in window)){status("newsStatus","Browser voice support nahi karta.");return;}
+     speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance(article.title||"News"));
+    };
+    box.append(link,meta,speak);$("newsResults").append(box);
+   });
+   status("newsStatus",articles.length+" news results. Video option mein kuch results normal articles bhi ho sakte hain.");
+  }catch(err){status("newsStatus","News load nahi hui: "+err.message);}
+ };
+ $("listenNews").onclick=()=>{
+  const titles=[...$("newsResults").querySelectorAll("a")].map(a=>a.textContent);
+  if(!titles.length){status("newsStatus","Pehle Load News dabayein.");return;}
+  if("speechSynthesis" in window)speechSynthesis.speak(new SpeechSynthesisUtterance(titles.join(". ")));
+ };
+ $("stopNews").onclick=()=>{if("speechSynthesis" in window)speechSynthesis.cancel();};
+
+}catch(err){
+ $("authStatus").textContent="Firebase setup error: "+err.message;
 }
-function speak(text){if(!("speechSynthesis"in window))return say("newsStatus","Voice reading is not supported in this browser.");speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=$("languageSelect").value==="ur"?"ur-PK":$("languageSelect").value==="ar"?"ar-SA":"en-US";speechSynthesis.speak(u);}
-$("loadNews").onclick=loadNews;$("listenNews").onclick=()=>{const titles=[...$("newsResults").querySelectorAll(".newsitem a")].map(a=>a.textContent);if(!titles.length)return say("newsStatus","Load news first.");speak(titles.slice(0,10).join(". "));};$("stopSpeech").onclick=()=>speechSynthesis?.cancel?.();loadNews();
-
-const translations={en:["Home","Reels","Live","Create","News","Maps","Profile","Account"],ur:["ہوم","ریلز","لائیو","بنائیں","خبریں","نقشہ","پروفائل","اکاؤنٹ"],es:["Inicio","Reels","En vivo","Crear","Noticias","Mapas","Perfil","Cuenta"],ar:["الرئيسية","ريلز","مباشر","إنشاء","الأخبار","الخرائط","الملف","الحساب"],fr:["Accueil","Reels","Direct","Créer","Actualités","Cartes","Profil","Compte"],hi:["होम","रील्स","लाइव","बनाएं","समाचार","नक्शा","प्रोफ़ाइल","खाता"]};
-function applyLanguage(lang){const labels=translations[lang]||translations.en;document.querySelectorAll(".bottomnav [data-go]").forEach((b,i)=>{const icon=b.querySelector(".ico");b.textContent="";if(icon)b.append(icon);b.append(document.createTextNode(labels[i]));});document.documentElement.lang=lang;document.documentElement.dir=lang==="ur"||lang==="ar"?"rtl":"ltr";}
-$("languageSelect").onchange=()=>{applyLanguage($("languageSelect").value);say("languageStatus","Language selected. Some content remains in the original language.");try{localStorage.setItem("zenova-language",$("languageSelect").value);}catch{}};
-try{const lang=localStorage.getItem("zenova-language");if(lang&&translations[lang]){$("languageSelect").value=lang;applyLanguage(lang);}}catch{}
-
-onSnapshot(query(collection(db,"stories"),orderBy("createdAt","desc"),limit(20)),snap=>{
-["homeStories","storiesFeed"].forEach(id=>{const box=$(id);box.replaceChildren();snap.docs.forEach(d=>{const s=d.data(),item=document.createElement("div");item.className="story";const a=document.createElement("a");a.href=s.mediaUrl;a.target="_blank";a.rel="noopener noreferrer";a.style.color="white";const ring=document.createElement("div");ring.className="ring";const inner=document.createElement("span");if((s.mediaType||"").startsWith("video/"))inner.textContent="▶";else{const im=document.createElement("img");im.src=s.mediaUrl;im.alt="Story";inner.append(im);}ring.append(inner);a.append(ring);const label=document.createElement("div");label.textContent=(s.authorEmail||"Story").split("@")[0];a.append(label);item.append(a);box.append(item);});});
-},e=>console.warn("Stories unavailable",e));
-
-onAuthStateChanged(auth,u=>{
-$("logoutBtn").classList.toggle("hidden",!u);$("profileEmail").textContent=u?.email||"Sign in to load profile";$("profileName").textContent=u?.displayName||"Your Profile";$("displayNameInput").value=u?.displayName||"";if(u?.photoURL)$("profilePhotoPreview").src=u.photoURL;
-if(postStop){postStop();postStop=null;}
-if(!u){say("feedMessage","Sign in to view community posts.");$("feed").textContent="Please sign in.";return;}
-say("feedMessage","Latest posts from the community.");
-postStop=onSnapshot(query(collection(db,"posts"),orderBy("createdAt","desc"),limit(50)),snap=>render(snap.docs.map(d=>({id:d.id,...d.data()}))),e=>{say("postStatus",errorText(e));say("feedMessage","Could not load posts. Check Firestore Rules.");});
-});
-}catch(e){say("connection","Firebase error");say("authStatus",e.message);}
 </script>
 </body>
 </html>
